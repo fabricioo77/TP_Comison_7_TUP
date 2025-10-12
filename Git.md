@@ -25,3 +25,8 @@ configuracion de Git
 
 git config --global user.name "Matias Chocobar"
 git config --global user.email "tuemail@ejemplo.com"
+
+
+usaremos la rama main como produccion
+
+y crearemos otra rama llamada dev para desarrollo
