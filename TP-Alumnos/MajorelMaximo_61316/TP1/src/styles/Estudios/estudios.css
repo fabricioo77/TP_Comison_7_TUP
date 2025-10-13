@@ -1,36 +1,47 @@
 .estudios-container {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
+
 .estudios-title {
   font-size: 2.5rem;
-  color: #ed8796;
+  color: #f38ba8;
   margin-bottom: 2rem;
 }
+
 .estudios-container ul {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
+
 .estudios-container ul li {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background-color: #313244;
+  border-radius: 16px;
+  border-left: 4px solid #89dceb;
 }
+
 .estudios-container ul li h3 {
-  color: #91d7e3;
+  color: #89dceb;
   font-size: 2rem;
 }
+
 .estudios-container ul li h4 {
   font-size: 1.5rem;
 }
+
 .estudios-container ul li h5 {
   font-size: 1rem;
   font-weight: 400;
 }
+
 .estudios-container ul li hr {
   margin-top: 1rem;
   border: none;
   height: 2px;
-  background-color: #6e738d;
+  background-color: #585b70;
 }

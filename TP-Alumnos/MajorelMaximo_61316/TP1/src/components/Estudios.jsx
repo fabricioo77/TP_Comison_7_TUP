@@ -30,7 +30,7 @@ export const Estudios = () => {
                 Lugar: <span>{estudio.lugar}</span>
               </h4>
               <h5>
-                Año:<span>{estudio.año}</span>
+                Año: <span>{estudio.año}</span>
               </h5>
               <hr />
             </li>

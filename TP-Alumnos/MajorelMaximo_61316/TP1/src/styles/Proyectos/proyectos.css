@@ -3,8 +3,9 @@
   padding: 1rem;
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: 1rem;
 }
+
 .proyectos-info {
   display: flex;
   flex-direction: column;
@@ -16,17 +17,21 @@
   justify-content: center;
   overflow: hidden;
 }
+
 .titulo-proyecto {
   margin-top: 1rem;
-  color: #eed49f;
+  color: #f9e2af;
   font-size: 3rem;
 }
+
 .descripcion-proyecto {
-  color: #cad3f5;
+  color: #cdd6f4;
 }
+
 .image-container {
   align-items: center;
 }
+
 .imagen-proyecto {
   width: 80%;
 }

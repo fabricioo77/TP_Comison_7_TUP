@@ -1,17 +1,19 @@
 .footer-container {
-  background-color: #c6a0f6;
-  height: 1rem;
+  background-color: #cba6f7;
   display: flex;
-  padding: 10px;
+  align-items: center;
+  padding: 1rem;
   border-radius: 50px;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
+
 .footer-container a {
   text-decoration: none;
-  color: #181926;
+  color: #11111b;
 }
+
 .icon-container {
   display: flex;
-  gap: 2px;
+  gap: 0.5rem;
 }
