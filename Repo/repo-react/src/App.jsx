@@ -1,33 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
+import HomePage from "./pages/HomePage"
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  // const nombre = "Miguel"
+  // console.log(`Hola ${nombre}`)
+  //pasamos nombre por props a HomePage
+
+
+  // const persona = [{nombre: "Miguel", edad: 30, ciudad: "Madrid",
+  //   Estudios:[{titulo:"Ingenieria Informatica", año:2020},
+  //      {titulo:"Master en React", año:2021}]},{nombre: "Ana", edad: 25, ciudad: "Barcelona",
+  //   Estudios:[{titulo:"Ingenieria de Telecomunicaciones", año:2019},
+  //      {titulo:"Master en Vue", año:2020}]}]
+
+  //      console.log("Estudios de personas = ",persona[0].Estudios[1].titulo )
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    {/* {persona.map((a,i)=><li key={i}>{a.nombre} - {a.edad} - {a.ciudad}
+    <ul>
+      {a.Estudios.map((e,j)=><li key={j}>{e.titulo} - {e.año}</li>)}
+    </ul>
+    </li>)} */}
+    <HomePage />
     </>
   )
 }
