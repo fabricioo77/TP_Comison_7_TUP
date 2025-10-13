@@ -65,7 +65,7 @@ src/
 📸 **DOM Virtual (clave para entender React):**  
 > Usar la imagen incluida en el proyecto para la explicación en clase.
 
-![virtual-dom](./assets/virtual_dom.png)
+![virtual-dom](./DOM-Virtual.jpg)
 
 > Si tu archivo tiene otro nombre o ruta, actualizá el path en el README.
 
@@ -145,25 +145,6 @@ git push origin ApellidoNombre_Legajo
 ```
 
 ---
-## 💻 Componentes a Desarrollar
-- Estructura mínima obligatoria:
-- Componente Padre: Home.jsx
-- Componentes Hijos de Home:
-  - Header.jsx: debe incluir una portada con una imagen personal y un <h1> con nombre y apellido.
-  - Main.jsx: debe contener un div con presentación personal como por ejemplo:
-    "Soy [Nombre Alumno], estudiante de Programación en la Facultad Regional Tucumán..."
-    Además, debe incluir los siguientes apartados:
-     - A -Estudios
-     - B -Soft Skills
-     - C -Proyectos Realizados
-     - D -Experiencia Laboral
-     - E -Idiomas
-     - F -Certificados (si tiene)
-    De estos apartados, al menos 2 deben desarrollarse como componentes adicionales y ser navegables desde el componente principal mediante anclas internas.
-    Se recomienda utilizar arrays de objetos junto con el método .map() para recorrer y renderizar la información de forma dinámica.
-  - **Footer.jsx:** debe contener enlaces a redes sociales (Linkedin, GitHub)o navegación interna.
-
-![alt text](image.png)
 
 
 ## 🎨 Parte 2 – Estilos
