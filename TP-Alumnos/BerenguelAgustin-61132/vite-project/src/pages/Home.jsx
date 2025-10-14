@@ -1,14 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
-import Estudios from '../components/Estudios';
-import Proyectos from '../components/Proyectos';
+import Main from '../components/Main'
 
 const Home = () => {
   return (
     <>
       <Header/>
-      <Estudios/>
-      <Proyectos/>
+      <Main/>
     </>
   );
 };

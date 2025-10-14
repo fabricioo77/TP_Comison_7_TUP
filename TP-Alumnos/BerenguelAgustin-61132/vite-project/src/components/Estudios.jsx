@@ -3,8 +3,8 @@ import '../Style/Estudios.css';
 
 const Estudios = () => {
         return(
-          <section>
-            <h1>Mis Estudios</h1>
+          <section id="estudios">
+            <h1 className="titulo">Mis Estudios</h1>
           <div className="Tarjetas">
             <div className="tarjeta">
                 <h1>Colegio Giouse Carducci</h1>

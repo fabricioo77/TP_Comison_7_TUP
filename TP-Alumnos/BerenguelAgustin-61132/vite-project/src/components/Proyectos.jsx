@@ -31,7 +31,8 @@ const CarruselProyectos = () => {
     setCurrentIndex(newIndex);
   };
 
-  return (  
+  return ( 
+    <section id="mis-proyectos"> 
     <div className="carrusel-container">    
     <h1>Proyectos</h1>   
       <button onClick={goToPrevious} className="carrusel-button prev">‹</button>
@@ -63,6 +64,7 @@ const CarruselProyectos = () => {
       
       <button onClick={goToNext} className="carrusel-button next">›</button>
     </div>
+    </section>
   );
 };
 
