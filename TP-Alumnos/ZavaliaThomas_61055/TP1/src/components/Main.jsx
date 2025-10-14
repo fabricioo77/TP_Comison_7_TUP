@@ -1,39 +1,57 @@
-import React from "react";
-import HomeSection from "./home/HomeSection"; // tu Home.jsx del template
-/*import Estudios from "./Estudios";
-import SoftSkills from "./SoftSkills";
-import Experiencia from "./Experiencia";
-import Idiomas from "./Idiomas";
-import Certificados from "./Certificados";*/
+import React from 'react';
+import Container from 'react-bootstrap/Container';
+import { motion } from 'framer-motion';
+import Estudios from './Estudios';
+import SoftSkills from './SoftSkills';
+import Proyectos from './Proyectos';
+import Idiomas from './Idiomas';
+
+const datosProyectos = [
+  {
+    titulo: 'Sistema de Reserva de Películas',
+    imagenes: ['../../public/cine.png'],
+    fechaInicio: '2023',
+    descripcion: 'Sistema que permite gestionar la reserva de entradas de cine.'
+  }
+ 
+];
+
+const datosBasicos = {
+  nombre_seccion: {
+    proyectos: 'Mis Proyectos'
+  }
+};
 
 function Main() {
   return (
-    <main>
-      {/* Sección del template */}
-      <HomeSection />
+    <>
+      <main className="main-content">
+        <motion.section
+          id="estudios"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-5"
+        >
+          <Container fluid className="py-5">
+            <section id="home" className="text-center mb-5">
+              <h1 className="display-4 text-white mb-4">
+                Bienvenido a mi Portafolio
+              </h1>
+              <p className="lead text-light">Soy un desarrollador backend.</p>
+            </section>
 
-      {/* Mis secciones 
-      <section id="estudios" style={{ padding: "100px 0" }}>
-        <Estudios />
-      </section>
-
-      <section id="softskills" style={{ padding: "100px 0" }}>
-        <SoftSkills />
-      </section>
-
-      <section id="experiencia" style={{ padding: "100px 0" }}>
-        <Experiencia />
-      </section>
-
-      <section id="idiomas" style={{ padding: "100px 0" }}>
-        <Idiomas />
-      </section>
-
-      <section id="certificados" style={{ padding: "100px 0" }}>
-        <Certificados />
-      </section>
-        */}
-    </main>
+            <Estudios />
+            <SoftSkills />
+            <Proyectos
+              datosProyectos={datosProyectos}
+              datosBasicos={datosBasicos}
+            />
+            <Idiomas />
+          </Container>
+        </motion.section>
+      </main>
+    </>
   );
 }
 
