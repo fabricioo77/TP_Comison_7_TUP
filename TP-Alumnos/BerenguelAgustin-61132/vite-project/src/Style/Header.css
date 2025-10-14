@@ -1,4 +1,7 @@
-
+body
+{
+  background-color: lightslategray;
+}
 .header {
   color: white;
   padding: 1rem; 
