@@ -1,0 +1,120 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f3f6fa;
+  color: #333;
+}
+
+
+.header {
+  width: 100vw;
+  background-color: #2a64c5;
+  color: white;
+  padding: 2rem 0;
+  box-sizing: border-box;
+  border-bottom: 4px solid #1f4ea8; /
+}
+
+.header-content {
+  display: grid;
+  grid-template-columns: auto 1fr; /* imagen fija + texto centrado */
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Imagen del perfil (izquierda) */
+.perfil {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 4px solid white;
+  object-fit: cover;
+  justify-self: start; /* la deja pegada a la izquierda */
+}
+
+/* Bloque de texto */
+.info {
+  text-align: center;
+}
+
+.info h1 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.info p {
+  font-size: 1.1rem;
+  margin: 0.5rem 0 1rem 0;
+}
+
+/* Navegación */
+.nav a {
+  color: white;
+  text-decoration: none;
+  margin-right: 1.2rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.nav a:hover {
+  color: #cddbf8;
+}
+
+/* =========================================
+   MAIN Y SECCIONES
+========================================= */
+.main {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.section {
+  margin-bottom: 2.5rem;
+}
+
+h2 {
+  color: #2a64c5;
+  border-bottom: 2px solid #2a64c5;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.card {
+  background: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tags li {
+  background: #dce6ff;
+  color: #2a64c5;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+.footer {
+  background-color: #2a64c5;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
