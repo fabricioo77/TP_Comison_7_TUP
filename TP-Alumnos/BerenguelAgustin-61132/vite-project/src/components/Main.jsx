@@ -1,15 +1,14 @@
 import React from "react";
-import Estudios from '../components/Estudios';
-import Proyectos from '../components/Proyectos';
-import Softskills from '../components/Softskills';
+import  '../Style/Main.css';
 
 
 const Main = () =>  {
     return(    
     <>
-      <Estudios/>
-      <Proyectos/>
-      <Softskills/>
+    <section id="descripcion">
+      <div className="Descripcion">Especilizado en c#, .Net y Javascript. <br />Me destaco por mantener estructuras organizado siempre priorizando la escalabilidad de las mismas. <br />
+      Gran manejo de base de datos tanto relacionales como no relaciones. <br /> Desarrollo de aplicaciones web y de escritorio</div>
+    </section>
     </>
     )
     } 

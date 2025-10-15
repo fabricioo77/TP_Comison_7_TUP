@@ -57,11 +57,11 @@ const CarruselProyectos = () => {
                 </video>
               </a>
               <p className="proyecto-descripcion">{slide.descripcion}</p>
+              
             </div>
           ))}
         </div>
       </div>
-      
       <button onClick={goToNext} className="carrusel-button next">›</button>
     </div>
     </section>

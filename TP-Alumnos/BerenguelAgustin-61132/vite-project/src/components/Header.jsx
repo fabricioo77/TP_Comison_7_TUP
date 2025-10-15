@@ -14,14 +14,14 @@ const Header = () => {
       <nav className='navbar'>
         <ul>
           {}
-          <li><HashLink smooth to="/#inicio">Inicio</HashLink></li>          
+          <li><HashLink smooth to="/#descripcion">Inicio</HashLink></li>          
           {}
           <li><HashLink smooth to="/#estudios">Estudios</HashLink></li>
           <li><HashLink smooth to="/#mis-proyectos">Proyectos</HashLink></li>
           <li><HashLink smooth to="/#softskills">Softskills</HashLink></li>
           <li><HashLink smooth to="/#experiencia">Experiencia</HashLink></li>
-          <li><HashLink smooth to="/#certificados">Certificados</HashLink></li>
-          <li><HashLink smooth to="/#idiomas">Idiomas</HashLink></li>
+          <li><HashLink smooth to="/#Certificados">Certificados</HashLink></li>
+          <li><HashLink smooth to="/#Idiomas">Idiomas</HashLink></li>
         </ul>
       </nav>
     </header>
