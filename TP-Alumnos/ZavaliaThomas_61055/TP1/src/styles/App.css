@@ -399,3 +399,92 @@ footer svg:hover {
   font-size: 0.3em; 
   margin-top: 10px;
 }
+
+/* --------- */
+/* Proyectos */
+/* --------- */
+.project-section {
+  position: relative !important;
+  padding-top: 150px !important;
+  padding-bottom: 30px !important;
+  background-color: #1b1a2e;
+}
+
+.project-heading {
+  color: white !important;
+  font-size: 2.3em !important;
+  font-weight: 500 !important;
+  padding-top: 10px !important;
+  text-align: center;
+}
+
+.project-card {
+  padding-top: 50px !important;
+  padding-bottom: 50px !important;
+  padding-left: 25px !important;
+  padding-right: 25px !important;
+  height: auto !important;
+}
+
+.project-card-view {
+  box-shadow: 0 4px 5px 3px rgba(186, 80, 244, 0.459) !important;
+  color: white !important;
+  background-color: transparent !important;
+  opacity: 0.9 !important;
+  transition: all 0.5s ease 0s !important;
+  height: 100% !important;
+  border-radius: 10px !important;
+  border: 1px solid #be50f4 !important;
+}
+
+.project-card-view:hover {
+  transform: scale(1.02) !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 4px 5px rgba(189, 84, 248, 0.561) !important;
+}
+
+.card-title {
+  color: #be50f4 !important;
+  font-weight: bold;
+}
+
+/* Estilos para el botón de GitHub */
+.btn-primary {
+  color: #fff !important;
+  background-color: #be50f4 !important;
+  border-color: #be50f4 !important;
+}
+
+.btn-primary:hover {
+  color: #fff !important;
+  background-color: #c95bf5 !important;
+  border-color: #c95bf5 !important;
+}/* --------- */
+/* About     */
+/* --------- */
+.about-section {
+  position: relative !important;
+  padding-top: 150px !important;
+  padding-bottom: 30px !important;
+  background-color: #1b1a2e;
+  color: white !important;
+}
+
+.about-description {
+  padding-top: 10% !important;
+  padding-bottom: 20px !important;
+}
+
+.about-body {
+  padding-top: 20px;
+  font-size: 1.2em;
+  text-align: left;
+}
+
+.about-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
