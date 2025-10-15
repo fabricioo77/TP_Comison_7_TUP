@@ -39,7 +39,7 @@ function AcercaDeMi() {
               transition={{ duration: 0.8 }}
             >
               <img 
-                src="../../public/image.png" 
+                src="../../public/avatar.png" 
                 className="img-fluid" 
                 alt="about" 
               />

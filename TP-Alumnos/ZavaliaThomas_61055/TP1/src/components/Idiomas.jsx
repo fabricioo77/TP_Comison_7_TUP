@@ -1,41 +1,52 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { motion } from 'framer-motion'; // Ya importado
+import { Container, Row, Col } from 'react-bootstrap';
+import { motion } from 'framer-motion';
 import { AiOutlineGlobal } from 'react-icons/ai';
 
-const idiomas = [ // Array para los idiomas
-  { title: 'Español', description: 'Nativo' },
-  { title: 'Inglés', description: 'Avanzado (C1)' },
+const idiomas = [
+  {
+    title: 'Español',
+    description: 'Nativo',
+    // CORRECCIÓN: Las rutas a archivos en la carpeta `public` empiezan con "/"
+    flag: '/españa.png', 
+  },
+  {
+    title: 'Inglés',
+    description: 'Avanzado (C1)',
+    // CORRECCIÓN: Las rutas a archivos en la carpeta `public` empiezan con "/"
+    flag: '/uk.png', 
+  },
 ];
 
 function Idiomas() {
   return (
-    <section id="idiomas" className="mb-5">
+    // CAMBIO: Aseguramos que el fondo sea el correcto
+    <section id="idiomas" className="project-section">
       <Container>
         <Row className="justify-content-center">
-          <Col md={8}>
-            <h2 className="text-center text-white mb-4">
-              <AiOutlineGlobal className="me-2" /> Idiomas
-            </h2>
-            <Row>
-              {idiomas.map((idioma, index) => (
-                <Col md={6} key={index} className="mb-3">
-                  <motion.div
-                    className="text-center p-3 bg-dark border-purple rounded"
-                    initial={{ opacity: 0, y: 20 }} 
-                    animate={{ opacity: 1, y: 0 }} 
-                    transition={{ duration: 0.4, delay: index * 0.2 }} 
-                    whileHover={{ scale: 1.05, boxShadow: "0px 10px 20px rgba(190, 80, 244, 0.2)" }} // Efecto hover
-                  >
-                    <h5>{idioma.title}</h5>
-                    <p className="text-light">{idioma.description}</p>
-                  </motion.div>
-                </Col>
-              ))}
-            </Row>
+          <Col md={8} className="text-center">
+            <h1 className="project-heading">
+              <AiOutlineGlobal className="me-2" />
+              <strong className="text-purple">Idiomas</strong>
+            </h1>
           </Col>
+        </Row>
+        <Row className="justify-content-center" style={{ paddingTop: '50px' }}>
+          {idiomas.map((idioma, index) => (
+            <Col md={4} key={index} className="project-card"> {/* Usamos la misma clase que en Proyectos */}
+              {/* CAMBIO: Usamos el estilo 'project-card-view' para unificar el diseño */}
+              <motion.div
+                className="project-card-view text-center"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+              >
+                <img src={idioma.flag} alt={`${idioma.title} flag`} className="language-flag" />
+                <h5 className="mt-3 card-title">{idioma.title}</h5>
+                <p className="text-light">{idioma.description}</p>
+              </motion.div>
+            </Col>
+          ))}
         </Row>
       </Container>
     </section>

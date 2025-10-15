@@ -64,7 +64,7 @@ section {
   color: #d0d0d0 !important;
 }
 
-/* Overrides para Bootstrap */
+
 .bg-dark {
   background-color: #1b1a2e !important;
   color: white !important;
@@ -448,7 +448,7 @@ footer svg:hover {
   font-weight: bold;
 }
 
-/* Estilos para el botón de GitHub */
+
 .btn-primary {
   color: #fff !important;
   background-color: #be50f4 !important;
@@ -487,4 +487,55 @@ footer svg:hover {
   align-items: center;
   padding-top: 10px !important;
   padding-bottom: 10px !important;
+}
+
+
+/* --------- */
+/* Hero      */
+/* --------- */
+.hero-section {
+  padding-top: 10rem; 
+  padding-bottom: 2rem; 
+  text-align: center;}
+/* -------------------- */
+/* Ajustes de Espaciado */
+/* -------------------- */
+
+
+.about-section {
+  position: relative !important;
+  padding-top: 10px !important; 
+  padding-bottom: 30px !important;
+  background-color: #1b1a2e;
+  color: white !important;}
+
+
+#estudios {
+  padding-top: 70px !important;
+  padding-bottom: 70px !important;
+}
+
+/* --------- */
+/* Idiomas   */
+/* --------- */
+.language-section {
+  position: relative;
+  padding-top: 150px;
+  padding-bottom: 30px;
+}
+
+.language-card {
+  text-align: center;
+  padding: 25px 15px;
+  background-color: #1b1a2e;
+  border: 1.7px solid rgba(190, 80, 244, 0.637);
+  border-radius: 10px;
+  height: 100%;
+  box-shadow: 4px 5px 4px 3px rgba(186, 80, 244, 0.137);
+  transition: all 0.3s ease;
+}
+
+.language-flag {
+  width: 80px; 
+  height: auto;
 }

@@ -7,7 +7,8 @@ import { AiOutlineBook } from 'react-icons/ai';
 
 function Estudios() {
   return (
-    <section id="estudios" className="mb-5">
+    // Quitamos la clase "mb-5" para reducir el margen inferior
+    <section id="estudios">
       <Container>
         <Row className="justify-content-center">
           <Col md={8}>
@@ -20,7 +21,6 @@ function Estudios() {
                 <Card.Text>Universidad Tecnologica Nacional-FRT, 2023-2025</Card.Text>
               </Card.Body>
             </Card>
-           
           </Col>
         </Row>
       </Container>

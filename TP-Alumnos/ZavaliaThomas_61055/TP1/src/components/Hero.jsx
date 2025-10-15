@@ -1,15 +1,19 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import { motion } from 'framer-motion';
 
 function Hero() {
   return (
-   
-    <section id="home" className="home-section"> 
+    <section id="home" className="hero-section">
       <Container className="text-center">
-        <h1 className="display-4 text-white mb-4">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="display-4 text-white mb-4"
+        >
           Bienvenido a mi Portafolio
-        </h1>
-        <p className="lead text-light">Soy un desarrollador backend.</p>
+        </motion.h1>
       </Container>
     </section>
   );

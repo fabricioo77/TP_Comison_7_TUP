@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
-import logo from "../assets/image.png"; 
+// import logo from "../assets/image.png"; // Ya no necesitamos el logo
 import {
   AiOutlineHome,
   AiOutlineUser,
@@ -34,9 +34,13 @@ function Header() {
       className={navColour ? "sticky" : "navbar"}
     >
       <Container>
+       
         <Navbar.Brand href="#home" className="d-flex">
-          <img src={logo} className="img-fluid logo" alt="brand" />
+          <div className="text-purple" style={{ fontWeight: 'bold', fontSize: '1.8rem' }}>
+            TZ
+          </div>
         </Navbar.Brand>
+
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
           onClick={() => setExpanded(expanded ? false : "expanded")}
@@ -45,6 +49,7 @@ function Header() {
           <span></span>
           <span></span>
         </Navbar.Toggle>
+
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Item>
@@ -52,32 +57,26 @@ function Header() {
                 <AiOutlineHome style={{ marginBottom: "2px" }} /> Inicio
               </Nav.Link>
             </Nav.Item>
-
-        
             <Nav.Item>
               <Nav.Link href="#about" onClick={() => setExpanded(false)}>
-                <AiOutlineUser style={{ marginBottom: "2px" }} /> Acerca de mi
+                <AiOutlineUser style={{ marginBottom: "2px" }} /> Acerca de mí
               </Nav.Link>
             </Nav.Item>
-
             <Nav.Item>
               <Nav.Link href="#estudios" onClick={() => setExpanded(false)}>
                 <AiOutlineBook style={{ marginBottom: "2px" }} /> Estudios
               </Nav.Link>
             </Nav.Item>
-
             <Nav.Item>
               <Nav.Link href="#skills" onClick={() => setExpanded(false)}>
                 <AiOutlineStar style={{ marginBottom: "2px" }} /> Habilidades
               </Nav.Link>
             </Nav.Item>
-
             <Nav.Item>
               <Nav.Link href="#proyectos" onClick={() => setExpanded(false)}>
                 <AiOutlineProject style={{ marginBottom: "2px" }} /> Proyectos
               </Nav.Link>
             </Nav.Item>
-            
             <Nav.Item>
               <Nav.Link href="#idiomas" onClick={() => setExpanded(false)}>
                 <AiOutlineGlobal style={{ marginBottom: "2px" }} /> Idiomas
