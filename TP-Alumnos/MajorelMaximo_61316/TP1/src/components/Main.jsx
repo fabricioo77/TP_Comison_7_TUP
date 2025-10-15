@@ -9,9 +9,9 @@ export const Main = () => {
   return (
     <>
       <Estudios />
-      <SoftSkills />
-      <Proyectos />
       <Experiencia />
+      <Proyectos />
+      <SoftSkills />
       <Idiomas />
     </>
   );

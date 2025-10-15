@@ -61,32 +61,95 @@ export const Proyectos = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlay, setIsAutoPlay] = useState(true);
+
   useEffect(() => {
+    if (!isAutoPlay) return;
+
     const interval = setInterval(() => {
       setCurrentIndex(
         (prevIndex) => (prevIndex + 1) % proyectosRealizados.length
       );
-    }, 3000);
+    }, 5000);
     return () => clearInterval(interval);
-  }, [proyectosRealizados.length]);
+  }, [proyectosRealizados.length, isAutoPlay]);
+
+  const handlePrev = () => {
+    setIsAutoPlay(false);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? proyectosRealizados.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNext = () => {
+    setIsAutoPlay(false);
+    setCurrentIndex(
+      (prevIndex) => (prevIndex + 1) % proyectosRealizados.length
+    );
+  };
+
+  const handleDotClick = (index) => {
+    setIsAutoPlay(false);
+    setCurrentIndex(index);
+  };
+
   return (
     <>
-      <section className="proyectos-section">
-        <div className="proyectos-info">
-          <h3 className="titulo-proyecto">
-            {proyectosRealizados[currentIndex].nombre}
-          </h3>
-          <h4>Rol: {proyectosRealizados[currentIndex].rol}</h4>
-          <p className="descripcion-proyecto">
-            {proyectosRealizados[currentIndex].descripcion}
-          </p>
+      <section className="proyectos-wrapper">
+        <div className="section-header">
+          <h2 className="proyectos-title">Proyectos Destacados</h2>
+          <p className="section-subtitle">Portfolio de mis proyectos</p>
         </div>
-        <div className="proyectos-info image-container">
-          <img
-            className="imagen-proyecto"
-            src={proyectosRealizados[currentIndex].imagen}
-            alt={proyectosRealizados[currentIndex].nombre}
-          />
+        <div className="proyectos-section">
+          <div className="proyectos-info">
+            <div className="proyecto-header">
+              <span className="proyecto-numero">
+                {String(currentIndex + 1).padStart(2, "0")} /{" "}
+                {String(proyectosRealizados.length).padStart(2, "0")}
+              </span>
+              <span className="proyecto-tipo">Proyecto Web</span>
+            </div>
+            <h3 className="titulo-proyecto">
+              {proyectosRealizados[currentIndex].nombre}
+            </h3>
+            <div className="proyecto-rol">
+              <span className="rol-label">Rol:</span>
+              <span className="rol-value">
+                {proyectosRealizados[currentIndex].rol}
+              </span>
+            </div>
+            <p className="descripcion-proyecto">
+              {proyectosRealizados[currentIndex].descripcion}
+            </p>
+          </div>
+          <div className="proyectos-info image-container">
+            <div className="image-wrapper">
+              <img
+                className="imagen-proyecto"
+                src={proyectosRealizados[currentIndex].imagen}
+                alt={proyectosRealizados[currentIndex].nombre}
+              />
+              <div className="image-overlay"></div>
+            </div>
+          </div>
+        </div>
+        <div className="proyectos-controls">
+          <button className="control-btn prev-btn" onClick={handlePrev}>
+            ← Anterior
+          </button>
+          <div className="pagination-dots">
+            {proyectosRealizados.map((proyecto, index) => (
+              <button
+                key={index}
+                className={`dot ${index === currentIndex ? "active" : ""}`}
+                onClick={() => handleDotClick(index)}
+                aria-label={`Ir al proyecto ${index + 1}`}
+              ></button>
+            ))}
+          </div>
+          <button className="control-btn next-btn" onClick={handleNext}>
+            Siguiente →
+          </button>
         </div>
       </section>
     </>
