@@ -1,0 +1,31 @@
+.idioma-container {
+  margin-top: 2rem;
+}
+.idioma-title {
+  font-size: 3rem;
+}
+.idioma-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.idioma-list li {
+  background-color: #11111b;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 300px;
+  width: 300px;
+  aspect-ratio: 1/1;
+  border-radius: 20px;
+}
+.idioma-title {
+  font-size: 2rem;
+}
