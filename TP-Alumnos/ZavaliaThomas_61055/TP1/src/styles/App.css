@@ -1,53 +1,56 @@
 /* --------- */
-/*  Globales - Tema Oscuro */
+/*  Globales - Tema Oscuro */
 /* --------- */
-
 html {
   scroll-behavior: smooth;
-  font-family: 'Open Sans', sans-serif; 
+  font-family: 'Open Sans', sans-serif;
 }
 
 body, html {
-  background-color: #1b1a2e !important;
+  background-color: transparent !important; 
   color: white !important;
   margin: 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;
 }
 
-.main-content {
-  min-height: 100vh;
-  background-color: transparent;
-  padding-top: 80px;
+
+.App {
+  background-color: #1b1a2e;
   position: relative;
   z-index: 1;
 }
 
+body {
+  background-color: #1b1a2e !important; /* Aplicamos el color de fondo aquí */
+}
+
+.main-content {
+  min-height: 100vh;
+  background-color: transparent !important; /* Hacemos transparente el fondo del contenido */
+  padding-top: 80px;
+  position: relative;
+  z-index: 1; /* Aseguramos que el contenido esté por ENCIMA de las partículas */
+}
+
 section {
-  background-color: #1b1a2e; 
+  background-color: #1b1a2e;
   padding: 4rem 0;
   position: relative;
   margin-bottom: 2rem;
-  border-radius: 10px; 
-  transition: background-color 0.3s ease; 
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
   font-family: 'Open Sans', sans-serif;
 }
 
-
-
-
-#idiomas { 
-  background-color: #47276e; 
-}
-
-
+/* Estilos de Tarjetas Genéricas (usado en Estudios) */
 .card {
-  background-color: rgba(27, 26, 46, 0.8) !important; 
-  border: 1px solid #be50f4 !important; /* Borde morado por defecto */
+  background-color: rgba(27, 26, 46, 0.8) !important;
+  border: 1px solid #be50f4 !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease !important;
   border-radius: 10px !important;
   overflow: hidden;
-  color: #d0d0d0 !important; /* Texto visible */
+  color: #d0d0d0 !important;
 }
 
 .card:hover {
@@ -93,16 +96,12 @@ section {
 }
 
 /* --------- */
-/*  Navbar   */
+/*  Navbar   */
 /* --------- */
-
 .navbar {
   background-color: #1b1a2e !important;
   color: white !important;
   backdrop-filter: blur(10px);
-}
-
-.navbar {
   position: fixed !important;
   top: 0;
   width: 100%;
@@ -163,26 +162,11 @@ section {
   opacity: 0.9 !important;
 }
 
-/* Animación Sticky al scroll */
 .sticky {
   background-color: rgba(24, 26, 39, 0.95) !important;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5) !important;
   backdrop-filter: blur(20px) !important;
   padding: 0.5rem 2rem !important;
-}
-
-@media (max-width: 767px) {
-  .navbar {
-    padding: 1rem 1rem !important;
-    font-size: 1.4rem !important;
-    background-color: #181a27 !important;
-  }
-  .navbar-nav .nav-item a::after {
-    display: none !important;
-  }
-  .sticky {
-    padding: 0.8rem 1rem !important;
-  }
 }
 
 .navbar-brand {
@@ -192,16 +176,6 @@ section {
 
 .navbar-brand:hover {
   color: #be50f4 !important;
-}
-
-.logo {
-  height: 1.4em !important;
-  width: 2.5em !important;
-  transition: transform 0.3s ease !important;
-}
-
-.logo:hover {
-  transform: scale(1.1) !important;
 }
 
 .navbar-nav .nav-link {
@@ -221,15 +195,6 @@ section {
   align-items: center;
 }
 
-@media (max-width: 767px) {
-  .nav-link {
-    padding: 0.7rem 1rem !important;
-  }
-  .nav-link svg {
-    margin-right: 0.5rem !important;
-  }
-}
-
 .navbar-nav .nav-item {
   position: relative;
   margin-left: 20px;
@@ -243,7 +208,7 @@ section {
 }
 
 .navbar-nav .nav-item a::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: -5px;
   left: 50%;
@@ -263,17 +228,38 @@ section {
   transform: none;
 }
 
-
 .navbar-collapse {
   transition: all 0.3s ease !important;
 }
 
-/* Footer */
+@media (max-width: 767px) {
+  .navbar {
+    padding: 1rem 1rem !important;
+    font-size: 1.4rem !important;
+    background-color: #181a27 !important;
+  }
+  .navbar-nav .nav-item a::after {
+    display: none !important;
+  }
+  .sticky {
+    padding: 0.8rem 1rem !important;
+  }
+  .nav-link {
+    padding: 0.7rem 1rem !important;
+  }
+  .nav-link svg {
+    margin-right: 0.5rem !important;
+  }
+}
+
+/* --------- */
+/* Footer    */
+/* --------- */
 footer {
   background-color: #181a27 !important;
   border-top: 1px solid #be50f4 !important;
   color: white !important;
-  padding: 2rem 0; /* Asegura padding para visibilidad */
+  padding: 2rem 0;
 }
 
 footer a {
@@ -294,69 +280,51 @@ footer svg:hover {
   color: #c95bf5 !important;
 }
 
-
-.portfolio-item {
-  max-width: 100%;
-  margin-bottom: 15px;
-  text-align: center;
-  transition: transform 0.3s ease;
-}
-
-.portfolio-item:hover {
-  transform: scale(1.05);
-}
-
-.foto img {
-  display: block;
-  width: 100%;
-  border-radius: 10px;
-}
-
-.foto {
-  background: #1b1a2e;
-  padding: 10px;
-  border: 2px solid #be50f4;
-  border-radius: 10px;
-  position: relative;
-  overflow: hidden;
-}
-
-.project-date {
-  font-size: 16px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 8px 15px;
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  background-color: #696969;
-  color: white;
-  border-radius: 5px;
-  z-index: 1;
-}
-
-.project-title-settings {
-  margin-top: 5%;
-  font-size: 1.8rem;
-  color: #be50f4;
-  text-align: center;
-  font-weight: bold;
-}
-
-#proyectos {
-  background-color: #1b1a2e !important;
-  padding-bottom: 5%;
-}
-
-
 /* --------- */
-/* Skills    */
+/* Secciones */
 /* --------- */
+.hero-section {
+  padding-top: 10rem;
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+.about-section {
+  position: relative !important;
+  padding-top: 10px !important;
+  padding-bottom: 30px !important;
+  background-color: #1b1a2e;
+  color: white !important;
+}
+
+.about-description {
+  padding-top: 10% !important;
+  padding-bottom: 20px !important;
+}
+
+.about-body {
+  padding-top: 20px;
+  font-size: 1.2em;
+  text-align: left;
+}
+
+.about-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+#estudios {
+  padding-top: 70px !important;
+  padding-bottom: 70px !important;
+}
 
 .skills-section {
   position: relative;
   padding-top: 150px;
   padding-bottom: 30px;
-  background-image: var(--section-background-image);
 }
 
 .tech-icons {
@@ -396,13 +364,10 @@ footer svg:hover {
 }
 
 .tech-icon-box p {
-  font-size: 0.3em; 
+  font-size: 0.3em;
   margin-top: 10px;
 }
 
-/* --------- */
-/* Proyectos */
-/* --------- */
 .project-section {
   position: relative !important;
   padding-top: 150px !important;
@@ -443,12 +408,6 @@ footer svg:hover {
   box-shadow: 0 4px 4px 5px rgba(189, 84, 248, 0.561) !important;
 }
 
-.card-title {
-  color: #be50f4 !important;
-  font-weight: bold;
-}
-
-
 .btn-primary {
   color: #fff !important;
   background-color: #be50f4 !important;
@@ -459,83 +418,9 @@ footer svg:hover {
   color: #fff !important;
   background-color: #c95bf5 !important;
   border-color: #c95bf5 !important;
-}/* --------- */
-/* About     */
-/* --------- */
-.about-section {
-  position: relative !important;
-  padding-top: 150px !important;
-  padding-bottom: 30px !important;
-  background-color: #1b1a2e;
-  color: white !important;
-}
-
-.about-description {
-  padding-top: 10% !important;
-  padding-bottom: 20px !important;
-}
-
-.about-body {
-  padding-top: 20px;
-  font-size: 1.2em;
-  text-align: left;
-}
-
-.about-img {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
-}
-
-
-/* --------- */
-/* Hero      */
-/* --------- */
-.hero-section {
-  padding-top: 10rem; 
-  padding-bottom: 2rem; 
-  text-align: center;}
-/* -------------------- */
-/* Ajustes de Espaciado */
-/* -------------------- */
-
-
-.about-section {
-  position: relative !important;
-  padding-top: 10px !important; 
-  padding-bottom: 30px !important;
-  background-color: #1b1a2e;
-  color: white !important;}
-
-
-#estudios {
-  padding-top: 70px !important;
-  padding-bottom: 70px !important;
-}
-
-/* --------- */
-/* Idiomas   */
-/* --------- */
-.language-section {
-  position: relative;
-  padding-top: 150px;
-  padding-bottom: 30px;
-}
-
-.language-card {
-  text-align: center;
-  padding: 25px 15px;
-  background-color: #1b1a2e;
-  border: 1.7px solid rgba(190, 80, 244, 0.637);
-  border-radius: 10px;
-  height: 100%;
-  box-shadow: 4px 5px 4px 3px rgba(186, 80, 244, 0.137);
-  transition: all 0.3s ease;
 }
 
 .language-flag {
-  width: 80px; 
+  width: 80px;
   height: auto;
 }
