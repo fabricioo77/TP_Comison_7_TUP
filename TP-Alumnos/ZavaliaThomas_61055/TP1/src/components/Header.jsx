@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
-import logo from "../assets/image.png";
+import logo from "../assets/image.png"; // Asegúrate de que la ruta sea correcta
 import {
   AiOutlineHome,
   AiOutlineUser,
-  AiOutlineFundProjectionScreen,
+  AiOutlineBook,
+  AiOutlineStar,
+  AiOutlineProject,
+  AiOutlineGlobal,
 } from "react-icons/ai";
 
 function Header() {
@@ -51,10 +54,29 @@ function Header() {
                 <AiOutlineHome style={{ marginBottom: "2px" }} /> Inicio
               </Nav.Link>
             </Nav.Item>
-
             <Nav.Item>
               <Nav.Link href="#acerca" onClick={() => setExpanded(false)}>
                 <AiOutlineUser style={{ marginBottom: "2px" }} /> Acerca de mí
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="#estudios" onClick={() => setExpanded(false)}>
+                <AiOutlineBook style={{ marginBottom: "2px" }} /> Estudios
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="#softskills" onClick={() => setExpanded(false)}>
+                <AiOutlineStar style={{ marginBottom: "2px" }} /> Habilidades Blandas
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="#proyectos" onClick={() => setExpanded(false)}>
+                <AiOutlineProject style={{ marginBottom: "2px" }} /> Proyectos
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="#idiomas" onClick={() => setExpanded(false)}>
+                <AiOutlineGlobal style={{ marginBottom: "2px" }} /> Idiomas
               </Nav.Link>
             </Nav.Item>
           </Nav>

@@ -1,7 +1,8 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';  // Import global de Bootstrap
 import Home from './pages/Home';
-import './styles/style.css';  
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-tsparticles';
+import './styles/App.css'; // Tu CSS extendido
 
 function App() {
   return (
