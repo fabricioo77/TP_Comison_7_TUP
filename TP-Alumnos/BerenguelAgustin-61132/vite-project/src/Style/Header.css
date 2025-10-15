@@ -19,7 +19,7 @@ html
   padding: 1rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center;  
 }
 
 .header .Imagen_y_Titulo {
@@ -31,8 +31,8 @@ html
 .header img {
   padding-right: 10px;
   border-radius: 50%;
-  height: 100px;
-  width: 100px;
+  height: 150px;
+  width: 150px;
   transition: transform 0.3s ease-in-out;
 }
 
@@ -66,6 +66,6 @@ html
 }
 
 .header a:hover {
-  background-color: #969798;
+  background-color: rgb(102, 105, 123);
   color: white;
 }

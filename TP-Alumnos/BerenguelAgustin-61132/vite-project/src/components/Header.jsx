@@ -14,7 +14,7 @@ const Header = () => {
       <nav className='navbar'>
         <ul>
           {}
-          <li><HashLink smooth to="/#descripcion">Inicio</HashLink></li>          
+          <li><HashLink smooth to="/#Inicio">Inicio</HashLink></li>          
           {}
           <li><HashLink smooth to="/#estudios">Estudios</HashLink></li>
           <li><HashLink smooth to="/#mis-proyectos">Proyectos</HashLink></li>
@@ -22,6 +22,7 @@ const Header = () => {
           <li><HashLink smooth to="/#experiencia">Experiencia</HashLink></li>
           <li><HashLink smooth to="/#Certificados">Certificados</HashLink></li>
           <li><HashLink smooth to="/#Idiomas">Idiomas</HashLink></li>
+          <li><HashLink smooth to="/#Contacto">Contacto</HashLink></li>
         </ul>
       </nav>
     </header>

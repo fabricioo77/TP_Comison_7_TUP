@@ -6,6 +6,8 @@ import Proyectos from '../components/Proyectos';
 import Softskills from '../components/Softskills';
 import Certificados from '../components/Certificados';
 import Idiomas from '../components/Idiomas';
+import Experiencia  from '../components/Experiencia';
+import Footer from '../components/Footer';
 
 const Home = () => {
   return (
@@ -15,8 +17,10 @@ const Home = () => {
       <Estudios/>
       <Proyectos/>
       <Softskills/>
+      <Experiencia/>
       <Certificados/>
       <Idiomas/>
+      <Footer/>
     </>
   );
 };
