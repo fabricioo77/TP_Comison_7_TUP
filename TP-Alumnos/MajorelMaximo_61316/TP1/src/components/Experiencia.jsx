@@ -27,7 +27,7 @@ export const Experiencia = () => {
 
   return (
     <>
-      <section className="experiencia-container">
+      <section className="experiencia-container" id="experiencia">
         <div className="section-header">
           <h2 className="experiencia-title">Experiencia Profesional</h2>
           <p className="section-subtitle">

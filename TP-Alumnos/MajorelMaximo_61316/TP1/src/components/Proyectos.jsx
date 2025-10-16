@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Proyectos/proyectos.css";
-import indatabiz from "../assets/Proyects/indatabiz.png";
-import openit from "../assets/Proyects/openit.png";
-import zontes from "../assets/Proyects/zontes.jpg";
-import erma from "../assets/Proyects/comercialerma.jpg";
-import cmdweb from "../assets/Proyects/cmd.png";
-import cmdsys from "../assets/Proyects/cmd-sistema.png";
-import radix from "../assets/Proyects/radix.png";
+import indatabiz from "../assets/Proyectos/indatabiz.png";
+import openit from "../assets/Proyectos/openit.png";
+import zontes from "../assets/Proyectos/zontes.jpg";
+import erma from "../assets/Proyectos/comercialerma.jpg";
+import cmdweb from "../assets/Proyectos/cmd.png";
+import cmdsys from "../assets/Proyectos/cmd-sistema.png";
+import radix from "../assets/Proyectos/radix.png";
 export const Proyectos = () => {
   const proyectosRealizados = [
     {
@@ -95,7 +95,7 @@ export const Proyectos = () => {
 
   return (
     <>
-      <section className="proyectos-wrapper">
+      <section className="proyectos-wrapper" id="proyectos">
         <div className="section-header">
           <h2 className="proyectos-title">Proyectos Destacados</h2>
           <p className="section-subtitle">Portfolio de mis proyectos</p>
@@ -125,7 +125,7 @@ export const Proyectos = () => {
           <div className="proyectos-info image-container">
             <div className="image-wrapper">
               <img
-                className="imagen-proyecto"
+                className="Captura de pantalla del proyecto"
                 src={proyectosRealizados[currentIndex].imagen}
                 alt={proyectosRealizados[currentIndex].nombre}
               />

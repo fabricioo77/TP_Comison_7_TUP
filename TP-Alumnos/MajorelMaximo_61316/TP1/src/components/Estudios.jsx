@@ -26,7 +26,7 @@ export const Estudios = () => {
   ];
   return (
     <>
-      <section className="estudios-container">
+      <section className="estudios-container" id="estudios">
         <div className="section-header">
           <h2 className="estudios-title">Formación Académica</h2>
           <p className="section-subtitle">

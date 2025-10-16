@@ -39,7 +39,7 @@ export const SoftSkills = () => {
   ];
   return (
     <>
-      <section className="softSkills-container">
+      <section className="softSkills-container" id="softskills">
         <div className="title-container">
           <h2>Soft Skills</h2>
           <p className="skills-subtitle">

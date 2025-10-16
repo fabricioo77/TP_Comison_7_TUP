@@ -20,7 +20,7 @@ export const Footer = () => {
 
   return (
     <>
-      <footer className="footer-wrapper">
+      <footer className="footer-wrapper" id="contacto">
         <section className="footer-container">
           <div className="footer-content">
             <div className="footer-info">

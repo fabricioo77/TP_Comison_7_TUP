@@ -16,7 +16,7 @@ export const Idiomas = () => {
 
   return (
     <>
-      <section className="idioma-container">
+      <section className="idioma-container" id="idiomas">
         <div className="section-header">
           <h2 className="idioma-title">Idiomas que domino</h2>
           <p className="section-subtitle">Competencias lingüísticas</p>

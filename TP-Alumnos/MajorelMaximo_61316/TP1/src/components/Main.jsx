@@ -4,6 +4,7 @@ import { SoftSkills } from "./SoftSkills";
 import { Proyectos } from "./Proyectos";
 import { Experiencia } from "./Experiencia";
 import { Idiomas } from "./Idiomas";
+import { Certificados } from "./Certificados";
 
 export const Main = () => {
   return (
@@ -13,6 +14,7 @@ export const Main = () => {
       <Proyectos />
       <SoftSkills />
       <Idiomas />
+      <Certificados />
     </>
   );
 };
