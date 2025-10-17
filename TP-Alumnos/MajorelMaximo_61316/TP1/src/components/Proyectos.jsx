@@ -125,7 +125,7 @@ export const Proyectos = () => {
           <div className="proyectos-info image-container">
             <div className="image-wrapper">
               <img
-                className="Captura de pantalla del proyecto"
+                className="imagen-proyecto"
                 src={proyectosRealizados[currentIndex].imagen}
                 alt={proyectosRealizados[currentIndex].nombre}
               />
