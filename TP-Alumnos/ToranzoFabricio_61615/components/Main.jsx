@@ -5,7 +5,7 @@ import Softskills from "./SoftSkills";
 import Idiomas from "./Idiomas";
 
 export default function Main() {
-  const descripcion = "Soy estudiante de la Tecnicatura Universitaria en Programación (UTN FRT), apasionado por el desarrollo de software, el aprendizaje constante y la mejora continua.";
+  const descripcion = "Soy estudiante de la Tecnicatura Universitaria en Programación en la UTN,apasionado por el desarrollo de software, especialmente en C#, JavaScript y HTML. Me gusta aprender nuevas tecnologías y aplicar buenas prácticas de programación.";
 
   return (
     <main className="main">

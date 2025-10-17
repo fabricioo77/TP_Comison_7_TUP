@@ -13,8 +13,6 @@ export default function Header() {
 
        
         <div className="info">
-          <h1>Fabricio Toranzo</h1>
-          <p>Desarrollador Full Stack | UTN - FRT</p>
 
           <nav className="nav">
             <a href="#estudios">Estudios</a>

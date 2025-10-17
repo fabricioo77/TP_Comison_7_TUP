@@ -10,11 +10,11 @@ html, body {
 
 .header {
   width: 100vw;
-  background-color: #2a64c5;
+  background-color: #283c5f;
   color: white;
   padding: 2rem 0;
   box-sizing: border-box;
-  border-bottom: 4px solid #1f4ea8; /
+  border-bottom: 8px solid #3a5280; /
 }
 
 .header-content {
@@ -30,8 +30,8 @@ html, body {
 
 /* Imagen del perfil (izquierda) */
 .perfil {
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   border: 4px solid white;
   object-fit: cover;
@@ -40,7 +40,7 @@ html, body {
 
 /* Bloque de texto */
 .info {
-  text-align: center;
+  text-align: right;
 }
 
 .info h1 {
@@ -57,9 +57,16 @@ html, body {
 .nav a {
   color: white;
   text-decoration: none;
-  margin-right: 1.2rem;
+  font-size: 20px;
+  margin-right: 3.0rem;
   font-weight: bold;
   transition: color 0.3s ease;
+
+}
+
+.nav a:last-child{
+
+  margin-right: 0;
 }
 
 .nav a:hover {

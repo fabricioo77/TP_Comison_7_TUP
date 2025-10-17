@@ -1,7 +1,7 @@
 export default function Idiomas({ titulo }) {
   const idiomas = [
     { nombre: "Español", nivel: "Nativo" },
-    { nombre: "Inglés", nivel: "Intermedio" },
+    { nombre: "Inglés", nivel: "Basico" },
   ];
 
   return (
