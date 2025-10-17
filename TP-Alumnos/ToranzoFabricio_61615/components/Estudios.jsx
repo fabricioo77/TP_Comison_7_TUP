@@ -8,7 +8,7 @@ export default function Estudios({ titulo }) {
   return (
     <section id="estudios" className="section">
       <h2>{titulo}</h2>
-      <ul>
+      <ul className="lista-formacion">
         {estudios.map((e) => (
           <li key={e.id} className="card">
             <h3>{e.nombre}</h3>

@@ -1,72 +1,29 @@
 html, body {
   margin: 0;
   padding: 0;
-  width: 100%;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f3f6fa;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f6f9;
   color: #333;
 }
 
-
+/* ==============================
+   HEADER — solo la barra de navegación
+============================== */
 .header {
-  width: 100vw;
-  background-color: #283c5f;
+  background-color: #2f4364;
   color: white;
-  padding: 2rem 0;
-  box-sizing: border-box;
-  border-bottom: 8px solid #3a5280; /
-}
-
-.header-content {
-  display: grid;
-  grid-template-columns: auto 1fr; /* imagen fija + texto centrado */
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-/* Imagen del perfil (izquierda) */
-.perfil {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  border: 4px solid white;
-  object-fit: cover;
-  justify-self: start; /* la deja pegada a la izquierda */
-}
-
-/* Bloque de texto */
-.info {
+  padding: 1rem 0;
+  font-size: 18px;
   text-align: right;
+  border-bottom: 4px solid #1f4ea8;
 }
 
-.info h1 {
-  font-size: 2.5rem;
-  margin: 0;
-}
-
-.info p {
-  font-size: 1.1rem;
-  margin: 0.5rem 0 1rem 0;
-}
-
-/* Navegación */
 .nav a {
   color: white;
   text-decoration: none;
-  font-size: 20px;
-  margin-right: 3.0rem;
+  margin: 0 1.2rem;
   font-weight: bold;
   transition: color 0.3s ease;
-
-}
-
-.nav a:last-child{
-
-  margin-right: 0;
 }
 
 .nav a:hover {
@@ -77,9 +34,52 @@ html, body {
    MAIN Y SECCIONES
 ========================================= */
 .main {
-  max-width: 900px;
-  margin: auto;
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+/* Imagen de perfil centrada */
+.perfil-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.perfil {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 5px solid #ffffff;
+  object-fit: cover;
+}
+
+/* Nombre grande */
+.nombre {
+  font-size: 50px;
+  color: #000000;
+  margin: 0 0 2rem 0;
+}
+
+/* Sección "Sobre mí" */
+.sobre-mi {
+  max-width: 800px;
+}
+
+.sobre-mi h2 {
+  font-size: 2rem;
+  color: #2a64c5;
+  border-bottom: 2px solid #2a64c5;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.sobre-mi p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #444;
 }
 
 .section {
@@ -93,18 +93,65 @@ h2 {
   margin-bottom: 1rem;
 }
 
+.lista-formacion {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+/* Cada tarjeta */
 .card {
-  background: white;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+  border-color: #2a64c5;
+}
+
+/* Título de la tarjeta */
+.card h3 {
+  color: #2a64c5;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Texto debajo */
+.card p {
+  color: #444;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Sección general */
+.section-formacion {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.section-formacion h2 {
+  color: #2a64c5;
+  border-bottom: 2px solid #2a64c5;
+  display: inline-block;
+  margin-bottom: 2rem;
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 50px;
 }
 
 .tags li {
@@ -119,7 +166,7 @@ h2 {
    FOOTER
 ========================================= */
 .footer {
-  background-color: #2a64c5;
+  background-color: #2f4364;
   color: white;
   text-align: center;
   padding: 1rem;

@@ -7,7 +7,7 @@ export default function Idiomas({ titulo }) {
   return (
     <section id="idiomas" className="section">
       <h2>{titulo}</h2>
-      <ul>
+      <ul className="lista-formacion">
         {idiomas.map((i, idx) => (
           <li key={idx} className="card">
             <strong>{i.nombre}</strong> — {i.nivel}

@@ -8,7 +8,7 @@ export default function Proyectos({ titulo }) {
   return (
     <section id="proyectos" className="section">
       <h2>{titulo}</h2>
-      <div className="grid">
+      <div className="lista-formacion">
         {proyectos.map((p) => (
           <div key={p.id} className="card">
             <h3>{p.nombre}</h3>
