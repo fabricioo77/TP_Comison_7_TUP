@@ -4,7 +4,7 @@ import "../styles/Header.css"
 export default function Header() {
     return (
         <header className="Header-Principal">
-            <h1 className="h1-Nombre">Lucas German Dávalos</h1>
+            <h1 className="h1-Nombre">Lucas</h1>
 
             <nav className="Header-Nav">
                 <ul>

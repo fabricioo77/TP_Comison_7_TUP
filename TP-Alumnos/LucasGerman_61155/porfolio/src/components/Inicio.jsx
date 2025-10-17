@@ -6,13 +6,22 @@ export default function Inicio({id}) {
 
 
     return(
-        <section id={id} className="seccion-inico">
-                    <h1 className="h1-inicio">Bienvenido a mi portafolio</h1>
+        <section id={id} className="seccion-inicio">
+
+                    <div className="contenedor-texto">
+                        
+                   <h1 className="h1-inicio">Hola, soy <span className="nombre-color">Lucas German Dávalos</span> </h1>
+
                     <p className="p-inicio">
                         Soy una persona proactiva, con gran capacidad de aprndizaje, adaptacion y trabajo en equipo.
-                        Me apasiona la tecnologia y disfruto desarrollar soluciones prácticas. Actualmente estudios
+                        Me apasiona la tecnología y disfruto desarrollar soluciones prácticas. Actualmente estudios
                         programación, lo que me permite aplicar mis conocimientos en proyectos reales.
                     </p>
+                    </div>
+
+                    <div className="contenedor-imagen">
+                        <img src="https://avatars.githubusercontent.com/u/109121122?v=4" alt="Foto de Lucas German Dávalos" className="foto-lucas"/>
+                    </div>
         </section>
 
     )
