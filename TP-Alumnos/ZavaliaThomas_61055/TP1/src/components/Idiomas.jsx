@@ -7,20 +7,20 @@ const idiomas = [
   {
     title: 'Español',
     description: 'Nativo',
-    // CORRECCIÓN: Las rutas a archivos en la carpeta `public` empiezan con "/"
+  
     flag: '/españa.png', 
   },
   {
     title: 'Inglés',
-    description: 'Avanzado (C1)',
-    // CORRECCIÓN: Las rutas a archivos en la carpeta `public` empiezan con "/"
+    description: 'Intermedio - B2',
+    
     flag: '/uk.png', 
   },
 ];
 
 function Idiomas() {
   return (
-    // CAMBIO: Aseguramos que el fondo sea el correcto
+
     <section id="idiomas" className="project-section">
       <Container>
         <Row className="justify-content-center">
@@ -33,8 +33,8 @@ function Idiomas() {
         </Row>
         <Row className="justify-content-center" style={{ paddingTop: '50px' }}>
           {idiomas.map((idioma, index) => (
-            <Col md={4} key={index} className="project-card"> {/* Usamos la misma clase que en Proyectos */}
-              {/* CAMBIO: Usamos el estilo 'project-card-view' para unificar el diseño */}
+            <Col md={4} key={index} className="project-card"> 
+              
               <motion.div
                 className="project-card-view text-center"
                 initial={{ opacity: 0, y: 50 }}

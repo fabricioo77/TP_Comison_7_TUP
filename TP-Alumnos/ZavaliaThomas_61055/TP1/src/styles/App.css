@@ -1,6 +1,4 @@
-/* --------- */
-/*  Globales - Tema Oscuro */
-/* --------- */
+
 html {
   scroll-behavior: smooth;
   font-family: 'Open Sans', sans-serif;
@@ -22,15 +20,15 @@ body, html {
 }
 
 body {
-  background-color: #1b1a2e !important; /* Aplicamos el color de fondo aquí */
+  background-color: #1b1a2e !important; 
 }
 
 .main-content {
   min-height: 100vh;
-  background-color: transparent !important; /* Hacemos transparente el fondo del contenido */
+  background-color: transparent !important; 
   padding-top: 80px;
   position: relative;
-  z-index: 1; /* Aseguramos que el contenido esté por ENCIMA de las partículas */
+  z-index: 1; 
 }
 
 section {
@@ -43,7 +41,7 @@ section {
   font-family: 'Open Sans', sans-serif;
 }
 
-/* Estilos de Tarjetas Genéricas (usado en Estudios) */
+
 .card {
   background-color: rgba(27, 26, 46, 0.8) !important;
   border: 1px solid #be50f4 !important;
@@ -423,4 +421,59 @@ footer svg:hover {
 .language-flag {
   width: 80px;
   height: auto;
+}
+
+/* --------- */
+/* Modal de Proyectos */
+/* --------- */
+
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+
+.project-modal-content {
+  background-color: #1b1a2e; 
+  color: white;
+  border: 1px solid #be50f4;
+  border-radius: 10px;
+}
+
+
+.project-modal-content .modal-title {
+  color: #be50f4;
+}
+
+
+.project-modal-content .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%); 
+}
+
+
+.tech-stack-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; 
+  font-size: 2.5em;
+  padding-top: 10px;
+}
+
+
+.tech-icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+.tech-icon-item span {
+  font-size: 0.4em; 
+  margin-top: 5px;
+}
+
+
+.project-modal-content .modal-footer {
+  border-top: 1px solid rgba(190, 80, 244, 0.3); 
 }

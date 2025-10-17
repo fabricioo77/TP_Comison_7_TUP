@@ -7,7 +7,7 @@ import ParticulasComponente from '../components/ParticulasComponente'; // 1. Imp
 function Home() {
   return (
     <>
-      <ParticulasComponente /> {/* 2. Añádelo aquí */}
+      <ParticulasComponente /> 
       <Header />
       <Main />
       <Footer />

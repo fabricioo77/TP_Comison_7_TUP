@@ -11,11 +11,11 @@ function ParticulasComponente() {
   const options = {
     fullScreen: {
       enable: true,
-      zIndex: -1, // Se asegura de que siempre esté en el fondo
+      zIndex: -1, 
     },
     background: {
       color: {
-        value: '#1b1a2e', // El color de fondo de tu página
+        value: '#1b1a2e', 
       },
     },
     fpsLimit: 120,
