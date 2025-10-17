@@ -1,8 +1,7 @@
 .seccion-proyectos {
   padding: 100px 5vw;
-  background-color: #1f1f1f; 
+  background-color: black; 
   color: white;
-  border-top: 1px solid #333;
 }
 
 
@@ -22,7 +21,7 @@
 
 
 .proyecto-card {
-  background-color: #2c2c2c;
+  background-color: #1E293B;
   border: 1px solid #444;
   border-radius: 10px;
   padding: 30px;
@@ -40,7 +39,7 @@
 
 
 .proyecto-card h3 {
-  color: #747bff; 
+  color: #FFFFFF; 
   font-size: 1.6rem;
   margin-bottom: 15px;
 }
@@ -74,7 +73,7 @@
 
 .proyecto-boton {
   display: inline-block;
-  background-color: #747bff;
+  background-color: #6366F1;
   color: white;
   text-decoration: none;
   padding: 12px 20px;
