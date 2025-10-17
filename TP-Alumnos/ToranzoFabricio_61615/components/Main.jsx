@@ -3,6 +3,7 @@ import perfil from "../src/assets/IMG-20230223-WA0000.jpg";
 import Estudios from "./Estudios";
 import Experiencia from "./Experiencia";
 import Proyectos from "./Proyectos";
+import Lenguajes from "./Lenguajes";
 import Softskills from "./SoftSkills";
 import Idiomas from "./Idiomas";
 
@@ -29,9 +30,10 @@ export default function Main() {
 
       <Estudios titulo="Formación Académica" />
       <Proyectos titulo="Proyectos Realizados" />
+      <Experiencia titulo="Experiencia Laboral" />
+       <Lenguajes titulo="Lenguajes Dominados"/>
       <Softskills titulo="Habilidades Blandas" />
       <Idiomas titulo="Idiomas" />
-      <Experiencia titulo="Experiencia Laboral" />
     </main>
   );
 }
