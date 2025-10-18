@@ -1,3 +1,5 @@
+
+
 html, body {
   margin: 0;
   padding: 0;
@@ -62,7 +64,7 @@ html {
 /* Nombre grande */
 .nombre {
   font-size: 50px;
-  color: #000000;
+  color: #2f4364;
   margin: 0 0 2rem 0;
   margin-bottom: 4rem; 
 }
@@ -76,7 +78,7 @@ html {
 .sobre-mi h2 {
   font-size: 2rem;
   color: #2a64c5;
-  border-bottom: 2px solid #2a64c5;
+  border-bottom: 2px solid #2f4364;
   display: inline-block;
   margin-bottom: 1rem;
 }
@@ -95,7 +97,7 @@ html {
 
 h2 {
   color: #2a64c5;
-  border-bottom: 2px solid #2a64c5;
+  border-bottom: 2px solid #2f4364;
   display: inline-block;
   margin-bottom: 1rem;
 }
@@ -192,6 +194,7 @@ h2 {
   text-align: center;
   padding: 1rem;
   font-size: 0.9rem;
+  border-bottom: 4px solid #1f4ea8;
 }
 
 
