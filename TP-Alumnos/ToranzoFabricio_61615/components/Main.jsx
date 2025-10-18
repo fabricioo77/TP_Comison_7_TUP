@@ -17,7 +17,7 @@ import Softskills from "./SoftSkills";
 import Idiomas from "./Idiomas";
 
 export default function Main() {
-  const descripcion = "Soy estudiante de la Tecnicatura Universitaria en Programación en la UTN,apasionado por el desarrollo de software, especialmente en C#, JavaScript y HTML. Me gusta aprender nuevas tecnologías y aplicar buenas prácticas de programación.";
+  const descripcion = "Soy estudiante de la Tecnicatura Universitaria en Programación en la UTN , apasionado por el desarrollo de software, especialmente en C#, JavaScript y HTML. Me gusta aprender nuevas tecnologías y aplicar buenas prácticas de programación.";
 
   return (
     <main className="main" id="inicio">
@@ -28,9 +28,12 @@ export default function Main() {
       <h1 className="nombre">Fabricio Luciano Toranzo</h1>
 
 
+
       <section className="sobre-mi" data-aos="zoom-in">
         <h2>Sobre mí</h2>
-        <p>{descripcion}</p>
+        <div className="card">
+          <p>{descripcion}</p>
+        </div>
       </section>
 
       <Estudios titulo="Formación Académica" />

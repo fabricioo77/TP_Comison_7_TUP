@@ -5,7 +5,7 @@ import es from "../src/assets/es.png";
 export default function Idiomas({ titulo }) {
   const idiomas = [
     { nombre: "Español", nivel: "Nativo", img: ess},
-    { nombre: "Inglés", nivel: "Basico" ,img: es},
+    { nombre: "Inglés", nivel: "Básico" ,img: es},
   ];
 
   return (

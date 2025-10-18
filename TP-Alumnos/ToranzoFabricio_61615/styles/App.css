@@ -1,9 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 
 html, body {
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: #f4f6f9;
   color: #333;
 }
@@ -11,6 +12,22 @@ html, body {
 html {
   scroll-behavior: smooth;
 }
+
+main {
+  background: linear-gradient(270deg, #2748a3, #0f172a, #3b82f6);
+  background-size: 600% 600%;
+  animation: gradientShift 12s ease infinite;
+  min-height: 100vh;
+  color: #f1f5f9;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
 /* ==============================
    HEADER — solo la barra de navegación
 ============================== */
@@ -65,7 +82,7 @@ html {
 /* Nombre grande */
 .nombre {
   font-size: 50px;
-  color: #2f4364;
+  color: #f3f7ff;
   margin: 0 0 2rem 0;
   margin-bottom: 6rem; 
 }
@@ -78,8 +95,8 @@ html {
 
 .sobre-mi h2 {
   font-size: 2rem;
-  color: #2a64c5;
-  border-bottom: 2px solid #2f4364;
+  color: #ffffff;
+  border-bottom: 2px solid #000000;
   display: inline-block;
   margin-bottom: 1rem;
 }
@@ -87,7 +104,7 @@ html {
 .sobre-mi p {
   font-size: 1.1rem;
   line-height: 1.7;
-  color: #444;
+  color: #ffffff;
 }
 
 .section {
@@ -98,8 +115,8 @@ html {
 }
 
 h2 {
-  color: #2a64c5;
-  border-bottom: 2px solid #2f4364;
+  color: #ffffff;
+  border-bottom: 2px solid #000000;
   display: inline-block;
   margin-bottom: 1rem;
 }
@@ -129,7 +146,7 @@ h2 {
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
-  border-color: #2a64c5;
+  border-color: #000000;
 }
 
 .icono-lenguaje {
@@ -148,7 +165,7 @@ h2 {
 
 /* Título de la tarjeta */
 .card h3 {
-  color: #2a64c5;
+  color: #000000;
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
 }
@@ -174,31 +191,55 @@ h2 {
 }
 
 .tags {
-  list-style: none; 
   display: flex;
   flex-wrap: wrap;
-  gap: 50px;
+  justify-content: center;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin-top: 1.5rem;
 }
 
 .tags li {
-  background: #dce6ff;
-  color: #2a64c5;
-  padding: 18px 10px;
+  background: #ffffff;
+  color: #000000;
+  padding: 0.8rem 1.4rem;
   border-radius: 20px;
-  font-size: 18px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
+
+.tags li:hover {
+  background: #a3a5a8;
+  color: white;
+  transform: translateY(-4px);
+  box-shadow: 0 5px 10px rgba(42, 100, 197, 0.3);
+}
+
+
 
 /* =========================================
    FOOTER
 ========================================= */
 .footer {
   background-color: #2f4364;
-  color: white;
+  color: rgb(255, 255, 255);
   text-align: center;
   padding: 3px;
   font-size: 0.9rem;
-  border-top: 4px solid #1f4ea8;
+  border-top: 5px solid #1f4ea8;
 }
+
+.footer a {
+  color: white;
+  text-decoration: none;
+  margin: 0 5px;
+  transition: color 0.3s ease;
+}
+
 
 
 /* scroll */
@@ -209,3 +250,29 @@ h2 {
 }
 
 
+/* videos proyecto */
+
+.video-container {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Botón debajo del video */
+.btn-ver-proyecto {
+  display: inline-block;
+  background-color: #2a64c5;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  font-weight: 500;
+  text-decoration: none;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-ver-proyecto:hover {
+  background-color: #1f4ea8;
+  transform: translateY(-2px);
+}

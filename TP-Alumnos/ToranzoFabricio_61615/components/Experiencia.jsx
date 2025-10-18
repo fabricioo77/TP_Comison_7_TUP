@@ -1,7 +1,6 @@
 export default function Experiencia({ titulo }) {
   const trabajos = [
     { id: 1, puesto: "Asistente Técnico en Desarrollo", empresa: "CIDEPT", periodo: "2022" },
-    { id: 2, puesto: "Desarrollador Freelance", empresa: "Proyectos personales", periodo: "2024 - Actualidad" },
   ];
 
   return (
