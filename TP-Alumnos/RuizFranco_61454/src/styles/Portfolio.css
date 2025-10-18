@@ -1,0 +1,26 @@
+/* Ejemplo de estilos en src/styles/Portfolio.css */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  background-color: #f4f4f4;
+}
+
+.header-portfolio {
+  text-align: center;
+  background-color: #333;
+  color: white;
+  padding: 2rem;
+}
+
+.foto-personal {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+.seccion {
+  padding: 2rem;
+  margin: 0 1rem;
+  border-bottom: 1px solid #ddd;
+}
