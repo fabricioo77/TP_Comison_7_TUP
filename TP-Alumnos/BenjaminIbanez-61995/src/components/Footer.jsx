@@ -3,9 +3,9 @@ export default function Footer() {
     <footer className="footer">
       <p>© {new Date().getFullYear()} Lucas Benjamin Ibañez</p>
       <nav>
-        <a href="#Proyectos">Proyectos</a>
-        <a href="#Estudios">Estudios</a>
-        <a href="#Softskills">Soft Skills</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#estudios">Estudios</a>
+        <a href="#softskills">Soft Skills</a>
       </nav>
     </footer>
   );
