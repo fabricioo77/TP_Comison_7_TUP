@@ -11,7 +11,7 @@ const idiomas = [
     flag: '/españa.png', 
   },
   {
-    title: 'Inglés',
+    title: 'Ingles',
     description: 'Intermedio - B2',
     
     flag: '/uk.png', 

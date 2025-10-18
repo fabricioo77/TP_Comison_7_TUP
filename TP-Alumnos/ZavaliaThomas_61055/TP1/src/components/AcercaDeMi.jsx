@@ -15,7 +15,7 @@ function AcercaDeMi() {
               transition={{ duration: 0.8 }}
             >
               <h1 style={{ fontSize: '2.6em' }}>
-                PERMÍTEME <span className="text-purple">PRESENTARME</span>
+                PERMITEME <span className="text-purple">PRESENTARME</span>
               </h1>
               <p className="about-body">
                 Soy <b className="text-purple">Zavalia Thomas</b>, un desarrollador apasionado por el mundo del software.

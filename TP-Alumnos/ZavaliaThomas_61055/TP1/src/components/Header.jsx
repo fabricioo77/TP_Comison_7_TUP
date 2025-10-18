@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
-// import logo from "../assets/image.png"; // Ya no necesitamos el logo
 import {
   AiOutlineHome,
   AiOutlineUser,
@@ -13,28 +12,30 @@ import {
 } from "react-icons/ai";
 
 function Header() {
-  const [expanded, setExpanded] = useState(false);
-  const [navColour, setNavColour] = useState(false);
+  const [expandido, setExpandido] = useState(false);
+  const [colorNav, setColorNav] = useState(false);
 
   useEffect(() => {
-    function scrollHandler() {
-      if (window.scrollY >= 20) setNavColour(true);
-      else setNavColour(false);
+    function manejarScroll() {
+      if (window.scrollY >= 20) {
+        setColorNav(true);
+      } else {
+        setColorNav(false);
+      }
     }
 
-    window.addEventListener("scroll", scrollHandler);
-    return () => window.removeEventListener("scroll", scrollHandler);
+    window.addEventListener("scroll", manejarScroll);
+    return () => window.removeEventListener("scroll", manejarScroll);
   }, []);
 
   return (
     <Navbar
-      expanded={expanded}
+      expanded={expandido}
       fixed="top"
       expand="md"
-      className={navColour ? "sticky" : "navbar"}
+      className={colorNav ? "sticky" : "navbar"}
     >
       <Container>
-       
         <Navbar.Brand href="#home" className="d-flex">
           <div className="text-purple" style={{ fontWeight: 'bold', fontSize: '1.8rem' }}>
             TZ
@@ -43,7 +44,7 @@ function Header() {
 
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
-          onClick={() => setExpanded(expanded ? false : "expanded")}
+          onClick={() => setExpandido(expandido ? false : "expanded")}
         >
           <span></span>
           <span></span>
@@ -53,32 +54,32 @@ function Header() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Item>
-              <Nav.Link href="#home" onClick={() => setExpanded(false)}>
+              <Nav.Link href="#home" onClick={() => setExpandido(false)}>
                 <AiOutlineHome style={{ marginBottom: "2px" }} /> Inicio
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#about" onClick={() => setExpanded(false)}>
+              <Nav.Link href="#about" onClick={() => setExpandido(false)}>
                 <AiOutlineUser style={{ marginBottom: "2px" }} /> Acerca de mí
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#estudios" onClick={() => setExpanded(false)}>
+              <Nav.Link href="#estudios" onClick={() => setExpandido(false)}>
                 <AiOutlineBook style={{ marginBottom: "2px" }} /> Estudios
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#skills" onClick={() => setExpanded(false)}>
+              <Nav.Link href="#skills" onClick={() => setExpandido(false)}>
                 <AiOutlineStar style={{ marginBottom: "2px" }} /> Habilidades
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#proyectos" onClick={() => setExpanded(false)}>
+              <Nav.Link href="#proyectos" onClick={() => setExpandido(false)}>
                 <AiOutlineProject style={{ marginBottom: "2px" }} /> Proyectos
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#idiomas" onClick={() => setExpanded(false)}>
+              <Nav.Link href="#idiomas" onClick={() => setExpandido(false)}>
                 <AiOutlineGlobal style={{ marginBottom: "2px" }} /> Idiomas
               </Nav.Link>
             </Nav.Item>

@@ -7,7 +7,7 @@ import { AiOutlineBook } from 'react-icons/ai';
 
 function Estudios() {
   return (
-    // Quitamos la clase "mb-5" para reducir el margen inferior
+   
     <section id="estudios">
       <Container>
         <Row className="justify-content-center">

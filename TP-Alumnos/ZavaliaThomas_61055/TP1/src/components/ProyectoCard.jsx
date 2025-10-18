@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { BsGithub } from 'react-icons/bs';
 
-function ProjectCard(props) {
+function ProyectoCard(props) {
   return (
     <Card className="project-card-view">
       <Card.Img variant="top" src={props.imgPath} alt="card-img" />
@@ -20,4 +20,4 @@ function ProjectCard(props) {
   );
 }
 
-export default ProjectCard;
+export default ProyectoCard;
