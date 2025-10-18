@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Array de objetos con la información de tus proyectos
 const listaProyectos = [
   {
     id: 1,
