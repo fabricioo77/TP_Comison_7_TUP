@@ -6,7 +6,7 @@ export default function Inicio({id}) {
 
 
     return(
-        <section id={id} className="seccion-inicio">
+        <section id={id} className="seccion-inicio  animate-on-load">
 
                     <div className="contenedor-texto">
                         

@@ -1,7 +1,7 @@
 .seccion-idiomas {
   padding: 100px 5vw;
-  background-color: #1f1f1f; 
-  color: white;
+  background-color: white; 
+  color: black;
 }
 
 
@@ -23,7 +23,7 @@
 
 
 .idioma-card {
-  background-color: #2c2c2c;
+  background-color: #1E293B;
   border-radius: 8px;
   padding: 20px 25px;
   display: flex;
@@ -35,14 +35,15 @@
 }
 
 
-.idioma-card:hover { /* Agregado: Define el estilo cuando el mouse está encima */
-  transform: translateY(-10px); /* Agregado: Mueve la tarjeta hacia arriba */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Agregado: Acentúa la sombra */
+.idioma-card:hover { 
+  transform: translateY(-10px); 
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); 
 }
 
 .idioma-nombre {
   font-size: 1.3rem;
   font-weight: 600;
+  color: white;
 }
 
 
