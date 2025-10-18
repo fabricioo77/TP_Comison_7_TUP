@@ -6,7 +6,7 @@ export default function Proyectos({ titulo }) {
   ];
 
   return (
-    <section id="proyectos" className="section">
+    <section id="proyectos" className="section" data-aos="zoom-in">
       <h2>{titulo}</h2>
       <div className="lista-formacion">
         {proyectos.map((p) => (

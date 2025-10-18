@@ -6,6 +6,9 @@ html, body {
   color: #333;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 /* ==============================
    HEADER — solo la barra de navegación
 ============================== */
@@ -61,11 +64,13 @@ html, body {
   font-size: 50px;
   color: #000000;
   margin: 0 0 2rem 0;
+  margin-bottom: 4rem; 
 }
 
 /* Sección "Sobre mí" */
 .sobre-mi {
   max-width: 800px;
+  
 }
 
 .sobre-mi h2 {
@@ -83,7 +88,9 @@ html, body {
 }
 
 .section {
-  margin-bottom: 2.5rem;
+  margin-bottom: 4rem;
+  margin-top: 4rem;
+     
 }
 
 h2 {
@@ -186,3 +193,13 @@ h2 {
   padding: 1rem;
   font-size: 0.9rem;
 }
+
+
+/* scroll */
+
+[data-aos] {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+

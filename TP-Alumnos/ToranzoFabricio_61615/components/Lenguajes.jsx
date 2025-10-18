@@ -14,7 +14,7 @@ export default function Lenguajes() {
   ];
 
   return (
-    <section id="lenguajes" className="section">
+    <section id="lenguajes" className="section" data-aos="zoom-in">
       <h2>Lenguajes</h2>
       <ul className="lista-formacion">
         {lenguajes.map((l) => (

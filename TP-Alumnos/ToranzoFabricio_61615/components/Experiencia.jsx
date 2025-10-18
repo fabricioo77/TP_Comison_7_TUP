@@ -1,11 +1,11 @@
 export default function Experiencia({ titulo }) {
   const trabajos = [
-    { id: 1, puesto: "Asistente Técnico", empresa: "Cerámica Marcos Paz SRL", periodo: "2023" },
+    { id: 1, puesto: "Asistente Técnico en Desarrollo", empresa: "CIDEPT", periodo: "2022" },
     { id: 2, puesto: "Desarrollador Freelance", empresa: "Proyectos personales", periodo: "2024 - Actualidad" },
   ];
 
   return (
-    <section id="experiencia" className="section">
+    <section id="experiencia" className="section" data-aos="zoom-in">
       <h2>{titulo}</h2>
       <ul className="lista-formacion">
       {trabajos.map((t) => (

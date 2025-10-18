@@ -9,7 +9,7 @@ export default function Idiomas({ titulo }) {
   ];
 
   return (
-    <section id="idiomas" className="section">
+    <section id="idiomas" className="section" data-aos="zoom-in">
       <h2>{titulo}</h2>
       <ul className="lista-formacion">
         {idiomas.map((i, idx) => (

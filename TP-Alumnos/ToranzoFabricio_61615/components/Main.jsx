@@ -1,3 +1,12 @@
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+AOS.init({
+  duration: 1000, 
+  once: false,   
+  offset: 200, 
+});
+
 import perfil from "../src/assets/IMG-20230223-WA0000.jpg";
 
 import Estudios from "./Estudios";
@@ -31,8 +40,8 @@ export default function Main() {
       <Estudios titulo="Formación Académica" />
       <Proyectos titulo="Proyectos Realizados" />
       <Experiencia titulo="Experiencia Laboral" />
-       <Lenguajes titulo="Lenguajes Dominados"/>
-      <Softskills titulo="Habilidades Blandas" />
+      <Lenguajes titulo="Lenguajes Dominados"/>
+      <Softskills titulo="Habilidades" />
       <Idiomas titulo="Idiomas" />
     </main>
   );
