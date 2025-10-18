@@ -195,9 +195,9 @@ h2 {
   background-color: #2f4364;
   color: white;
   text-align: center;
-  padding: 1rem;
+  padding: 3px;
   font-size: 0.9rem;
-  border-bottom: 4px solid #1f4ea8;
+  border-top: 4px solid #1f4ea8;
 }
 
 
