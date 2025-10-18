@@ -7,18 +7,18 @@ export default function Estudios({id}) {
     const misEstudios = [
         {
             id: 1,
-            institucion: "Instituto San Miguel",
-            ensenio: {
-                titulo1: "Bachiller en Ciencias Naturales (2014 - 2019)",
-                titulo2: "Curso de Microsoft Office - Nivel Avanzado (2017)",
-            }
-        },
-        {
-            id: 2,
             institucion: "Universidad Tecnológica Nacional - Facultad Regional Tucumán",
             ensenio: {
                 titulo1: "Técnicatura Universitaria en Programación (2024 - Actualidad) ",
                 titulo2: "Curso de Diseño Gráfico con CorelDraw (2021)",
+            }
+        },
+        {
+            id: 2,
+            institucion: "Instituto San Miguel",
+            ensenio: {
+                titulo1: "Bachiller en Ciencias Naturales (2014 - 2019)",
+                titulo2: "Curso de Microsoft Office - Nivel Avanzado (2017)",
             }
         },
         {

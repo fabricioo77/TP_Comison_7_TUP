@@ -10,7 +10,7 @@ export default function Inicio({id}) {
 
                     <div className="contenedor-texto">
                         
-                   <h1 className="h1-inicio">Hola, soy <span className="nombre-color">Lucas German Dávalos</span> </h1>
+                   <h1 className="h1-inicio">Hola, soy <span className="nombre-color">Lucas</span> German Dávalos </h1>
 
                     <p className="p-inicio">
                         Soy una persona proactiva, con gran capacidad de aprndizaje, adaptacion y trabajo en equipo.
