@@ -14,8 +14,8 @@ const Navbar = ({ onCambiarSeccion }) => {
                 {/* 1. Inicio (Presentación) */}
                 <li><a href="#" onClick={() => onCambiarSeccion('bio')}>Inicio</a></li>
                 
-                {/* 2. Mi Perfil (Presentación) */}
-                <li><a href="#" onClick={() => onCambiarSeccion('bio')}>Mi Perfil</a></li> 
+                {/* 2. Mi Perfil (Presentación) 
+                <li><a href="#" onClick={() => onCambiarSeccion('bio')}>Mi Perfil</a></li> */}
                 
                 {/* 3. Contáctame */}
                 <li><a href="#" onClick={() => onCambiarSeccion('contacto')}>Contáctame</a></li>

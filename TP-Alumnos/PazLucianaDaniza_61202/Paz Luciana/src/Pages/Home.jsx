@@ -23,7 +23,7 @@ const Home = () => {
         
         // Forzamos el scroll hacia el área de contenido principal (Main)
         // si la sección activa NO es 'bio' (para no arruinar la portada)
-        if (id !== 'bio') {
+        if (id = 'bio') {
              const mainContent = document.querySelector('.main-content');
              if (mainContent) {
                  mainContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
