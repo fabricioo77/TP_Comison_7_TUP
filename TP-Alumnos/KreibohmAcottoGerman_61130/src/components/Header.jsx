@@ -2,8 +2,8 @@ import React from "react";
 
 const Header = () => {
   return (
-    <header className="flex justify-center align-items-center z-10">
-      <nav className="flex justify-between align-items-center w-5xl border border-white p-4 rounded-full backdrop-blur-lg bg-white/5 ">
+    <header className="flex justify-center align-items-center z-10 mt-4">
+      <nav className="flex justify-between align-items-center container p-4 rounded-full backdrop-blur-2xl bg-neutral-100/5 shadow-lg ">
         <div className="">
           <img src="logo.png" alt="Logo" />
         </div>

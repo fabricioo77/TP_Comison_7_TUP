@@ -15,3 +15,11 @@ background-image:
     radial-gradient(at 55% 95%, #330000 0%, transparent 100%); /* deep red */
     color: white;
 }
+
+section{
+    padding-bottom: 2rem;
+}
+
+.nav-link:hover{
+    scale: 1.1;
+}
