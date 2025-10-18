@@ -28,13 +28,9 @@ export default function Main() {
       <h1 className="nombre">Fabricio Luciano Toranzo</h1>
 
 
-      <section className="sobre-mi">
+      <section className="sobre-mi" data-aos="zoom-in">
         <h2>Sobre mí</h2>
-        <p>
-          Soy estudiante de la Tecnicatura Universitaria en Programación (UTN FRT),
-          apasionado por el desarrollo de software, con especial interés en C#, React y Node.js.
-          Me gusta crear soluciones eficientes y aprender constantemente sobre nuevas tecnologías.
-        </p>
+        <p>{descripcion}</p>
       </section>
 
       <Estudios titulo="Formación Académica" />
