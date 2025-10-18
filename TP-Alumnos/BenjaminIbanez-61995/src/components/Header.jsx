@@ -12,7 +12,7 @@ export default function Header() {
 
       <header className="header">
         <div className="hero">
-          <img src="/profile.jpg" alt="Foto de perfil" className="avatar" />
+          <img src="../public/profile.jpg" alt="Foto de perfil" className="avatar" />
           <div>
             <h1>Ibañez Lucas Benjamin</h1>
             <p>Desarrollador Web JR</p>
