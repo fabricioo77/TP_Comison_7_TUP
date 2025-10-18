@@ -66,7 +66,7 @@ function Main() {
         </p>
       </section>
 
-        {/* --- 2. NAVEGACIÓN INTERNA --- */}
+      {/* --- 2. NAVEGACIÓN INTERNA --- */}
       <nav>
         <a href="#estudios">Ir a Estudios</a>
         <a href="#proyectos">Ir a Proyectos</a>
@@ -74,9 +74,9 @@ function Main() {
 
       {/* --- 3. Props para los hijos) --- */}
       
-      <Estudios formacion={datosFormacion} />
+      <Estudios formacion={listaEstudios} />
       
-      <Proyectos proyectos={datosProyectos} />
+      <Proyectos proyectos={listaProyectos} />
 
     </main>
   );
