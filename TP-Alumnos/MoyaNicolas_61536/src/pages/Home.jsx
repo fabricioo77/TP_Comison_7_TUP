@@ -2,7 +2,7 @@ import Header from '../components/Header';
 import Main from '../components/Main';
 import Footer from '../components/Footer';
 
-// Datos de estudios
+// Mi información académica
 const dataEstudios = [
   { 
     id: 1, 
@@ -34,7 +34,7 @@ const dataEstudios = [
   },
 ];
 
-// Datos de certificados
+// Certificados que tengo
 const dataCertificados = [
   {
     id: 1,
@@ -52,7 +52,7 @@ const dataCertificados = [
   },
 ];
 
-// Datos de idiomas
+// Idiomas que hablo
 const dataIdiomas = [
   {
     id: 1,
@@ -69,10 +69,12 @@ const dataIdiomas = [
 ];
 
 function Home() {
+  // Esta es la página principal que contiene todo el portfolio
   return (
     <div className="portfolio-wrapper">
       <Header />
       
+      {/* Le paso todos mis datos al componente Main */}
       <Main 
         nombre="Nicolás"
         apellido="Moya"

@@ -9,6 +9,7 @@ function Idiomas({ data }) {
           <div key={idioma.id} className="idioma-card">
             <h3>{idioma.nombre}</h3>
             <div className="nivel-container">
+              {/* Barra que se rellena según el porcentaje del idioma */}
               <div className="nivel-bar">
                 <div 
                   className="nivel-fill" 

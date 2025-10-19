@@ -4,10 +4,12 @@ import Certificados from './Certificados';
 import Idiomas from './Idiomas';
 import '../styles/Main.css';
 
+// Recibo los datos que me pasa Home como props
 function Main({ nombre, apellido, dataEstudios, dataCertificados, dataIdiomas }) { 
   return (
     <main className="main-content">
       
+      {/* Sección principal con mi foto y presentación */}
       <section className="hero-section">
         <div className="hero-content">
           <img src="/perfil.jpg" alt="Nicolás Moya" className="hero-profile-pic" />
