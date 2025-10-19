@@ -1,10 +1,10 @@
-import Estudios from "./Estudios";
-import SoftSkills from "./SoftSkills";
-import Proyectos from "./Proyectos";
-import Experiencia from "./Experiencia";
-import Idiomas from "./Idiomas";
-import Certificados from "./Certificados";
-import { personalData } from "../data/data";
+import Estudios from "./Estudios.jsx";
+import SoftSkills from "./SoftSkills.jsx";
+import Proyectos from "./Proyectos.jsx";
+import Experiencia from "./Experiencia.jsx";
+import Idiomas from "./Idiomas.jsx";
+import Certificados from "./Certificados.jsx";
+import { personalData } from "../data/data.js"; // <--- ESTA LÍNEA ES LA SOLUCIÓN
 
 const Main = () => {
   return (
