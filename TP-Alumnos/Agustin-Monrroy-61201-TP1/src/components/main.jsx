@@ -1,5 +1,6 @@
 import Estudios from '../components/estudios'; 
-
+import SoftSkills from "../components/softskills";
+import Proyectos from "../components/Proyectos";
 
 const styles = {
   main: {
@@ -48,8 +49,9 @@ function Main() {
         </p>
       </section>
 
-    
       <Estudios /> 
+      <SoftSkills/>
+      <Proyectos/>
 
     </div>
   );
