@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles/Footer.css';
-import { FaGithub, FaLinkedin, FaEnvelope, FaHeart } from 'react-icons/fa';
+import { FaGithub, FaHeart } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -8,8 +8,8 @@ const Footer = () => {
       <div className="container">
         <div className="footer-content">
           <div className="footer-section">
-            <h3>&lt;Portfolio /&gt;</h3>
-            <p>Desarrollador Full Stack | Estudiante UTN</p>
+            <h3>Joaquín Mansilla</h3>
+            <p>Desarrollador Full Stack | Estudiante UTN | Tucumán, Argentina</p>
           </div>
           <div className="footer-section">
             <h4>Enlaces rápidos</h4>
@@ -17,28 +17,21 @@ const Footer = () => {
               <li><a href="#inicio">Inicio</a></li>
               <li><a href="#sobre-mi">Sobre mí</a></li>
               <li><a href="#habilidades">Habilidades</a></li>
-              <li><a href="#proyectos">Proyectos</a></li>
               <li><a href="#contacto">Contacto</a></li>
             </ul>
           </div>
           <div className="footer-section">
-            <h4>Redes sociales</h4>
+            <h4>GitHub</h4>
             <div className="footer-social">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/Joaamansilla" target="_blank" rel="noopener noreferrer">
                 <FaGithub />
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                <FaLinkedin />
-              </a>
-              <a href="mailto:tu@email.com">
-                <FaEnvelope />
               </a>
             </div>
           </div>
         </div>
         <div className="footer-bottom">
           <p>
-            Hecho con <FaHeart className="heart-icon" /> por un estudiante de la UTN | {new Date().getFullYear()}
+            Hecho con <FaHeart className="heart-icon" /> por Joaquín Mansilla | {new Date().getFullYear()}
           </p>
         </div>
       </div>

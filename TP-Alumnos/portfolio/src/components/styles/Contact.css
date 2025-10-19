@@ -39,6 +39,17 @@
   color: #6b7280;
 }
 
+.info-item a {
+  color: #2563eb;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.info-item a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
 .contact-form {
   background: #f9fafb;
   padding: 2rem;

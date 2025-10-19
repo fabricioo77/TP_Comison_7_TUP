@@ -13,9 +13,9 @@ const About = () => {
             </div>
           </div>
           <div className="about-text">
-            <h3>Desarrollador Full Stack</h3>
+            <h3>Joaquín Mansilla</h3>
             <p className="about-description">
-              Tengo 20 años y actualmente estoy estudiando en la <strong>Facultad Tecnológica Nacional</strong>. 
+              Tengo 20 años y soy de <strong>Tucumán, Argentina</strong>. Actualmente estoy estudiando en la <strong>Facultad Tecnológica Nacional</strong>. 
               Me apasiona el desarrollo de software y la creación de aplicaciones web modernas.
             </p>
             <p className="about-description">
@@ -29,12 +29,12 @@ const About = () => {
                 <p>Años</p>
               </div>
               <div className="stat">
-                <h4>UTN</h4>
-                <p>Facultad</p>
+                <h4>Tucumán</h4>
+                <p>Argentina</p>
               </div>
               <div className="stat">
-                <h4>Full Stack</h4>
-                <p>Desarrollador</p>
+                <h4>UTN</h4>
+                <p>Estudiante</p>
               </div>
             </div>
           </div>
