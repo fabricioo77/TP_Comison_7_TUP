@@ -17,7 +17,7 @@ function Footer() {
         gap: '30px', 
       }}>
         <a 
-          href="https://www.linkedin.com/in/tu-usuario" 
+          href="https://www.linkedin.com/in/agustin-monrroy-22337538b" 
           target="_blank" 
           rel="noopener noreferrer" 
           style={{
@@ -30,7 +30,7 @@ function Footer() {
         </a>
         
         <a 
-          href="https://github.com/tu-usuario" 
+          href="https://github.com/Agustin-Monrroy" 
           target="_blank" 
           rel="noopener noreferrer"
           style={{
