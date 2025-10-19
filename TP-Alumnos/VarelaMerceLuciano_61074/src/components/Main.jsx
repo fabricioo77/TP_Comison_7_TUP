@@ -32,7 +32,7 @@ const listaProyectos =
     id: 4,
     titulo: "Este Portfolio (React)",
     descripcion: "Mi portfolio personal creado con React y Vite. Aquí muestro mis habilidades y proyectos.",
-    urlGithub: "https://github.com/LuchoMerce/TP_Comison_7_TUP.git"
+    urlGithub: "https://github.com/LuchoMerce/Portfolio.git"
   }
 ];
 
