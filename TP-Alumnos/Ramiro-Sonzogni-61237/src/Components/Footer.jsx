@@ -7,70 +7,7 @@ function Footer() {
       textAlign: 'center',
     }}>
       
-      <div style={{ marginBottom: '30px' }}>
-        <h3 style={{ 
-          fontSize: '1.5rem', 
-          marginBottom: '15px',
-          color: '#fff'
-        }}>
-          Navegación
-        </h3>
-        <nav style={{ 
-          display: 'flex', 
-          justifyContent: 'center',
-          gap: '20px',
-          flexWrap: 'wrap'
-        }}>
-          <a href="#estudios" style={{
-            color: '#999',
-            textDecoration: 'none',
-            fontSize: '1.1rem',
-            padding: '8px 15px',
-          }}>
-            Estudios
-          </a>
-          <a href="#idiomas" style={{
-            color: '#999',
-            textDecoration: 'none',
-            fontSize: '1.1rem',
-            padding: '8px 15px',
-          }}>
-            Idiomas
-          </a>
-          <a href="#proyectos" style={{
-            color: '#999',
-            textDecoration: 'none',
-            fontSize: '1.1rem',
-            padding: '8px 15px',
-          }}>
-            Proyectos
-          </a>
-        <a href="#softSkills" style={{
-            color: '#999',
-            textDecoration: 'none',
-            fontSize: '1.1rem',
-            padding: '8px 15px',
-          }}>
-            SoftSkills
-          </a>
-          <a href="#experiencias" style={{
-            color: '#999',
-            textDecoration: 'none',
-            fontSize: '1.1rem',
-            padding: '8px 15px',
-          }}>
-            Experiencia
-          </a>
-          <a href="#certificados" style={{
-            color: '#999',
-            textDecoration: 'none',
-            fontSize: '1.1rem',
-            padding: '8px 15px',
-          }}>
-            Certificados
-          </a>
-        </nav>
-      </div>
+
 
       <div style={{ marginBottom: '20px' }}>
         <h3 style={{ 

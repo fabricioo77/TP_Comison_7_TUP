@@ -2,8 +2,8 @@ import Idiomas from "./Idiomas"
 
 function Estudios() {
     const estudios = [
-        {id: 1, nombre: "Secundario: Colegio ", nivel: "6 Años"},
-        {id: 2, nombre: "Universidad", nivel: "2 Años"}
+        {id: 1, nombre: "Colegio Suizo ", nivel: "6 Años"},
+        {id: 2, nombre: "Universidad Tecnologica Nacional", nivel: "2 Años"}
     ]
     return (
     <section id="estudios" style={{ padding: '40px 60px' }}>
