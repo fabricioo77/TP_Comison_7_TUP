@@ -7,7 +7,9 @@ function Header()
     return (
         <header className = "header">
 
-            <img src = "/miFoto.jpg" alt = "Foto Personal" />
+            <img src = "/miFoto.jpg" 
+            alt = "Foto Personal"
+            className = "foto-perfil" />
             <h1>{nombre}</h1>
             
         </header>

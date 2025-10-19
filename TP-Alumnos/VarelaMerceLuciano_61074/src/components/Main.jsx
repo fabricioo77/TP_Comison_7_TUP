@@ -4,6 +4,9 @@ import React from 'react';
 
 import Proyectos from './Proyectos';
 import Estudios from './Estudios';
+import Experiencia from './Experiencia';
+import Idiomas from './Idiomas';
+import SoftSkills from './SoftSkills';
 
 const listaProyectos = 
 [
@@ -29,7 +32,7 @@ const listaProyectos =
     id: 4,
     titulo: "Este Portfolio (React)",
     descripcion: "Mi portfolio personal creado con React y Vite. Aquí muestro mis habilidades y proyectos.",
-    urlGithub: "https..."
+    urlGithub: "https://github.com/LuchoMerce/TP_Comison_7_TUP.git"
   }
 ];
 
@@ -52,6 +55,34 @@ const listaEstudios =
   }
 ]
 
+const listaExperiencia = [
+  {
+    id: 1,
+    puesto: "Soporte Técnico en telecomunicaciones",
+    empresa: "Teleperformance",
+    periodo: "Junio 2021 - Actualidad",
+    tareas: [
+      "Atención de primera línea a clientes.",
+      "Soporte técnico sobre dispositivos y servicios de internet, televisíon y telefonía.",
+      "Venta de productos y servicios adicionales."
+    ]
+  }
+];
+
+const listaIdiomas = [
+  { id: 1, nombre: "Español", nivel: "Nativo" },
+  { id: 2, nombre: "Inglés", nivel: "Intermedio (B1)" }
+];
+
+const listaSoftSkills = [
+  { id: 1, nombre: "C#" },
+  { id: 2, nombre: "React + Vite" },
+  { id: 3, nombre: "MySQL" },
+  { id: 4, nombre: "PowerBI" },
+  { id: 5, nombre: "MongoDB" },
+  { id: 6, nombre: "HTML + JS + CSS" },
+  { id: 7, nombre: "C, C++" }
+];
 
 function Main() {
   return (
@@ -70,13 +101,22 @@ function Main() {
       <nav>
         <a href="#estudios">Ir a Estudios</a>
         <a href="#proyectos">Ir a Proyectos</a>
+        <a href="#experiencia">Ir a Experiencia</a>
+        <a href="#idiomas">Ir a Idiomas</a>
+        <a href="#soft-skills">Ir a SoftSkills</a>
       </nav>
 
       {/* --- 3. Props para los hijos) --- */}
       
-      <Estudios formacion={listaEstudios} />
-      
-      <Proyectos proyectos={listaProyectos} />
+        <Estudios formacion={listaEstudios} />
+        
+        <Proyectos proyectos={listaProyectos} />
+        
+        <Experiencia experiencia={listaExperiencia} />
+
+        <Idiomas idiomas={listaIdiomas} />
+
+        <SoftSkills skills={listaSoftSkills} />
 
     </main>
   );
