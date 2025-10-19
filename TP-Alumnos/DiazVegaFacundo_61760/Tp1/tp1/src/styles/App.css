@@ -1,0 +1,161 @@
+html, body {
+  /* CRUCIAL: Asegura que el cuerpo y HTML ocupen toda la altura de la ventana */
+  height: 100%; 
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+#root {
+  /* Asegura que el contenedor de React ocupe el 100% para evitar colapsos */
+  min-height: 100%; 
+}
+
+
+/* ================================== */
+/* 2. VARIABLES Y ESTILOS GLOBALES */
+/* ================================== */
+
+:root {
+  --primary-color: #007bff; /* Azul */
+  --text-color: #333;
+  --bg-color: #f4f7f6;
+  --card-bg: #fff;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Layout General */
+.portfolio-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh; 
+  display: flex;
+  flex-direction: column;
+}
+
+/* ================================== */
+/* 3. HEADER */
+/* ================================== */
+.portfolio-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid white;
+  margin-bottom: 15px;
+}
+
+h1 {
+  margin: 5px 0 0;
+  font-size: 2.5em;
+}
+
+.subtitle {
+  font-weight: 300;
+  font-size: 1.1em;
+}
+
+/* ================================== */
+/* 4. MAIN CONTENT & SECCIONES */
+/* ================================== */
+.portfolio-main {
+  padding: 20px;
+  flex-grow: 1; 
+}
+
+.section-padding {
+  padding: 40px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.section-title {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 10px;
+  margin-bottom: 25px;
+  font-size: 1.8em;
+}
+
+/* Estilos de Card genérico para estudios, experiencia, etc. */
+.card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.card {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* PROYECTOS GRID */
+.proyectos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.proyecto-card {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.badge {
+  display: inline-block;
+  background-color: #e9ecef;
+  color: #495057;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+
+.repo-link {
+  display: inline-block;
+  margin-top: 15px;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* ================================== */
+/* 5. FOOTER */
+/* ================================== */
+.portfolio-footer {
+  text-align: center;
+  padding: 20px;
+  background-color: var(--text-color);
+  color: white;
+  font-size: 0.9em;
+  margin-top: auto; 
+}
+
+.social-links a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+}
