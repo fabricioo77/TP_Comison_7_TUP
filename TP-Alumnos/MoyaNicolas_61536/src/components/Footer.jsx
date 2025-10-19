@@ -12,14 +12,6 @@ function Footer() {
         </div>
 
         <div className="footer-section">
-          <h3>Redes Sociales</h3>
-          <div className="social-icons">
-            <a href="https://github.com/Niconeta" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/nicolásmoya7991" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          </div>
-        </div>
-
-        <div className="footer-section">
           <h3>Sobre este sitio</h3>
           <p>Portfolio personal desarrollado con React</p>
           <p>© 2025 Nicolás Moya. Todos los derechos reservados.</p>
