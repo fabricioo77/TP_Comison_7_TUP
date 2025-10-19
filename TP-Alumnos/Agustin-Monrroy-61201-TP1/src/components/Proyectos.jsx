@@ -100,7 +100,7 @@ const proyectos = [
 function Proyectos() {
   return (
     <section style={styles.section}>
-      <h2 style={styles.sectionTitle}>Proyectos Realizados</h2>
+      <h2 style={styles.sectionTitle}>Proyectos Realizados y en Proceso</h2>
       
       <div style={styles.projectGrid}>
         {proyectos.map((proyecto, index) => (

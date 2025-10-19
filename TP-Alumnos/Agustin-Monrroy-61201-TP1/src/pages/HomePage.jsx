@@ -1,5 +1,5 @@
 import Header from "../components/Header"
-import Main from "../components/Main" // Tu componente de contenido
+import Main from "../components/main" 
 import Footer from "../components/footer"
 
 const HomePage = () => {

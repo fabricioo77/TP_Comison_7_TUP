@@ -1,4 +1,4 @@
-// Estilos CSS para este componente
+
 const styles = {
   section: {
     marginBottom: '50px',
