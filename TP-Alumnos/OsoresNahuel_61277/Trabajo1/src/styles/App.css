@@ -1,0 +1,29 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+
+body{
+    justify-content: center;
+}
+
+header{
+    background-color: blue;
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+#container{
+    width: 1300px;
+    height: 900px;
+    margin: auto;
+    border: 1px solid blueviolet;
+}
+
+#imgPersonal{
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+}
