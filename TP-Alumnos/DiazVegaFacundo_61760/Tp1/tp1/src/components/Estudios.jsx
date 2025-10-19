@@ -9,10 +9,10 @@ const Estudios = () => {
           <div key={estudio.id} className="card">
             <h3>{estudio.titulo}</h3>
             <p>
-              **Institución:** {estudio.institucion}
+              Institución: {estudio.institucion}
             </p>
             <p>
-              **Período:** {estudio.periodo}
+              Período: {estudio.periodo}
             </p>
           </div>
         ))}

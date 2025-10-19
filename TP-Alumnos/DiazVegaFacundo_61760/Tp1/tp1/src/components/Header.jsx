@@ -1,5 +1,3 @@
-// src/components/Header.jsx
-
 import { personalData } from "../data/data";
 import profileImage from '../assets/foto.jpg'; 
 

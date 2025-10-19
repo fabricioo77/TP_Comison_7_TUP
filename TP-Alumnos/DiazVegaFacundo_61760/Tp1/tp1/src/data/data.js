@@ -3,8 +3,8 @@ export const personalData = {
   rol: "Estudiante de Programación | Desarrollador Front-end Jr.",
   // Bio actualizada con la información que proporcionaste
   bio: "Soy un estudiante avanzado de la Tecnicatura Universitaria en Programación con fuerte enfoque en el desarrollo Front-end. Busco aplicar conocimientos de React, consumo de APIs y buenas prácticas de desarrollo. Mi formación técnica me permite abordar problemas desde una perspectiva integral de hardware y software.",
-  linkedin: "https://linkedin.com/in/diazvegfacundo", // ¡Asegúrate de actualizar tus enlaces!
-  github: "https://github.com/tu-usuario-github",
+  github: "https://github.com/iYoFacus4", 
+  linkedin: "https://www.linkedin.com/in/facundo-díaz-vega-385606294",
 };
 
 // Estudios Académicos
@@ -18,13 +18,13 @@ export const estudiosData = [
   {
     id: 2,
     titulo: "Título Secundario Completo",
-    institucion: "Institución Educativa", // Rellenar nombre real
+    institucion: "Colegio Salesiano Gral Belgrano", 
     periodo: "Finalizado",
   },
   {
     id: 3,
     titulo: "Título Inicial Completo",
-    institucion: "Institución Educativa", // Rellenar nombre real
+    institucion: "Colegio Salesiano Gral Belgrano", 
     periodo: "Finalizado",
   },
 ];
