@@ -50,3 +50,18 @@ dentro de la carpeta src, que es donde se encuentra el codigo fuente de la aplic
 - destructuring: es una caracteristica de JavaScript que permite extraer valores de objetos o arrays y asignarlos a variables de manera mas sencilla y legible. En el contexto de React, se utiliza comunmente para extraer props o estado en componentes funcionales.
 
 - useState: es un hook de React que permite agregar estado a los componentes funcionales. Devuelve un par de valores: el estado actual y una funcion para actualizar ese estado.
+
+
+- react-bootstrap: es una biblioteca de componentes de interfaz de usuario que combina la potencia de React con el popular framework de diseño Bootstrap. Proporciona componentes preconstruidos y estilizados que facilitan la creacion de interfaces atractivas y responsivas en aplicaciones React.
+
+npm install react-bootstrap bootstrap
+
+npm install react-icons --save
+
+npm i bootstrap-icons
+
+ npm i sweetalert2  (libreria para modales y alertas personalizables)
+
+npm i sweetalert2-react-content   (esto es para usar modales de sweetalert2 en react)
+
+
