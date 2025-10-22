@@ -2,18 +2,32 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
+import { getUsuarioPorEmail } from '../Utils/utils';
+import { useEffect } from 'react';
 function Login() {
     const [email, setEmail] = useState("")
-    const [contrasena, setContrasena] = useState("")
+    const [contrasenia, setContrasena] = useState("")
     const navigate = useNavigate();
+    useEffect(() => {
+      const log = localStorage.getItem("usuarioLogueado")
+      if(log === "Si") {
+        navigate('/dashboard')
+      }
+    }, [])
+
     const handleSubmit = (e) => {
+      const usuario = getUsuarioPorEmail(email)
         e.preventDefault();
-        if (email && contrasena) {
+        if(usuario != null ) {
+          if(contrasenia === usuario.contrasenia) {
           localStorage.setItem('usuarioLogueado', 'Si');
-          localStorage.setItem('emailUsuario', email);
-            navigate('/dashboard')
-        }else {
-            alert("Rellena los campos")
+          localStorage.setItem('Usuario', JSON.stringify(usuario));
+          navigate('/dashboard')
+          } else{
+            alert("Contraseña Incorrecta")
+          }
+        } else {
+          alert("El Usuario No Existe")
         }
     }
   return (
@@ -23,7 +37,7 @@ function Login() {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "#f8f9fa"
+      background: " #2c3e50",
     }}
   >
     <Form
@@ -40,7 +54,7 @@ function Login() {
         <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
-          placeholder="Enter email"
+          placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
         />
       </Form.Group>
@@ -49,13 +63,9 @@ function Login() {
         <Form.Label>Contraseña</Form.Label>
         <Form.Control
           type="password"
-          placeholder="Password"
+          placeholder="Contraseña"
           onChange={(e) => setContrasena(e.target.value)}
         />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Recordame" />
       </Form.Group>
 
       <Button  type="submit" style={{ width: "100%" }}>

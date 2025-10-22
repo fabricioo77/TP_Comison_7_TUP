@@ -11,7 +11,7 @@ function IniciarSesion() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(135deg, #2c3e50)",
+        background: " #2c3e50",
       }}
     >
         <Login />
