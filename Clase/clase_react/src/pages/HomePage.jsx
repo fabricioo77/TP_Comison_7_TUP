@@ -8,7 +8,7 @@ const HomePage = (props) =>{
 // const {nombre} = props
     return(
         <div>
-            <h1>Hola {nombre}</h1>
+         
         <Header />
         <Main/>
         <Footer/>
