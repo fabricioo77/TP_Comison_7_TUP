@@ -1,28 +1,30 @@
-# Proyecto: Sistema de Gestión de Peluqueria
+# PROYECTO: Sistema de Gestión de Peluqueria
+**Grupo N° 5 — Comisión 7 — UTN FRT**
 
 ## Integrantes
-- Toranzo Fabricio Luciano (Líder / components / pages / constants/ utils/ endpoints)
-- Ibañez Lucas Benjamin (Dashboard / layout/ router / store / styles)
+- Toranzo Fabricio Luciano  LIDER  (components / pages / constants/ utils/ endpoints)
+- Ibañez Lucas Benjamin  INTEGRANTE  (Dashboard / layout/ router / store / styles)
 
 
-# Obejetivos Semana 1
-Objetivo de la Semana 1
+# Roadmap de Desarrollo (Semana 1)
 
- - Iniciar la construcción del proyecto React dejando:
+  Requisitos	                                               
 
- - Estructura de carpetas completa dentro de /src
+ - Configuración de proyecto con Vite + React		
+ - Implementación de Login simulado con localStorage		
+ - Creación de Dashboard y estructura de páginas base	
+ - Estilos y maquetado con React Bootstrap
+ - Integración de flujo Git colaborativo		
+ - Preparación del README grupal	
 
- - Componentes base creados y funcionales (no vacíos)
+  Descripción Estado
 
- - Login simulado con localStorage
-
- - Dashboard inicial con useState + useEffect + datos simulados
-
- - Router configurado (sin proteger aún)
-
- - React Bootstrap aplicado (tablas, forms, cards)
-
- - Flujo Git colaborativo aplicado correctamente
+ - Inicialización, estructura de carpetas y dependencias.
+ - Validación de usuario/contraseña “admin /1234”.
+ - Uso de useState + useEffect con datos fake.	
+ - Aplicado a formularios, tablas y tarjetas.
+ - Ramas, merge en dev, PR final al profesor.
+ - Documentación completa del TP.	
 
 
 # Estructura del Proyecto
@@ -62,14 +64,37 @@ src/
  └─ App.jsx
 
 
-## Estructura inicial
-- Login simulado con localStorage
-- Dashboard inicial con datos fake (próxima tarea)
-- Router configurado
-- Carpeta store y utils preparadas
+# Justificación de la cantidad de pages planificadas
+
+Se definieron cinco páginas principales, que representan los módulos base del sistema:
+
+
+ - Login.jsx: Simula el acceso al sistema con validación en localStorage.
+ - Dashboard.jsx: Vista principal con indicadores generales y resumen del sistema.
+ - Clients.jsx: Módulo para visualizar y gestionar los clientes registrados.
+ - Services.jsx: Módulo para administrar los servicios ofrecidos y sus precios.
+ - Appointments.jsx: Módulo para listar y controlar los turnos con fecha y hora.
+
+
+# Lista de Componentes Reutilizables previstos
+
+  Sidebar.jsx	           
+ - Función:Panel lateral con botones de navegación.
+ - Reutilización: Se usa en todo el MainLayout.	     
+
+  DataTable.jsx	
+ - Función: Tabla dinámica con columnas y datos configurables.	
+ - Reutilización: Reutilizada en Clientes, Servicios y Turnos.
+
+  MainLayout.jsx	
+  
+ - Función: Contenedor principal del sistema con encabezado y contenido dinámico.	
+ - Reutilización: Reutilizado como estructura general del Dashboard.
+
 
 ## Tecnologías
-React + Vite + React Bootstrap + React Router DOM
+React + Vite + React Bootstrap
+
 
 ## Flujo Git
 1. Lider crea el fork y rama `dev`
@@ -79,12 +104,13 @@ React + Vite + React Bootstrap + React Router DOM
 5. Merge final → `main`
 
 
-# Credenciales del Login Simulado
-Usuario: admin
-Contraseña: 1234
+# Guía para actualizar el fork del líder
 
-# Estado Actual
+Si el fork del líder ya existía:
 
- - Proyecto funcionando correctamente
- - Listo para continuar con la Semana 2 (CRUD de Clientes y Servicios).
-	
+```bash
+git remote add upstream https://github.com/ChocobarMatias/TP_Comison_7_TUP.git
+git fetch upstream
+git checkout main
+git merge upstream/main
+git push origin main
