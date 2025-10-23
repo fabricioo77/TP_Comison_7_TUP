@@ -9,7 +9,7 @@ export default function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
     localStorage.setItem("user", JSON.stringify({ name: user }));
-    navigate("/dashboard");
+    navigate("/SeccionDonaciones");
   };
 
   return (
