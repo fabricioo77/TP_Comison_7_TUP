@@ -41,17 +41,16 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded }) {
 
         try {
             addItem('eventos', nuevoEvento);
-            alert(`✅ Evento "${evento.nombre}" registrado con éxito.`);
             
-            // Limpiar formulario y cerrar modal
+
             setEvento({ nombre: '', fecha: '', lugar: '', cupo: '' });
             handleClose(); 
             if (onEventAdded) {
-                onEventAdded(); // Refresca la lista en el componente padre
+                onEventAdded(); 
             }
 
         } catch (error) {
-            alert("❌ Error al registrar el evento. Revisa la consola.");
+            alert("Error al registrar el evento. Revisa la consola.");
             console.error(error);
         }
     };
@@ -130,4 +129,4 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded }) {
     );
 }
 
-export default ModalFormularioEvento; // Exportamos el componente con el nombre que quieras
+export default ModalFormularioEvento; 
