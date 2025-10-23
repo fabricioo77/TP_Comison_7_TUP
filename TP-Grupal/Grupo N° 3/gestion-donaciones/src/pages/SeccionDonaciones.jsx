@@ -28,6 +28,30 @@ export default function SeccionDonaciones() {
         fecha: "2025-10-20",
         estado: "Completada",
       },
+
+      {
+        id: 4,
+        nombre: "Recolección Médica",
+        monto: 15000,
+        fecha: "2025-10-22",
+        estado: "Pendiente",
+      },
+
+      {
+        id: 5,
+        nombre: "Fondo Ambiental",
+        monto: 20000,
+        fecha: "2025-09-30",
+        estado: "Completada",
+      },
+
+      {
+        id: 6,
+        nombre: "Donación de Emergencia",
+        monto: 5000,
+        fecha: "2025-10-05",
+        estado: "Pendiente",
+      },
     ];
     setDonaciones(data);
   }, []);

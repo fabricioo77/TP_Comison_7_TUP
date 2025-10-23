@@ -27,6 +27,27 @@ export default function Donantes() {
         monto: 10000,
         activo: true,
       },
+      {
+        id: 4,
+        nombre: "Agustin Berenguel",
+        email: "berenguel@gmail.com",
+        monto: 6000,
+        activo: true,
+      },
+      {
+        id: 5,
+        nombre: "Mateo Avila",
+        email: "avila@gmail.com",
+        monto: 2500,
+        activo: false,
+      },
+      {
+        id: 6,
+        nombre: "Agustin Monters",
+        email: "agustin@gmail.com",
+        monto: 10000,
+        activo: true,
+      },
     ];
     setDonantes(data);
   }, []);
