@@ -1,90 +1,16 @@
-# Proyecto: Sistema de Gestión de Peluqueria
+# React + Vite
 
-## Integrantes
-- Toranzo Fabricio Luciano (Líder / components / pages / constants/ utils/ endpoints)
-- Ibañez Lucas Benjamin (Dashboard / layout/ router / store / styles)
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+Currently, two official plugins are available:
 
-# Obejetivos Semana 1
-Objetivo de la Semana 1
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
- - Iniciar la construcción del proyecto React dejando:
+## React Compiler
 
- - Estructura de carpetas completa dentro de /src
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
- - Componentes base creados y funcionales (no vacíos)
+## Expanding the ESLint configuration
 
- - Login simulado con localStorage
-
- - Dashboard inicial con useState + useEffect + datos simulados
-
- - Router configurado (sin proteger aún)
-
- - React Bootstrap aplicado (tablas, forms, cards)
-
- - Flujo Git colaborativo aplicado correctamente
-
-
-# Estructura del Proyecto
-
-src/
- ├─ components/
- │   ├─ Sidebar.jsx
- │   ├─ ClientForm.jsx
- │   ├─ ServiceForm.jsx
- │   ├─ AppointmentForm.jsx
- │   └─ DataTable.jsx
- ├─ pages/
- │   ├─ Login.jsx
- │   ├─ Dashboard.jsx
- │   ├─ Clients.jsx
- │   ├─ Services.jsx
- │   └─ Appointments.jsx
- ├─ layout/
- │   └─ MainLayout.jsx
- ├─ router/
- │   ├─ AppRouter.jsx
- │   └─ RouterProtect.jsx
- ├─ store/
- │   └─ userStore.js
- ├─ utils/
- │   ├─ fakeData.js
- │   └─ date.js
- ├─ constants/
- │   └─ index.js
- ├─ endpoints/
- │   └─ index.js
- ├─ styles/
- │   ├─ Sidebar.css
- │   ├─ Layout.css
- │   ├─ Login.css
- │   └─ Dashboard.css
- └─ App.jsx
-
-
-## Estructura inicial
-- Login simulado con localStorage
-- Dashboard inicial con datos fake (próxima tarea)
-- Router configurado
-- Carpeta store y utils preparadas
-
-## Tecnologías
-React + Vite + React Bootstrap + React Router DOM
-
-## Flujo Git
-1. Lider crea el fork y rama `dev`
-2. Integrantes clonan el fork del lider
-3. Cada uno trabaja en su rama `Nombre_Legajo`
-4. Pull request a `dev`
-5. Merge final → `main`
-
-
-# Credenciales del Login Simulado
-Usuario: admin
-Contraseña: 1234
-
-# Estado Actual
-
- - Proyecto funcionando correctamente
- - Listo para continuar con la Semana 2 (CRUD de Clientes y Servicios).
-	
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [typescript-eslint](https://typescript-eslint.io) in your project.
