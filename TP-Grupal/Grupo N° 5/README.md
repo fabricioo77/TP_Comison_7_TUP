@@ -2,13 +2,13 @@
 **Grupo N° 5 — Comisión 7 — UTN FRT**
 
 ## Integrantes
-- Toranzo Fabricio Luciano LIDER (components / pages / constants/ utils/ endpoints)
-- Ibañez Lucas Benjamin INTEGRANTE (Dashboard / layout/ router / store / styles)
+- Toranzo Fabricio Luciano  LIDER  (components / pages / constants/ utils/ endpoints)
+- Ibañez Lucas Benjamin  INTEGRANTE  (Dashboard / layout/ router / store / styles)
 
 
 # Roadmap de Desarrollo (Semana 1)
 
- - Requisitos	                                               
+  Requisitos	                                               
 
  - Configuración de proyecto con Vite + React		
  - Implementación de Login simulado con localStorage		
@@ -17,7 +17,7 @@
  - Integración de flujo Git colaborativo		
  - Preparación del README grupal	
 
- - Descripción Estado
+  Descripción Estado
 
  - Inicialización, estructura de carpetas y dependencias.
  - Validación de usuario/contraseña “admin /1234”.
@@ -108,6 +108,7 @@ React + Vite + React Bootstrap
 
 Si el fork del líder ya existía:
 
+```bash
 git remote add upstream https://github.com/ChocobarMatias/TP_Comison_7_TUP.git
 git fetch upstream
 git checkout main
