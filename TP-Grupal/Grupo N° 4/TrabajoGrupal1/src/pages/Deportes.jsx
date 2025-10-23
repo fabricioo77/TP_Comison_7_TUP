@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "react-bootstrap";
 import SportsTable from "../components/SportsTable";
 import "./Deportes.css";
@@ -9,6 +9,7 @@ const Deportes = () => {
     deportesActivos: 0,
     totalMiembros: 0,
   });
+  const sportsTableRef = useRef(null);
 
   // Calcular estadísticas desde LocalStorage
   useEffect(() => {
@@ -26,7 +27,9 @@ const Deportes = () => {
   }, []);
 
   const handleAddNewSport = () => {
-    alert("Aquí iría el formulario para agregar un nuevo deporte");
+    if (sportsTableRef.current) {
+      sportsTableRef.current.openAddModal();
+    }
   };
 
   return (
@@ -61,7 +64,7 @@ const Deportes = () => {
       </div>
 
       {/* Tabla de deportes */}
-      <SportsTable />
+      <SportsTable ref={sportsTableRef} />
     </div>
   );
 };

@@ -1,14 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import { Badge, Button, Modal, Form } from "react-bootstrap";
 import DataTable from "./ui/DataTable";
 import "./SportsTable.css";
 
-const SportsTable = () => {
+const SportsTable = forwardRef((props, ref) => {
   const [sports, setSports] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
   const [selectedSport, setSelectedSport] = useState(null);
   const [editForm, setEditForm] = useState({
+    nombre: "",
+    miembros: 0,
+    estado: "Activo",
+  });
+  const [addForm, setAddForm] = useState({
     nombre: "",
     miembros: 0,
     estado: "Activo",
@@ -79,6 +85,11 @@ const SportsTable = () => {
     }
   }, []);
 
+  // Exponer función para abrir modal desde el componente padre
+  useImperativeHandle(ref, () => ({
+    openAddModal: handleOpenAddModal
+  }));
+
   // Actualizar deportes en estado y localStorage
   const updateSports = (updatedSports) => {
     setSports(updatedSports);
@@ -146,6 +157,43 @@ const SportsTable = () => {
   const handleCloseViewModal = () => {
     setShowViewModal(false);
     setSelectedSport(null);
+  };
+
+  // Abrir modal de agregar
+  const handleOpenAddModal = () => {
+    setAddForm({
+      nombre: "",
+      miembros: 0,
+      estado: "Activo",
+    });
+    setShowAddModal(true);
+  };
+
+  // Cerrar modal de agregar
+  const handleCloseAddModal = () => {
+    setShowAddModal(false);
+  };
+
+  // Guardar nuevo deporte
+  const handleSaveAdd = () => {
+    if (!addForm.nombre.trim()) {
+      alert("El nombre del deporte es requerido");
+      return;
+    }
+    
+    // Generar nuevo ID (máximo ID actual + 1)
+    const newId = sports.length > 0 ? Math.max(...sports.map(s => s.id)) + 1 : 1;
+    
+    const newSport = {
+      id: newId,
+      nombre: addForm.nombre,
+      miembros: parseInt(addForm.miembros) || 0,
+      estado: addForm.estado,
+    };
+    
+    const updatedSports = [...sports, newSport];
+    updateSports(updatedSports);
+    setShowAddModal(false);
   };
 
   // Badge de estado
@@ -346,8 +394,65 @@ const SportsTable = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      {/* Modal de Agregar Nuevo Deporte */}
+      <Modal show={showAddModal} onHide={handleCloseAddModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Agregar Nuevo Deporte</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Nombre del Deporte</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Ingrese el nombre"
+                value={addForm.nombre}
+                onChange={(e) =>
+                  setAddForm({ ...addForm, nombre: e.target.value })
+                }
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Cantidad de Miembros</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Ingrese la cantidad"
+                value={addForm.miembros}
+                onChange={(e) =>
+                  setAddForm({ ...addForm, miembros: e.target.value })
+                }
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Estado</Form.Label>
+              <Form.Select
+                value={addForm.estado}
+                onChange={(e) =>
+                  setAddForm({ ...addForm, estado: e.target.value })
+                }
+              >
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </Form.Select>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseAddModal}>
+            Cancelar
+          </Button>
+          <Button variant="success" onClick={handleSaveAdd}>
+            Agregar Deporte
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
-};
+});
+
+SportsTable.displayName = "SportsTable";
 
 export default SportsTable;
