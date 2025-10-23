@@ -91,6 +91,33 @@
   background-color: rgba(25, 135, 84, 0.1);
 }
 
+/* Estilos para el modal de vista */
+.sport-details {
+  padding: 16px 0;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row strong {
+  color: #495057;
+  font-weight: 600;
+}
+
+.detail-row span {
+  color: #212529;
+  font-weight: 500;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .table-wrapper {

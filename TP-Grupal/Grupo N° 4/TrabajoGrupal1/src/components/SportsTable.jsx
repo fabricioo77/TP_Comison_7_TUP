@@ -1,10 +1,18 @@
 import { useState, useEffect } from "react";
-import { Badge, Button } from "react-bootstrap";
+import { Badge, Button, Modal, Form } from "react-bootstrap";
 import DataTable from "./ui/DataTable";
 import "./SportsTable.css";
 
 const SportsTable = () => {
   const [sports, setSports] = useState([]);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
+  const [selectedSport, setSelectedSport] = useState(null);
+  const [editForm, setEditForm] = useState({
+    nombre: "",
+    miembros: 0,
+    estado: "Activo",
+  });
 
   // Pre carga los datos en la tabla con el useEffect
   useEffect(() => {
@@ -96,13 +104,48 @@ const SportsTable = () => {
   // Ver detalles del deporte
   const handleView = (id) => {
     const sport = sports.find((s) => s.id === id);
-    alert(`Ver detalles de: ${sport.nombre}\nMiembros: ${sport.miembros}\nEstado: ${sport.estado}`);
+    setSelectedSport(sport);
+    setShowViewModal(true);
   };
 
   // Editar deporte
   const handleEdit = (id) => {
     const sport = sports.find((s) => s.id === id);
-    alert(`Editar deporte: ${sport.nombre}`);
+    setSelectedSport(sport);
+    setEditForm({
+      nombre: sport.nombre,
+      miembros: sport.miembros,
+      estado: sport.estado,
+    });
+    setShowEditModal(true);
+  };
+
+  // Guardar cambios de edición
+  const handleSaveEdit = () => {
+    if (!editForm.nombre.trim()) {
+      alert("El nombre del deporte es requerido");
+      return;
+    }
+    
+    const updatedSports = sports.map((sport) =>
+      sport.id === selectedSport.id
+        ? { ...sport, ...editForm, miembros: parseInt(editForm.miembros) || 0 }
+        : sport
+    );
+    updateSports(updatedSports);
+    setShowEditModal(false);
+    setSelectedSport(null);
+  };
+
+  // Cerrar modales
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+    setSelectedSport(null);
+  };
+
+  const handleCloseViewModal = () => {
+    setShowViewModal(false);
+    setSelectedSport(null);
   };
 
   // Badge de estado
@@ -218,6 +261,91 @@ const SportsTable = () => {
           selectable={false}
         />
       </div>
+
+      {/* Modal de Edición */}
+      <Modal show={showEditModal} onHide={handleCloseEditModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar Deporte</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Nombre del Deporte</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Ingrese el nombre"
+                value={editForm.nombre}
+                onChange={(e) =>
+                  setEditForm({ ...editForm, nombre: e.target.value })
+                }
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Cantidad de Miembros</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Ingrese la cantidad"
+                value={editForm.miembros}
+                onChange={(e) =>
+                  setEditForm({ ...editForm, miembros: e.target.value })
+                }
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Estado</Form.Label>
+              <Form.Select
+                value={editForm.estado}
+                onChange={(e) =>
+                  setEditForm({ ...editForm, estado: e.target.value })
+                }
+              >
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </Form.Select>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseEditModal}>
+            Cancelar
+          </Button>
+          <Button variant="primary" onClick={handleSaveEdit}>
+            Guardar Cambios
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal de Vista */}
+      <Modal show={showViewModal} onHide={handleCloseViewModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Detalles del Deporte</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedSport && (
+            <div className="sport-details">
+              <div className="detail-row">
+                <strong>Nombre:</strong>
+                <span>{selectedSport.nombre}</span>
+              </div>
+              <div className="detail-row">
+                <strong>Cantidad de Miembros:</strong>
+                <span>{selectedSport.miembros}</span>
+              </div>
+              <div className="detail-row">
+                <strong>Estado:</strong>
+                <span>{getStatusBadge(selectedSport.estado)}</span>
+              </div>
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseViewModal}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
