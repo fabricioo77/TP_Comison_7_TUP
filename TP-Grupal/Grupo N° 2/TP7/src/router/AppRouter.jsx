@@ -1,12 +1,13 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage';
-import DashboardPage from '../pages/DashboardPage';
+import DashboardPage from "../pages/dashboard/Dashboard";
+import MainLayout from "../layout/MainLayOut.jsx";
 import ProtectedRoute from '../components/ProtectedRoute';
+
 
 const AppRouter = () => {
   return (
     <Routes>
-      {/* Rutas públicas */}
       <Route path="/login" element={<LoginPage />} />
       
       {/* Rutas protegidas */}
