@@ -1,7 +1,7 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage';
 import DashboardPage from '../pages/DashboardPage';
-
+import ProtectedRoute from '../components/ProtectedRoute';
 
 const AppRouter = () => {
   return (
@@ -9,14 +9,21 @@ const AppRouter = () => {
       {/* Rutas públicas */}
       <Route path="/login" element={<LoginPage />} />
       
-    
-      <Route path="/dashboard" element={<DashboardPage />} />
-
-     
-      <Route path="/" element={<LoginPage />} />
+      {/* Rutas protegidas */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
       
-     
-      <Route path="*" element={<p>404 - Página no encontrada</p>} />
+      {/* Redirigir / a /login */}
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      
+      {/* Ruta 404 - redirige a login */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 };
