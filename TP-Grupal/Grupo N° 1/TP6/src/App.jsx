@@ -5,7 +5,7 @@ import Dashboard from './Pages/DashBoard/Dashboard.jsx';
 
 import Artistas from './Pages/DashBoard/Artistas.jsx'; 
 import ArtistaCard from './Components/ArtistaCard.jsx'; 
-import Asistente from './Pages/DashBoard/Asistentes.jsx';
+import Asistentes from './Pages/DashBoard/Asistentes.jsx';
 import Eventos from './Pages/DashBoard/Eventos.jsx';
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
 
           <Route path='artistas' element={<Artistas />} /> 
           
-          <Route path='asistentes' element={<Asistente />} />
+          <Route path='asistentes' element={<Asistentes />} />
           <Route path='eventos' element={<Eventos />} />
         </Route>
       </Routes>
