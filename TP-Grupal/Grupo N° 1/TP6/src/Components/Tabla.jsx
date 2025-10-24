@@ -23,7 +23,6 @@ function TablaComponent({
           <tr key={item.id}>
             <td>{index + 1}</td>
             
-            {/* Renderiza dinámicamente según las columnas */}
             {columnas.map((col, colIndex) => (
               <td key={colIndex}>
                 {col.render ? col.render(item) : item[col.field]}
