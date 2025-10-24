@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Sidebar from '../components/layout/Sidebar';
-import MainContent from '../components/layout/Maincontent';
-import DataTable from '../components/tables/Datatable';
-import Button from '../components/common/Button';
+import Sidebar from '../components/layout/sidebar';
+import MainContent from '../components/layout/maincontent';
+import DataTable from '../components/tables/datatable';
+import Button from '../components/common/button';
 import Modal from '../components/common/Modal';
 import ProductForm from '../components/forms/Productform';
+
 
 const PageContainer = styled.div`
   display: flex;

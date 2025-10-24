@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Sidebar from '../components/layout/Sidebar';
-import MainContent from '../components/layout/Maincontent';
-import ActionCard from '../components/dashboard/ActionCard';
+import Sidebar from '../components/layout/sidebar';
+import MainContent from '../components/layout/maincontent';
+import ActionCard from '../components/dashboard/actioncard';
 
 const PageContainer = styled.div`
   display: flex;
