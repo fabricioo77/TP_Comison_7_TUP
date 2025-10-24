@@ -58,7 +58,7 @@ const Login = () => {
         </FormWrapper>
       </FormSection>
       <IllustrationSection>
-        {/* <img src={illustrationImage} alt="Ilustración de tienda de ropa" /> */}
+        { <img src={illustrationImage} alt="Ilustración de tienda de ropa" /> }
         <div style={{width: '100%', height: '100%', backgroundColor: '#f3f6fd'}}></div>
       </IllustrationSection>
     </LoginContainer>
