@@ -38,10 +38,10 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar bg-white text-white">
-      <div className="sidebar-header p-3 border-bottom border-secondary">
-        <h4 className="mb-0">🏆 Club Deportivo</h4>
-        <small className="text-muted">Panel de Administración</small>
+    <div className="sidebar bg-white shadow">
+      <div className="sidebar-header p-3 border-bottom text-center">
+        <h4 className="mb-0 text-black">Club Deportivo</h4>
+        <small className="text-muted text-center">Panel de Administración</small>
       </div>
 
       <Nav className="flex-column p-3">
