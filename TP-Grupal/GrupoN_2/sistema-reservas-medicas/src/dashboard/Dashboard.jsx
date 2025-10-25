@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Table, Form, Button, Badge, InputGroup, Alert } from 'react-bootstrap';
 import { ESPECIALIDADES, STATUS_TURNO } from '../constants';
+import Modal from '../components/Modal';
+import TurnoForm from '../components/TurnoForm';
 
 const Dashboard = () => {
   const [turnos, setTurnos] = useState([]);
@@ -16,6 +18,9 @@ const Dashboard = () => {
     pendientes: 0,
     cancelados: 0
   });
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState('nuevo'); // 'nuevo' o 'editar'
+  const [turnoSeleccionado, setTurnoSeleccionado] = useState(null);
 
   useEffect(() => {
     // Datos simulados más completos para el dashboard
@@ -163,6 +168,36 @@ const Dashboard = () => {
     }
   };
 
+  const handleNuevoTurno = () => {
+    setModalType('nuevo');
+    setTurnoSeleccionado(null);
+    setShowModal(true);
+  };
+
+  const handleEditarTurno = (id) => {
+    const turno = turnos.find(t => t.id === id);
+    if (turno) {
+      setModalType('editar');
+      setTurnoSeleccionado(turno);
+      setShowModal(true);
+    }
+  };
+
+  const handleSaveTurno = (turnoData) => {
+    if (modalType === 'nuevo') {
+      setTurnos(prev => [...prev, turnoData]);
+    } else {
+      setTurnos(prev => prev.map(t => t.id === turnoData.id ? turnoData : t));
+    }
+    setShowModal(false);
+    setTurnoSeleccionado(null);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setTurnoSeleccionado(null);
+  };
+
   const getStatusBadge = (status) => {
     const variants = {
       'Confirmado': 'success',
@@ -277,7 +312,7 @@ const Dashboard = () => {
           <Card>
             <Card.Header className="d-flex justify-content-between align-items-center">
               <h5>Turnos ({turnosFiltrados.length})</h5>
-              <Button variant="primary" size="sm">
+              <Button variant="primary" size="sm" onClick={handleNuevoTurno}>
                 + Nuevo Turno
               </Button>
             </Card.Header>
@@ -340,7 +375,7 @@ const Dashboard = () => {
                               <Button 
                                 variant="outline-primary" 
                                 size="sm"
-                                onClick={() => console.log('Editar turno:', turno.id)}
+                                onClick={() => handleEditarTurno(turno.id)}
                               >
                                 ✏️
                               </Button>
@@ -363,6 +398,25 @@ const Dashboard = () => {
           </Card>
         </Col>
       </Row>
+
+      {/* Modal para Nuevo/Editar Turno */}
+      <Modal
+        show={showModal}
+        onHide={handleCloseModal}
+        title={modalType === 'nuevo' ? 'Nuevo Turno' : 'Editar Turno'}
+        onSave={() => {}} // Se maneja en el formulario
+        onCancel={handleCloseModal}
+        saveText="Guardar"
+        cancelText="Cancelar"
+        size="lg"
+      >
+        <TurnoForm
+          turno={turnoSeleccionado}
+          onSave={handleSaveTurno}
+          onCancel={handleCloseModal}
+          turnosExistentes={turnos}
+        />
+      </Modal>
     </Container>
   );
 };

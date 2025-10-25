@@ -25,7 +25,10 @@ const Layout = ({ children }) => {
             <Nav className="me-auto">
               <Nav.Link as={Link} to="/">Inicio</Nav.Link>
               {isAuthenticated && (
-                <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
+                <>
+                  <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
+                  <Nav.Link as={Link} to="/pacientes">Pacientes</Nav.Link>
+                </>
               )}
             </Nav>
             <Nav>
