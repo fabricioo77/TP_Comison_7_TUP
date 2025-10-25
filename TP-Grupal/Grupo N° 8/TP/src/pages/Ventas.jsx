@@ -9,3 +9,6 @@ const Ventas = () => {
 };
 
 export default Ventas;
+
+
+// todas putas

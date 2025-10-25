@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Sidebar from '../components/layout/Sidebar';
-import MainContent from '../components/layout/Maincontent';
-import DataTable from '../components/tables/Datatable'; // Asegúrate que la ruta a tu DataTable sea correcta
+import Sidebar from '../components/layout/sidebar';
+import MainContent from '../components/layout/maincontent';
+import DataTable from '../components/tables/datatable'; // Asegúrate que la ruta a tu DataTable sea correcta
 
 const PageContainer = styled.div`
   display: flex;
