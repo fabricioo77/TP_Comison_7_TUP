@@ -11,24 +11,27 @@ const Dashboard = () => {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
 
-  React.useEffect(() => {
-    const fetchData = () => {
-      try {
-        const timer = setTimeout(() => {
-          setMetrics(dataCards);
-          setUsers(usuarios);
-          setLoading(false);
-        }, 1000);
-        
-        return () => clearTimeout(timer);
-      } catch (err) {
-        setError('Error al cargar los datos.');
-        setLoading(false);
-      }
-    };
+React.useEffect(() => {
+  // 1. El setTimeout sigue estando fuera
+  const timer = setTimeout(() => {
+    try {
 
-    fetchData();
-  }, []);
+      setMetrics(dataCards);
+      setUsers(usuarios);
+
+    } catch (err) {
+      console.error(err); 
+      setError('Error al cargar los datos.');
+    } finally {
+    
+      setLoading(false);
+    }
+  }, 1000);
+
+
+  return () => clearTimeout(timer);
+
+}, []);
 
   if (loading) {
     return (
