@@ -1,4 +1,4 @@
-/* Estilos personalizados */
+
 :root {
   --primary-color: #0d6efd;
   --secondary-color: #6c757d;
@@ -10,7 +10,7 @@ body {
   background-color: #ffffff;
 }
 
-/* Fondo específico para la página de login  */
+
 .login-bg {
   background-color: #13191d !important; 
 }

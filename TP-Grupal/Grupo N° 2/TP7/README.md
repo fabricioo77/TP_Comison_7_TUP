@@ -12,7 +12,7 @@ Este documento sirve como guía central del proyecto, detallando los integrantes
 
 El equipo se ha estructurado con roles definidos para asegurar una cobertura completa del desarrollo inicial:
 
-* **Thomas [Tu Apellido] (Líder de Equipo / Arquitecto)**
+* **Thomas Zavalia (Líder de Equipo / Arquitecto)**
     * **Legajo:** `61055`
     * **Responsabilidades:**
         * Estructuración inicial del proyecto (scaffolding) y organización de carpetas.
