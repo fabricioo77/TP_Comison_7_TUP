@@ -4,7 +4,7 @@ import AdminLayout from "../layout/AdminLayout";
 import RouterProtect from "./RouterProtect";
 import { Navigate } from "react-router-dom";
 import LoginPage from "../pages/Login/LoginPage";
-import DashboardPage from "../pages/Dashboard/DashboardPage";
+import DashboardPage from "../pages/DashBoard/DashBoardPage";
 import CoursesPage from "../pages/Courses/CoursesPage";
 import CreateCoursePage from "../pages/Courses/CreateCoursePage";
 import StudentsPage from "../pages/Students/StudentsPage";
