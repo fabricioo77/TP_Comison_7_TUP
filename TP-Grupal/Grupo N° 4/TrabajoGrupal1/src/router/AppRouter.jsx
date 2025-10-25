@@ -10,6 +10,7 @@ import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
 import Dashboard from "../dashboard/Dashboard";
 import Pagos from "../pages/Pagos";
+import Deportes from "../pages/Deportes";
 import Socios from "../pages/Socios";
 
 const AppRouter = () => {
@@ -27,6 +28,7 @@ const AppRouter = () => {
           <Route index element={<Dashboard />} />
           <Route path={ROUTES.SOCIOS} element={<Socios />} />
           <Route path={ROUTES.PAGOS} element={<Pagos />} />
+          <Route path={ROUTES.DEPORTES} element={<Deportes />} />
           {/* Las demás rutas se agregarán después */}
         </Route>
 
