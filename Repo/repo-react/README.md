@@ -65,3 +65,5 @@ npm i bootstrap-icons
 npm i sweetalert2-react-content   (esto es para usar modales de sweetalert2 en react)
 
 
+react-router-dom
+npm install react-router-dom
