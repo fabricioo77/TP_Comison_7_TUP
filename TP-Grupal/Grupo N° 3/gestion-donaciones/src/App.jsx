@@ -1,5 +1,7 @@
 import { Container, Navbar } from "react-bootstrap";
 import { Outlet } from "react-router-dom";
+import './Styles/Style.css';
+
 
 export default function App() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -13,7 +15,9 @@ export default function App() {
             <Navbar.Text className="text-light">
               Bienvenido, <strong>{user.name}</strong>
             </Navbar.Text>
+            
           )}
+        
         </Container>
       </Navbar>
 
