@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { getBooks } from "../../store/dataService";
+import BookStatsHeader from "../../components/BookStatHeader";
 
 export default function LibrosPage() {
   const [libros, setLibros] = useState([]);
+  const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
     setLibros(getBooks());
@@ -12,6 +14,8 @@ export default function LibrosPage() {
 
   return (
     <>
+      {selectedBook && <BookStatsHeader libro={selectedBook} />}
+
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2>📚 Libros</h2>
         <Button as={Link} to="/libros/nuevo" variant="primary">
@@ -34,7 +38,7 @@ export default function LibrosPage() {
           </thead>
           <tbody>
             {libros.map(l => (
-              <tr key={l.id}>
+              <tr key={l.id} onClick={() => setSelectedBook(l)} style={{ cursor: "pointer" }}>
                 <td>{l.titulo}</td>
                 <td>{l.autor}</td>
                 <td>{l.categoria}</td>
