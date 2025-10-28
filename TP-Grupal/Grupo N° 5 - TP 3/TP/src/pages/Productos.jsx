@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Sidebar from '../components/layout/sidebar';
-import MainContent from '../components/layout/maincontent';
+import Sidebar from '../layout/sidebar';
+import MainContent from '../layout/maincontent';
 import DataTable from '../components/tables/datatable';
 import Button from '../components/common/button';
 import Modal from '../components/common/Modal';

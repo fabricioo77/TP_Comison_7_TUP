@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Sidebar from '../components/layout/sidebar';
-import MainContent from '../components/layout/maincontent';
+import Sidebar from '../layout/sidebar';
+import MainContent from '../layout/maincontent';
 
 // NOTA: Se eliminan las importaciones de Card y Select
 // import Card from '../components/common/Card'; 

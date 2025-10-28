@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Sidebar from '../components/layout/sidebar';
-import MainContent from '../components/layout/maincontent';
+import Sidebar from '../layout/sidebar';
+import MainContent from '../layout/maincontent';
 import DataTable from '../components/tables/datatable'; // Asegúrate que la ruta a tu DataTable sea correcta
 
 // Reutilización de estilos de Clientes.jsx

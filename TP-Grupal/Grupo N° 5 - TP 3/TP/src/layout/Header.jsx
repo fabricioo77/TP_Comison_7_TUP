@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const MainHeaderContainer = styled.header`
   display: flex;
@@ -32,16 +32,28 @@ const UserInfo = styled.div`
   gap: 20px;
 `;
 
-const LogoutLink = styled(Link)`
+const LogoutButton = styled.button`
+  background: none;
+  border: none;
   color: var(--primary-blue);
-  text-decoration: none;
   font-weight: 500;
+  cursor: pointer;
   &:hover {
     text-decoration: underline;
   }
 `;
 
 const Header = ({ title, description }) => {
+  const navigate = useNavigate(); // ✅ inicializamos navigate
+
+  const handleLogout = () => {
+    // 🧹 Borrar datos del localStorage
+    localStorage.removeItem("auth");
+
+    // 🔁 Redirigir al login
+    navigate("/");
+  };
+
   return (
     <MainHeaderContainer>
       <HeaderTitle>
@@ -49,8 +61,14 @@ const Header = ({ title, description }) => {
         <p>{description}</p>
       </HeaderTitle>
       <UserInfo>
-        <span>Hola, <strong>[Usuario]</strong></span>
-        <LogoutLink to="/">Cerrar Sesión</LogoutLink>
+        <span>
+          Hola, <strong>[Usuario]</strong>
+        </span>
+
+        {/* 🔘 Botón real de logout */}
+        <LogoutButton onClick={handleLogout}>
+          Cerrar sesión
+        </LogoutButton>
       </UserInfo>
     </MainHeaderContainer>
   );

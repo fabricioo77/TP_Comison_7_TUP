@@ -54,18 +54,26 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     // Credenciales de Simulación
-    const MOCK_EMAIL = 'admin@tienda.com';
-    const MOCK_PASSWORD = '123';
+    const MOCK_EMAIL = "admin@tienda.com";
+    const MOCK_PASSWORD = "123";
 
+    // dentro de handleSubmit, en el "if" de credenciales válidas:
     if (email === MOCK_EMAIL && password === MOCK_PASSWORD) {
-      console.log('Login exitoso! Redirigiendo...');
-      // REDIRECCIÓN: Usa la función navigate al dashboard
-      navigate('/dashboard'); 
+      // Persistir sesión simulada
+      localStorage.setItem(
+        "auth",
+        JSON.stringify({
+          email,
+          role: "admin",
+          loggedAt: new Date().toISOString(),
+        })
+      );
+      navigate("/dashboard");
     } else {
-      setError('Credenciales inválidas. Usa: ' + MOCK_EMAIL + ' / ' + MOCK_PASSWORD);
+      setError(`Credenciales inválidas. Usa: ${MOCK_EMAIL} / ${MOCK_PASSWORD}`);
     }
   };
 
