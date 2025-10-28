@@ -32,30 +32,56 @@ export default function DashboardSidebar() {
     <div className="bg-light border-end vh-100 p-3 overflow-auto">
       <h5 className="text-center mb-3 fw-bold">Panel de Biblioteca</h5>
 
-      {/* Métricas */}
-      <div className="mb-4">
-        <Card className="mb-2 text-center shadow-sm">
-          <Card.Body>
-            <Card.Title>Total Libros</Card.Title>
-            <Card.Text className="fw-bold">{totalLibros}</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card className="mb-2 text-center shadow-sm">
-          <Card.Body>
-            <Card.Title>Prestados</Card.Title>
-            <Card.Text className="text-danger fw-bold">{librosPrestados}</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card className="mb-3 text-center shadow-sm">
-          <Card.Body>
-            <Card.Title>Disponibles</Card.Title>
-            <Card.Text className="text-success fw-bold">
-              {librosDisponibles}
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </div>
+      {/* 🔹 Métricas de préstamos */}
+<div className="mb-4">
+  <Card className="mb-2 text-center shadow-sm border-success">
+    <Card.Body>
+      <Card.Title className="text-success fw-semibold">
+        🟢 Préstamos Activos
+      </Card.Title>
+      <Card.Text className="fw-bold fs-4">
+        {
+          getLoans().filter(p => {
+            const diff = Math.ceil((new Date(p.fechaDevolucion) - new Date()) / (1000 * 60 * 60 * 24));
+            return diff > 2; // activos si faltan más de 2 días
+          }).length
+        }
+      </Card.Text>
+    </Card.Body>
+  </Card>
 
+  <Card className="mb-2 text-center shadow-sm border-warning">
+    <Card.Body>
+      <Card.Title className="text-warning fw-semibold">
+        🟡 Préstamos por Vencer
+      </Card.Title>
+      <Card.Text className="fw-bold fs-4">
+        {
+          getLoans().filter(p => {
+            const diff = Math.ceil((new Date(p.fechaDevolucion) - new Date()) / (1000 * 60 * 60 * 24));
+            return diff > 0 && diff <= 2; // por vencer
+          }).length
+        }
+      </Card.Text>
+    </Card.Body>
+  </Card>
+
+  <Card className="mb-3 text-center shadow-sm border-danger">
+    <Card.Body>
+      <Card.Title className="text-danger fw-semibold">
+        🔴 Préstamos Vencidos
+      </Card.Title>
+      <Card.Text className="fw-bold fs-4">
+        {
+          getLoans().filter(p => {
+            const diff = Math.ceil((new Date(p.fechaDevolucion) - new Date()) / (1000 * 60 * 60 * 24));
+            return diff <= 0; // vencidos
+          }).length
+        }
+      </Card.Text>
+    </Card.Body>
+  </Card>
+</div>
       {/* Navegación */}
       <Nav className="flex-column mb-4">
         {navItems.map((item) => (
@@ -71,7 +97,26 @@ export default function DashboardSidebar() {
         ))}
       </Nav>
 
-      
+      {/* Listado de Libros */}
+      <h6 className="fw-bold mt-3">📚 Libros</h6>
+      <ListGroup variant="flush">
+        {libros.length === 0 ? (
+          <ListGroup.Item className="small text-muted">
+            No hay libros cargados.
+          </ListGroup.Item>
+        ) : (
+          libros.map((libro) => (
+            <ListGroup.Item
+              key={libro.id}
+              action
+              active={selectedBook?.id === libro.id}
+              onClick={() => setSelectedBook(libro)}
+            >
+              {libro.titulo}
+            </ListGroup.Item>
+          ))
+        )}
+      </ListGroup>
 
       {/* Detalle del libro seleccionado */}
       {selectedBook && (
