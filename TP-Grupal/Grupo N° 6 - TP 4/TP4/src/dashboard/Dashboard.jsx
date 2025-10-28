@@ -96,50 +96,5 @@ export default function DashboardSidebar() {
           </Nav.Link>
         ))}
       </Nav>
-
-      {/* Listado de Libros */}
-      <h6 className="fw-bold mt-3">📚 Libros</h6>
-      <ListGroup variant="flush">
-        {libros.length === 0 ? (
-          <ListGroup.Item className="small text-muted">
-            No hay libros cargados.
-          </ListGroup.Item>
-        ) : (
-          libros.map((libro) => (
-            <ListGroup.Item
-              key={libro.id}
-              action
-              active={selectedBook?.id === libro.id}
-              onClick={() => setSelectedBook(libro)}
-            >
-              {libro.titulo}
-            </ListGroup.Item>
-          ))
-        )}
-      </ListGroup>
-
-      {/* Detalle del libro seleccionado */}
-      {selectedBook && (
-        <div className="mt-4 p-2 border rounded bg-white shadow-sm">
-          <h6 className="fw-bold mb-2">{selectedBook.titulo}</h6>
-          <p className="small mb-1">
-            ⭐ <b>Puntaje:</b> {selectedBook.puntaje ?? "N/A"}
-          </p>
-          <p className="small mb-1">
-            ❤️ <b>Likes:</b> {selectedBook.likes ?? 0}
-          </p>
-          <p className="small mb-2">
-            💬 <b>Comentarios:</b>{" "}
-            <a
-              href={selectedBook.linkComentarios || "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Ver comentarios
-            </a>
-          </p>
-        </div>
-      )}
-    </div>
-  );
+      </div> );
 }
