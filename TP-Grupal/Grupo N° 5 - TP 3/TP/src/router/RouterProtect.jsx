@@ -1,4 +1,11 @@
-// No tiene lógica todavía, solo existe para cumplir la estructura.
+import { Navigate, Outlet } from "react-router-dom";
+
 export default function RouterProtect() {
-  return <p>Archivo creado (sin lógica aún)</p>
+  const isLogged = localStorage.getItem("userLogged");
+
+  if (!isLogged || isLogged === "false") {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
 }

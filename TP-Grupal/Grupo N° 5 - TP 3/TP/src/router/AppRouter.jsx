@@ -1,4 +1,3 @@
-// src/router/AppRouter.jsx
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "../pages/Login";
@@ -8,63 +7,23 @@ import Clientes from "../pages/Clientes";
 import Ventas from "../pages/Ventas";
 import Reportes from "../pages/Reportes";
 import HistorialVentas from "../pages/Historialventas";
-import ProtectedRoute from "./ProtectedRoute";
+import RouterProtect from "./RouterProtect";
 
 const AppRouter = () => {
   return (
     <Routes>
-      {/* Ruta pública */}
+      {/* RUTA PÚBLICA */}
       <Route path="/" element={<Login />} />
 
-      {/* Rutas privadas */}
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/productos"
-        element={
-          <ProtectedRoute>
-            <Productos />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/clientes"
-        element={
-          <ProtectedRoute>
-            <Clientes />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/ventas"
-        element={
-          <ProtectedRoute>
-            <Ventas />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/reportes"
-        element={
-          <ProtectedRoute>
-            <Reportes />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/historial-ventas"
-        element={
-          <ProtectedRoute>
-            <HistorialVentas />
-          </ProtectedRoute>
-        }
-      />
+      {/* RUTAS PROTEGIDAS */}
+      <Route element={<RouterProtect />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/productos" element={<Productos />} />
+        <Route path="/clientes" element={<Clientes />} />
+        <Route path="/ventas" element={<Ventas />} />
+        <Route path="/reportes" element={<Reportes />} />
+        <Route path="/historial-ventas" element={<HistorialVentas />} />
+      </Route>
     </Routes>
   );
 };

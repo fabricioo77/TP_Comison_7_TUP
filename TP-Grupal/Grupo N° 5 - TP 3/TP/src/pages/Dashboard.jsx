@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Sidebar from "../components/layout/sidebar";
-import MainContent from "../components/layout/maincontent";
-import ActionCard from "../components/dashboard/actioncard";
-import KpiCard from "../components/dashboard/kpicard";
+import Sidebar from "../layout/sidebar";
+import MainContent from "../layout/maincontent";
+import ActionCard from "../dashboard/actioncard";
+import KpiCard from "../dashboard/kpicard";
 import { fakeDashboardData } from "../utils"; // ✅ importamos los datos falsos
 
 const PageContainer = styled.div`display:flex;`;
