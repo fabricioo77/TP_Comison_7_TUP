@@ -15,3 +15,8 @@ export const addVenta = async (nuevaVenta) => {
   });
   return await res.json();
 };
+
+// Eliminar venta
+export const deleteVenta = async (id) => {
+  await fetch(`http://localhost:5000/ventas/${id}`, { method: "DELETE" });
+};

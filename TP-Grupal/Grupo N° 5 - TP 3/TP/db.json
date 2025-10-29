@@ -40,30 +40,43 @@
   ],
   "ventas": [
     {
-      "id": "1",
       "clienteId": 1,
       "fecha": "2025-10-29",
       "productos": [
         {
-          "productoId": 1,
-          "nombre": "Remera Polo",
-          "precio": 15000
+          "productoId": "1",
+          "nombre": "Pantalon Jeans",
+          "precio": "20000"
         }
       ],
-      "total": 15000
+      "total": 20000,
+      "id": 1
     },
     {
-      "clienteId": 1,
+      "clienteId": 2,
       "fecha": "2025-10-29",
       "productos": [
         {
-          "productoId": 2,
-          "nombre": "camisa lino",
+          "productoId": "2",
+          "nombre": "Camisa Lino",
           "precio": "15000"
         }
       ],
       "total": 15000,
-      "id": "2"
+      "id": 2
+    },
+    {
+      "clienteId": 4,
+      "fecha": "2025-10-29",
+      "productos": [
+        {
+          "productoId": "1",
+          "nombre": "Pantalon Jeans",
+          "precio": "20000"
+        }
+      ],
+      "total": 20000,
+      "id": 3
     }
   ]
 }

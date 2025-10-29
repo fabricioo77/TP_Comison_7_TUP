@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Sidebar from "../layout/sidebar";
 import MainContent from "../layout/maincontent";
 import { useFetch } from "../hooks/useFetch"; // ✅ Hook personalizado
+import { deleteVenta } from "../services/ventasService"; 
 
 const PageContainer = styled.div`
   display: flex;
@@ -54,6 +55,23 @@ const ExportButton = styled.button`
   }
 `;
 
+const ActionButton = styled.button`
+  border: none;
+  background-color: ${(props) =>
+    props.variant === "delete" ? "#DC2626" : "var(--primary-blue)"};
+  color: white;
+  border-radius: 5px;
+  padding: 5px 8px;
+  margin: 0 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    opacity: 0.85;
+  }
+`;
+
+
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
@@ -71,7 +89,7 @@ const Table = styled.table`
 `;
 
 const HistorialVentas = () => {
-  const { data: ventas, loading: loadingVentas, error: errorVentas } = useFetch("http://localhost:5000/ventas");
+  const { data: ventas, loading: loadingVentas, error: errorVentas,refetch, } = useFetch("http://localhost:5000/ventas");
   const { data: clientes, loading: loadingClientes, error: errorClientes } = useFetch("http://localhost:5000/clientes");
   const [filtro, setFiltro] = useState("");
 
@@ -86,11 +104,24 @@ const HistorialVentas = () => {
     });
   }, [ventas, clientes]);
 
-  const ventasFiltradas = ventasConCliente.filter(
-    (v) =>
-      v.clienteNombre.toLowerCase().includes(filtro.toLowerCase()) ||
-      String(v.id).includes(filtro)
-  );
+  const ventasFiltradas = ventasConCliente.filter((v) => {
+  const nombreCliente = (v.clienteNombre || "").toString().trim().toLowerCase();
+  const textoFiltro = filtro.trim().toLowerCase();
+
+  return nombreCliente.includes(textoFiltro) || String(v.id).includes(filtro);
+});
+ 
+  const handleDeleteVenta = async (id) => {
+    if (!window.confirm("¿Seguro que deseas eliminar esta venta?")) return;
+    try {
+      await deleteVenta(id);
+      alert("✅ Venta eliminada exitosamente");
+      refetch(); // 🔄 recargar datos actualizados
+    } catch (error) {
+      console.error("Error al eliminar venta:", error);
+      alert("Error al eliminar la venta.");
+    }
+  };
 
   const exportarCSV = () => {
     if (ventasConCliente.length === 0) {
@@ -178,6 +209,7 @@ const HistorialVentas = () => {
                 <th>Fecha</th>
                 <th>Cliente</th>
                 <th>Total</th>
+                <th>Acciones</th> 
               </tr>
             </thead>
             <tbody>
@@ -194,6 +226,14 @@ const HistorialVentas = () => {
                     <td>{v.fecha}</td>
                     <td>{v.clienteNombre}</td>
                     <td>${v.total}</td>
+                    <td>
+                      <ActionButton
+                        variant="delete"
+                        onClick={() => handleDeleteVenta(v.id)}
+                      >
+                        <i className="fa-solid fa-trash"></i>
+                      </ActionButton>
+                    </td>
                   </tr>
                 ))
               )}

@@ -70,7 +70,7 @@ const Ventas = () => {
   const [productoSeleccionado, setProductoSeleccionado] = useState("");
 
   const handleAgregarProducto = () => {
-    const producto = productos.find((p) => p.id === Number(productoSeleccionado));
+    const producto = productos.find((p) => String(p.id) === productoSeleccionado);
     if (!producto) return;
     setDetalle([...detalle, producto]);
   };
