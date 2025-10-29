@@ -21,7 +21,39 @@
       "nombre": "camisa lino",
       "precio": "15000",
       "id": 2
+    },
+    {
+      "nombre": "short jean",
+      "precio": "10000",
+      "id": 3
     }
   ],
-  "ventas": []
+  "ventas": [
+    {
+      "id": 1,
+      "clienteId": 1,
+      "fecha": "2025-10-29",
+      "productos": [
+        {
+          "productoId": 1,
+          "nombre": "Remera Polo",
+          "precio": 15000
+        }
+      ],
+      "total": 15000
+    },
+    {
+      "clienteId": 1,
+      "fecha": "2025-10-29",
+      "productos": [
+        {
+          "productoId": 2,
+          "nombre": "camisa lino",
+          "precio": "15000"
+        }
+      ],
+      "total": 15000,
+      "id": 2
+    }
+  ]
 }
