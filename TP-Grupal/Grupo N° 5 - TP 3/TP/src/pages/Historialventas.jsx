@@ -1,20 +1,20 @@
-import React from 'react';
-import styled from 'styled-components';
-import Sidebar from '../layout/sidebar';
-import MainContent from '../layout/maincontent';
-import DataTable from '../components/tables/datatable'; // Asegúrate que la ruta a tu DataTable sea correcta
-
-// Reutilización de estilos de Clientes.jsx
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import Sidebar from "../layout/sidebar";
+import MainContent from "../layout/maincontent";
+import { getVentas } from "../services/ventasService";
+import { getClientes } from "../services/clientesService";
 
 const PageContainer = styled.div`
   display: flex;
 `;
 
-const PageActions = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
+const ContentWrapper = styled.div`
+  background-color: var(--white);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 `;
 
 const SearchBar = styled.div`
@@ -41,67 +41,107 @@ const SearchBar = styled.div`
   }
 `;
 
-const PrimaryButton = styled.button`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
+const ExportButton = styled.button`
   background-color: var(--primary-blue);
-  color: var(--white);
-  transition: background-color 0.3s ease;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
   &:hover {
     background-color: var(--primary-blue-dark);
   }
 `;
 
-const ContentWrapper = styled.div`
-  background-color: var(--white);
-  padding: 25px;
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+  th {
+    color: var(--text-light);
+    font-weight: 600;
+  }
 `;
 
 const HistorialVentas = () => {
-  // Datos de ejemplo para la tabla de historial de ventas
-  const salesData = [
-    {
-      id: 1001,
-      date: '2025-10-24',
-      client: 'Juan Pérez',
-      total: '$150.99',
-      status: 'Completada',
-    },
-    {
-      id: 1002,
-      date: '2025-10-24',
-      client: 'María García',
-      total: '$45.50',
-      status: 'Completada',
-    },
-    {
-      id: 1003,
-      date: '2025-10-23',
-      client: 'Carlos López',
-      total: '$320.00',
-      status: 'Anulada',
-    },
-  ];
+  const [ventas, setVentas] = useState([]);
+  const [clientes, setClientes] = useState([]);
+  const [filtro, setFiltro] = useState("");
 
-  // Definición de las columnas para el DataTable
-  const columns = [
-    { header: 'ID Venta', accessor: 'id' },
-    { header: 'Fecha', accessor: 'date' },
-    { header: 'Cliente', accessor: 'client' },
-    { header: 'Total', accessor: 'total' },
-    { header: 'Estado', accessor: 'status' },
-    { header: 'Acciones', accessor: 'actions', type: 'actions' },
-  ];
+  useEffect(() => {
+    Promise.all([getVentas(), getClientes()]).then(([ventasData, clientesData]) => {
+      // Combinar ventas con nombre del cliente
+      const ventasConCliente = ventasData.map((v) => {
+        const cliente = clientesData.find((c) => c.id === v.clienteId);
+        return {
+          ...v,
+          clienteNombre: cliente ? cliente.nombre : "Desconocido",
+        };
+      });
+      setVentas(ventasConCliente);
+      setClientes(clientesData);
+    });
+  }, []);
+
+  const ventasFiltradas = ventas.filter(
+    (v) =>
+      v.clienteNombre.toLowerCase().includes(filtro.toLowerCase()) ||
+      String(v.id).includes(filtro)
+  );
+
+  const exportarCSV = () => {
+    console.log("Exportar CSV ejecutado ✅");
+  if (ventas.length === 0) {
+    alert("No hay ventas para exportar.");
+    return;
+  }
+
+  // Encabezados
+  const encabezados = ["ID Venta", "Fecha", "Cliente", "Total"];
+
+  // Filas de datos
+  const filas = ventas.map((v) => [
+    v.id,
+    v.fecha,
+    v.clienteNombre,
+    v.total
+  ]);
+
+  // Cálculos extra
+  const totalMonto = ventas.reduce((acc, v) => acc + Number(v.total || 0), 0);
+  const totalVentas = ventas.length;
+  const ticketPromedio = totalMonto / totalVentas;
+
+  // Totales al final del CSV
+  filas.push([]);
+  filas.push(["", "", "Total de Ventas", totalVentas]);
+  filas.push(["", "", "Monto Total Vendido", `$${totalMonto.toLocaleString()}`]);
+  filas.push(["", "", "Ticket Promedio", `$${ticketPromedio.toFixed(2)}`]);
+
+  // Construcción del contenido CSV
+  const csvContent = [encabezados, ...filas].map((e) => e.join(",")).join("\n");
+
+  // Crear el archivo CSV descargable
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.setAttribute(
+    "download",
+    `reporte_ventas_${new Date().toISOString().slice(0, 10)}.csv`
+  );
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
   return (
     <PageContainer>
@@ -110,19 +150,55 @@ const HistorialVentas = () => {
         title="Historial de Ventas"
         description="Consulta, filtra y gestiona todas las transacciones realizadas."
       >
-        <PageActions>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "20px",
+          }}
+        >
           <SearchBar>
             <i className="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Buscar por ID o cliente..." />
+            <input
+              type="text"
+              placeholder="Buscar por ID o cliente..."
+              value={filtro}
+              onChange={(e) => setFiltro(e.target.value)}
+            />
           </SearchBar>
-          <PrimaryButton>
-            <i className="fa-solid fa-file-export"></i>
-            Exportar Reporte
-          </PrimaryButton>
-        </PageActions>
+          <ExportButton onClick={exportarCSV}>Exportar Reporte</ExportButton>
+        </div>
 
         <ContentWrapper>
-          <DataTable columns={columns} data={salesData} />
+          <Table>
+            <thead>
+              <tr>
+                <th>ID Venta</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ventasFiltradas.length === 0 ? (
+                <tr>
+                  <td colSpan="4" style={{ textAlign: "center", color: "#888" }}>
+                    No hay ventas registradas aún.
+                  </td>
+                </tr>
+              ) : (
+                ventasFiltradas.map((v) => (
+                  <tr key={v.id}>
+                    <td>{v.id}</td>
+                    <td>{v.fecha}</td>
+                    <td>{v.clienteNombre}</td>
+                    <td>${v.total}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </Table>
         </ContentWrapper>
       </MainContent>
     </PageContainer>
