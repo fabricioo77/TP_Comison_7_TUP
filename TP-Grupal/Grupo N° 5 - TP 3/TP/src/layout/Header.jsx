@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
+import CerrarSesion from '../assets/cerrarsesion.png';
 
 const MainHeaderContainer = styled.header`
   display: flex;
@@ -67,7 +68,7 @@ const Header = ({ title, description }) => {
 
         {/* 🔘 Botón real de logout */}
         <LogoutButton onClick={handleLogout}>
-          Cerrar sesión
+           <img src={CerrarSesion} alt="Cerrar sesión" style={{ width: "42px", height: "42px" }} />
         </LogoutButton>
       </UserInfo>
     </MainHeaderContainer>

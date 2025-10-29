@@ -5,7 +5,7 @@ import Input from '../components/common/input';
 import Button from '../components/common/button';
 import illustrationImage from '../assets/ilustration.png';
 import FotoIndu from '../assets/fotoindu.png';
-import Fotologo from '../assets/gancho.png'
+import Fotologo from '../assets/gancho.png';
 
 const LoginContainer = styled.div`
   position: relative;

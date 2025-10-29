@@ -1,67 +1,111 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+import { FaShoppingCart, FaDollarSign, FaTicketAlt, FaTruck } from "react-icons/fa";
 
-const KpiCardContainer = styled.div`
-  background-color: var(--white);
-  padding: 25px;
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
+const Card = styled.div`
+  background: rgba(255, 255, 255, 1);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  color: #0f172a;
+  text-align: left;
+  transition: transform 0.2s ease;
+  cursor: default;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px  rgba(0, 120, 218, 0.81);
+  }
 `;
 
-const KpiIcon = styled.div`
+const Icon = styled.div`
   font-size: 1.8rem;
-  padding: 15px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  /* Icon color variants */
-  ${({ color }) => color === 'green' && css` background-color: #D1FAE5; color: #065F46; `}
-  ${({ color }) => color === 'blue' && css` background-color: #DBEAFE; color: #1E40AF; `}
-  ${({ color }) => color === 'yellow' && css` background-color: #FEF3C7; color: #92400E; `}
-  ${({ color }) => color === 'purple' && css` background-color: #E0E7FF; color: #4338CA; `}
+  color: #2563eb;
+  margin-bottom: 8px;
 `;
 
-const KpiInfo = styled.div`
-  display: flex;
-  flex-direction: column;
+const Title = styled.h4`
+  font-size: 0.95rem;
+  margin: 0;
+  color: #1e293b;
 `;
 
-const KpiTitle = styled.span`
-  font-size: 0.9rem;
-  color: var(--text-light);
-  font-weight: 500;
-`;
-
-const KpiValue = styled.span`
+const Value = styled.h2`
   font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin: 5px 0;
+  margin: 8px 0 6px;
+  color: #111827;
 `;
 
-const KpiComparison = styled.span`
+const ProgressBar = styled.div`
+  width: 100%;
+  height: 8px;
+  background: rgba(203, 213, 225, 0.4);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 6px;
+`;
+
+const ProgressFill = styled.div`
+  height: 100%;
+  width: ${({ $percent }) => `${$percent}%`};
+  background: ${({ $color }) => $color};
+  border-radius: 6px;
+  transition: width 0.4s ease-in-out;
+`;
+
+const Comparison = styled.p`
   font-size: 0.85rem;
-  font-weight: 500;
-  color: ${({ type }) => (type === 'increase' ? '#16A34A' : type === 'decrease' ? '#DC2626' : 'var(--text-light)')};
+  color: #475569;
+  margin-top: 8px;
 `;
 
-const KpiCard = ({ icon, color = 'blue', title, value, comparisonText, comparisonType }) => {
+const icons = {
+  cart: <FaShoppingCart />,
+  dollar: <FaDollarSign />,
+  ticket: <FaTicketAlt />,
+  truck: <FaTruck />,
+};
+
+const KpiCard = ({ icon, title, value, comparison }) => {
+  // 🎯 simulamos porcentaje y color según el icono
+  let progress = 0;
+  let color = "#3b82f6";
+
+  switch (icon) {
+    case "cart":
+      progress = 27;
+      color = "#3b82f6"; // azul
+      break;
+    case "dollar":
+      progress = 45;
+      color = "#10b981"; // verde
+      break;
+    case "ticket":
+      progress = 0;
+      color = "#8b5cf6"; 
+      break;
+    case "truck":
+      progress = 0;
+      color = "#f59e0b"; 
+      break;
+    default:
+      break;
+  }
+
   return (
-    <KpiCardContainer>
-      <KpiIcon color={color}>
-        <i className={`fa-solid fa-${icon}`} />
-      </KpiIcon>
-      <KpiInfo>
-        <KpiTitle>{title}</KpiTitle>
-        <KpiValue>{value}</KpiValue>
-        <KpiComparison type={comparisonType}>{comparisonText}</KpiComparison>
-      </KpiInfo>
-    </KpiCardContainer>
+    <Card>
+      <Icon>{icons[icon]}</Icon>
+      <Title>{title}</Title>
+      <Value>{value}</Value>
+
+      {/* ✅ Barra dentro del KpiCard */}
+      <ProgressBar>
+        <ProgressFill $percent={progress} $color={color} />
+      </ProgressBar>
+
+      <Comparison>{comparison}</Comparison>
+    </Card>
   );
 };
 

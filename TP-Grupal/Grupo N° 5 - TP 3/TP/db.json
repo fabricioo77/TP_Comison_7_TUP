@@ -1,18 +1,39 @@
 {
-  "clientes": [],
+  "clientes": [
+    {
+      "nombre": "Fabricio Toranzo",
+      "telefono": "3816367973",
+      "id": 1
+    },
+    {
+      "nombre": "Benjamin Ibañez",
+      "telefono": "3816626552",
+      "id": 2
+    },
+    {
+      "nombre": "Exequiel Rodriguez",
+      "telefono": "3817891234",
+      "id": 3
+    },
+    {
+      "nombre": "Leandro Quilpidor",
+      "telefono": "3814567415",
+      "id": 4
+    }
+  ],
   "productos": [
     {
-      "nombre": "pantalon jean",
+      "nombre": "Pantalon Jeans",
       "precio": "20000",
       "id": "1"
     },
     {
-      "nombre": "camisa lino",
+      "nombre": "Camisa Lino",
       "precio": "15000",
       "id": "2"
     },
     {
-      "nombre": "short jean",
+      "nombre": "Short Jeans",
       "precio": "10000",
       "id": "3"
     }
@@ -43,19 +64,6 @@
       ],
       "total": 15000,
       "id": "2"
-    },
-    {
-      "clienteId": 2,
-      "fecha": "2025-10-29",
-      "productos": [
-        {
-          "productoId": 1,
-          "nombre": "pantalon jean",
-          "precio": "20000"
-        }
-      ],
-      "total": 20000,
-      "id": "3"
     }
   ]
 }

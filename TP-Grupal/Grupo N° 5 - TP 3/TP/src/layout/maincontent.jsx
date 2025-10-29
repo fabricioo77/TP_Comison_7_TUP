@@ -4,7 +4,7 @@ import Header from './Header';
 
 const MainContentContainer = styled.main`
   flex-grow: 1;
-  padding: 40px;
+  padding: 30px;
   overflow-y: auto;
   height: 100vh;
 

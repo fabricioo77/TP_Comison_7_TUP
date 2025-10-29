@@ -7,6 +7,7 @@ import KpiCard from "../dashboard/kpicard";
 import { fakeDashboardData } from "../utils";
 
 const PageContainer = styled.div`display:flex;`;
+
 const QuickActionsGrid = styled.div`
   display:grid; 
   grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); 

@@ -19,7 +19,6 @@ const SidebarContainer = styled.aside`
   );
   backdrop-filter: blur(10px); /* efecto vidrio */
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 0, 0, 0.25);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   @media (max-width: 900px) {
     display: none;
