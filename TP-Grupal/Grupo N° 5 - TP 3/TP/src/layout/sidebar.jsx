@@ -5,14 +5,22 @@ import styled from 'styled-components';
 // import logoImage from '../../assets/logo.png.jpg'; 
 
 const SidebarContainer = styled.aside`
-  width: 260px;
-  background-color: var(--sidebar-bg);
-  color: var(--sidebar-text);
+  width: 260px;;
   min-height: 100vh;
   padding: 20px;
   display: flex;
+  border-radius:  0px 16px 16px 0px;
   flex-direction: column;
-
+    background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(252, 252, 252, 0.91) 35%,
+    rgba(59, 131, 246, 0.88) 100%
+  );
+  backdrop-filter: blur(10px); /* efecto vidrio */
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   @media (max-width: 900px) {
     display: none;
   }
@@ -32,7 +40,7 @@ const Logo = styled.img`
 const AppTitle = styled.h2`
   font-weight: 600;
   font-size: 1.2rem;
-  color: var(--white);
+  color: #111827; /* negro suave */
 `;
 
 const Nav = styled.nav`
@@ -46,17 +54,17 @@ const StyledNavLink = styled(NavLink)`
   padding: 12px 15px;
   border-radius: 8px;
   text-decoration: none;
-  color: var(--sidebar-text);
+  color: #111827;
   margin-bottom: 10px;
   transition: background-color 0.3s;
 
   &.active {
     background-color: var(--primary-blue);
-    color: var(--white);
+    color: #ffff
   }
 
   &:hover:not(.active) {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(116, 123, 128, 0.73);
   }
 
   i {
