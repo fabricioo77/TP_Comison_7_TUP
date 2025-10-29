@@ -35,7 +35,25 @@ export default function Sidebar() {
         >
           <People /> Clientes
         </ListGroup.Item>
+<ListGroup.Item
+          as={Link}
+          to="/app/servicios"
+          action
+          active={isActive("/app/servicios")}
+          className="sidebar-item"
+        >
+          <Scissors /> Servicios
+        </ListGroup.Item>
 
+        <ListGroup.Item
+          as={Link}
+          to="/app/turnos"
+          action
+          active={isActive("/app/turnos")}
+          className="sidebar-item"
+        >
+          <Calendar /> Turnos
+        </ListGroup.Item>
         
 
       </ListGroup>

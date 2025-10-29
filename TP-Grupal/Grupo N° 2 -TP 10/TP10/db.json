@@ -1,0 +1,67 @@
+{
+  "clients": [
+    { "id": 1, "name": "Toranzo Fabricio", "email": "fa@mail.com" },
+    { "id": 2, "name": "Ibañez Benjamin", "email": "ibañ@mail.com" },
+    { "id": 3, "name": "Palacios Esteban", "email": "des@mail.com" },
+    { "id": 4, "name": "Gonzalez Maria", "email": "maria@mail.com" },
+    { "id": 5, "name": "Sanchez Luis", "email": "luis@mail.com" }
+  ],
+  "services": [
+    { "id": 1, "name": "Corte Clásico", "price": 7000 },
+    { "id": 2, "name": "Tintura", "price": 40000 },
+    { "id": 3, "name": "Corte Degrade", "price": 8000 },
+    { "id": 4, "name": "Alisado", "price": 25000 },
+    { "id": 5, "name": "Lavado y Peinado", "price": 5000 }
+  ],
+  "appointments": [
+    {
+      "id": 1,
+      "clientId": 1,
+      "serviceId": 2,
+      "date": "2025-10-22",
+      "time": "10:00"
+    },
+    {
+      "id": 2,
+      "clientId": 2,
+      "serviceId": 1,
+      "date": "2025-10-22",
+      "time": "12:00"
+    },
+    {
+      "id": 3,
+      "clientId": 3,
+      "serviceId": 3,
+      "date": "2025-10-22",
+      "time": "13:00"
+    },
+    {
+      "id": 4,
+      "clientId": 4,
+      "serviceId": 5,
+      "date": "2025-10-23",
+      "time": "09:00"
+    },
+    {
+      "id": 5,
+      "clientId": 1,
+      "serviceId": 1,
+      "date": "2025-10-23",
+      "time": "11:00"
+    },
+    {
+      "id": 6,
+      "clientId": 5,
+      "serviceId": 4,
+      "date": "2025-10-24",
+      "time": "15:00"
+    },
+    {
+      "id": 7,
+      "clientId": 2,
+      "serviceId": 3,
+      "date": "2025-10-24",
+      "time": "16:00"
+    }
+  ]
+}

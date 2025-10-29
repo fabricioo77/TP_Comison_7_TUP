@@ -1,4 +1,4 @@
-// layout/MainLayout.jsx
+
 import { Outlet, useNavigate } from 'react-router-dom'; 
 import Sidebar from '../components/Sidebar';
 import "../styles/layout.css"; 
