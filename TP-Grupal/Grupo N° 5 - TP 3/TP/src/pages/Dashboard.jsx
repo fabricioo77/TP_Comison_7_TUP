@@ -4,7 +4,7 @@ import Sidebar from "../layout/sidebar";
 import MainContent from "../layout/maincontent";
 import ActionCard from "../dashboard/actioncard";
 import KpiCard from "../dashboard/kpicard";
-import { fakeDashboardData } from "../utils"; // ✅ importamos los datos falsos
+import { fakeDashboardData } from "../utils";
 
 const PageContainer = styled.div`display:flex;`;
 const QuickActionsGrid = styled.div`
@@ -24,10 +24,9 @@ export function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 🧠 Simulamos llamada a backend usando datos falsos
     setLoading(true);
     const timer = setTimeout(() => {
-      setKpis(fakeDashboardData); // usamos los KPIs de utils
+      setKpis(fakeDashboardData);
       setLoading(false);
     }, 800);
     return () => clearTimeout(timer);

@@ -75,7 +75,6 @@ const HistorialVentas = () => {
   const { data: clientes, loading: loadingClientes, error: errorClientes } = useFetch("http://localhost:5000/clientes");
   const [filtro, setFiltro] = useState("");
 
-  // ✅ Combinar las ventas con el nombre del cliente (solo cuando ambos están listos)
   const ventasConCliente = useMemo(() => {
     if (!ventas || !clientes) return [];
     return ventas.map((v) => {
@@ -87,14 +86,12 @@ const HistorialVentas = () => {
     });
   }, [ventas, clientes]);
 
-  // ✅ Filtro por nombre o ID
   const ventasFiltradas = ventasConCliente.filter(
     (v) =>
       v.clienteNombre.toLowerCase().includes(filtro.toLowerCase()) ||
       String(v.id).includes(filtro)
   );
 
-  // ✅ Exportar CSV
   const exportarCSV = () => {
     if (ventasConCliente.length === 0) {
       alert("No hay ventas para exportar.");
@@ -110,7 +107,6 @@ const HistorialVentas = () => {
       v.total,
     ]);
 
-    // Totales
     const totalMonto = ventasConCliente.reduce((acc, v) => acc + Number(v.total || 0), 0);
     const totalVentas = ventasConCliente.length;
     const ticketPromedio = totalMonto / totalVentas;
@@ -135,7 +131,6 @@ const HistorialVentas = () => {
     document.body.removeChild(link);
   };
 
-  // ✅ Estados de carga y error
   if (loadingVentas || loadingClientes) {
     return <p style={{ padding: "20px" }}>Cargando historial de ventas...</p>;
   }

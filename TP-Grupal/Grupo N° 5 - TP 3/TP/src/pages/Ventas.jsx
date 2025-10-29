@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Sidebar from "../layout/sidebar";
 import MainContent from "../layout/maincontent";
 import { addVenta } from "../services/ventasService";
-import { useFetch } from "../hooks/useFetch"; // ✅ import del hook
+import { useFetch } from "../hooks/useFetch";
 
 const PageContainer = styled.div`
   display: flex;
@@ -60,7 +60,6 @@ const ProductosTable = styled.table`
 `;
 
 const Ventas = () => {
-  // ✅ Cargamos clientes y productos usando el hook personalizado
   const { data: clientes, loading: loadingClientes, error: errorClientes } = useFetch("http://localhost:5000/clientes");
   const { data: productos, loading: loadingProductos, error: errorProductos } = useFetch("http://localhost:5000/productos");
 
@@ -70,19 +69,16 @@ const Ventas = () => {
   const [detalle, setDetalle] = useState([]);
   const [productoSeleccionado, setProductoSeleccionado] = useState("");
 
-  // Agregar producto a la venta
   const handleAgregarProducto = () => {
     const producto = productos.find((p) => p.id === Number(productoSeleccionado));
     if (!producto) return;
     setDetalle([...detalle, producto]);
   };
 
-  // Eliminar producto del detalle
   const handleEliminarProducto = (id) => {
     setDetalle(detalle.filter((p) => p.id !== id));
   };
 
-  // Finalizar y registrar la venta
   const handleFinalizarVenta = async () => {
     if (!clienteSeleccionado || detalle.length === 0) {
       alert("Debe seleccionar un cliente y al menos un producto");
@@ -103,7 +99,6 @@ const Ventas = () => {
     try {
       await addVenta(nuevaVenta);
       alert("✅ Venta registrada exitosamente");
-      // Reiniciar formulario
       setClienteSeleccionado("");
       setProductoSeleccionado("");
       setDetalle([]);

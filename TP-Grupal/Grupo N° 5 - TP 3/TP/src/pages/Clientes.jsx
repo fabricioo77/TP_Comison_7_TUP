@@ -4,9 +4,8 @@ import Sidebar from "../layout/sidebar";
 import MainContent from "../layout/maincontent";
 import DataTable from "../components/tables/datatable";
 import { addCliente, deleteCliente } from "../services/clientesService";
-import { useFetch } from "../hooks/useFetch"; // ✅ Nuevo hook importado
+import { useFetch } from "../hooks/useFetch";
 
-// 🔹 Estilos (idénticos a los tuyos)
 const PageContainer = styled.div`
   display: flex;
 `;
@@ -105,7 +104,6 @@ const ActionButton = styled.button`
 `;
 
 const Clientes = () => {
-  // ✅ Hook personalizado para traer clientes
   const { data: clientes, loading, error, refetch } = useFetch("http://localhost:5000/clientes");
 
   const [showModal, setShowModal] = useState(false);
@@ -113,7 +111,6 @@ const Clientes = () => {
   const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
   const [nuevoCliente, setNuevoCliente] = useState({ nombre: "", telefono: "" });
 
-  // 🔹 Columnas
   const columns = [
     { header: "ID", accessor: "id", type: "text" },
     { header: "Nombre", accessor: "nombre", type: "text" },
@@ -121,7 +118,6 @@ const Clientes = () => {
     { header: "Acciones", accessor: "acciones", type: "actions" },
   ];
 
-  // 🔹 Render de acciones (editar / eliminar)
   const renderActions = (cliente) => (
     <>
       <ActionButton variant="edit" onClick={() => handleEditCliente(cliente)}>
@@ -133,7 +129,6 @@ const Clientes = () => {
     </>
   );
 
-  // 🔹 Agregar cliente nuevo
   const handleAddCliente = async (e) => {
     e.preventDefault();
     if (!nuevoCliente.nombre || !nuevoCliente.telefono) {
@@ -143,7 +138,7 @@ const Clientes = () => {
 
     try {
       await addCliente(nuevoCliente);
-      refetch(); // ✅ Actualiza la lista automáticamente
+      refetch();
       setShowModal(false);
       setNuevoCliente({ nombre: "", telefono: "" });
     } catch (error) {
@@ -151,25 +146,22 @@ const Clientes = () => {
     }
   };
 
-  // 🔹 Eliminar cliente
   const handleDeleteCliente = async (id) => {
     if (!window.confirm("¿Seguro que deseas eliminar este cliente?")) return;
     try {
       await deleteCliente(id);
-      refetch(); // ✅ Recarga los clientes
+      refetch();
     } catch (error) {
       console.error("Error al eliminar cliente:", error);
     }
   };
 
-  // 🔹 Editar cliente
   const handleEditCliente = (cliente) => {
     setIsEditing(true);
     setClienteSeleccionado(cliente);
     setShowModal(true);
   };
 
-  // 🔹 Guardar cambios
   const handleUpdateCliente = async (e) => {
     e.preventDefault();
     if (!clienteSeleccionado.nombre || !clienteSeleccionado.telefono) {
@@ -183,13 +175,12 @@ const Clientes = () => {
       body: JSON.stringify(clienteSeleccionado),
     });
 
-    refetch(); // ✅ Actualiza datos en pantalla
+    refetch();
     setShowModal(false);
     setIsEditing(false);
     setClienteSeleccionado(null);
   };
 
-  // 🔹 Estados de carga o error
   if (loading) return <p style={{ padding: "20px" }}>Cargando clientes...</p>;
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
@@ -226,7 +217,6 @@ const Clientes = () => {
           <DataTable columns={columns} data={dataWithActions} />
         </ContentWrapper>
 
-        {/* 🔹 Modal de agregar / editar */}
         {showModal && (
           <ModalBackdrop onClick={() => setShowModal(false)}>
             <ModalContent onClick={(e) => e.stopPropagation()}>

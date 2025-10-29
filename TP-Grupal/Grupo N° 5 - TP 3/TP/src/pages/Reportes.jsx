@@ -3,10 +3,6 @@ import styled from 'styled-components';
 import Sidebar from '../layout/sidebar';
 import MainContent from '../layout/maincontent';
 
-// NOTA: Se eliminan las importaciones de Card y Select
-// import Card from '../components/common/Card'; 
-// import Select from '../components/common/Select'; 
-
 const PageContainer = styled.div`
   display: flex;
 `;
@@ -18,7 +14,6 @@ const KPIContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-// Componente simple de Card (Reemplazo de la importación)
 const SimpleCard = styled.div`
     padding: 20px;
     border-radius: 8px;
@@ -79,7 +74,6 @@ const ChartGrid = styled.div`
 const Reportes = () => {
   const [timeframe, setTimeframe] = useState('7d'); 
 
-  // MOCK DATA (Datos de ejemplo para los indicadores clave)
   const kpiData = [
     { title: 'Ventas Totales', value: '$12,450.00', trend: '+12% vs mes ant.' },
     { title: 'Ticket Promedio', value: '$45.50', trend: '-2% vs mes ant.' },
@@ -87,7 +81,6 @@ const Reportes = () => {
     { title: 'Stock Crítico', value: '18', trend: 'Items en alerta' },
   ];
 
-  // Opciones para el filtro de tiempo
   const timeframeOptions = [
     { value: '7d', label: 'Últimos 7 días' },
     { value: '30d', label: 'Últimos 30 días' },
@@ -125,10 +118,8 @@ const Reportes = () => {
         description="Información clave para tomar decisiones y gestionar el rendimiento."
       >
         
-        {/* FILTROS DE PERÍODO */}
         <FiltersBar>
           <label htmlFor="timeframe-select" style={{ fontWeight: '600' }}>Período:</label>
-          {/* CORRECCIÓN: Usando el StyledSelect (etiqueta <select> de HTML) */}
           <StyledSelect 
             id="timeframe-select"
             value={timeframe}
@@ -138,7 +129,6 @@ const Reportes = () => {
           </StyledSelect>
         </FiltersBar>
 
-        {/* 1. INDICADORES CLAVE (KPIs) */}
         <h2>Indicadores Clave de Desempeño (KPIs)</h2>
         <KPIContainer>
           {kpiData.map((kpi, index) => (
@@ -150,23 +140,19 @@ const Reportes = () => {
           ))}
         </KPIContainer>
         
-        {/* 2. GRÁFICOS DE ANÁLISIS */}
         <h2>Tendencia y Desempeño</h2>
         <ChartGrid>
-            {/* GRÁFICO 1: Tendencia de Ventas (Placeholder) */}
             <div style={{ height: '350px', backgroundColor: 'var(--white)', padding: '20px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
                 <h3 style={{marginTop: 0}}>Gráfico: Evolución de Ventas por Período</h3>
                 <p>Aquí se integrará tu librería de gráficos (ej. Chart.js o Recharts).</p>
             </div>
 
-            {/* GRÁFICO 2: Productos Más Vendidos (Placeholder) */}
             <div style={{ height: '350px', backgroundColor: 'var(--white)', padding: '20px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
                 <h3 style={{marginTop: 0}}>Gráfico: Productos Más Vendidos (Top 5)</h3>
                 <p>Visualización por unidades o por monto total.</p>
             </div>
         </ChartGrid>
 
-        {/* 3. REPORTES TABULARES */}
         <h2 style={{marginTop: '20px'}}>Reportes Detallados</h2>
         <StockCriticoTable />
 

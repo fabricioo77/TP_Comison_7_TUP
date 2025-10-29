@@ -52,15 +52,12 @@ const Login = () => {
     e.preventDefault();
     setError('');
 
-    // Credenciales simuladas
     const MOCK_EMAIL = 'admin@tienda.com';
     const MOCK_PASSWORD = '123';
 
     if (email === MOCK_EMAIL && password === MOCK_PASSWORD) {
-      // Guardamos sesión simulada (clave unificada con RouterProtect)
       localStorage.setItem('userLogged', 'true');
 
-      // También podés guardar info extra si querés
       localStorage.setItem(
         'auth',
         JSON.stringify({
@@ -70,7 +67,6 @@ const Login = () => {
         })
       );
 
-      // Redirigimos al Dashboard
       navigate('/dashboard');
     } else {
       setError(`Credenciales inválidas. Usa: ${MOCK_EMAIL} / ${MOCK_PASSWORD}`);
