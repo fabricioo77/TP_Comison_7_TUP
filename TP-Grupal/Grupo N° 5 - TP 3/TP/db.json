@@ -9,6 +9,11 @@
       "nombre": "maria gomez",
       "telefono": "3812276458",
       "id": 2
+    },
+    {
+      "nombre": "raul lopez",
+      "telefono": "3814987620",
+      "id": 3
     }
   ],
   "productos": [
@@ -54,6 +59,19 @@
       ],
       "total": 15000,
       "id": 2
+    },
+    {
+      "clienteId": 2,
+      "fecha": "2025-10-29",
+      "productos": [
+        {
+          "productoId": 1,
+          "nombre": "pantalon jean",
+          "precio": "20000"
+        }
+      ],
+      "total": 20000,
+      "id": 3
     }
   ]
 }

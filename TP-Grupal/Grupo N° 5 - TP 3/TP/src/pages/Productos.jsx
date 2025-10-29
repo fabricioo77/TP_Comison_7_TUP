@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Sidebar from "../layout/sidebar";
 import MainContent from "../layout/maincontent";
 import DataTable from "../components/tables/datatable";
-import { getProductos, addProducto, deleteProducto, updateProducto } from "../services/productosService";
+import { addProducto, deleteProducto, updateProducto } from "../services/productosService";
+import { useFetch } from "../hooks/useFetch";
 
 const PageContainer = styled.div`
   display: flex;
@@ -102,19 +103,12 @@ const ActionButton = styled.button`
 `;
 
 const Productos = () => {
-  const [productos, setProductos] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { data: productos, loading, error, refetch } = useFetch("http://localhost:5000/productos");
+
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
   const [nuevoProducto, setNuevoProducto] = useState({ nombre: "", precio: "" });
-
-  useEffect(() => {
-    getProductos().then((data) => {
-      setProductos(data);
-      setLoading(false);
-    });
-  }, []);
 
   const columns = [
     { header: "ID", accessor: "id", type: "text" },
@@ -142,8 +136,8 @@ const Productos = () => {
     }
 
     try {
-      const productoAgregado = await addProducto(nuevoProducto);
-      setProductos([...productos, productoAgregado]);
+      await addProducto(nuevoProducto);
+      refetch();
       setShowModal(false);
       setNuevoProducto({ nombre: "", precio: "" });
     } catch (error) {
@@ -155,7 +149,7 @@ const Productos = () => {
     if (!window.confirm("¿Seguro que deseas eliminar este producto?")) return;
     try {
       await deleteProducto(id);
-      setProductos(productos.filter((p) => p.id !== id));
+      refetch();
     } catch (error) {
       console.error("Error al eliminar producto:", error);
     }
@@ -174,17 +168,19 @@ const Productos = () => {
       return;
     }
 
-    const actualizado = await updateProducto(productoSeleccionado.id, productoSeleccionado);
-    setProductos((prev) =>
-      prev.map((p) => (p.id === actualizado.id ? actualizado : p))
-    );
-
-    setShowModal(false);
-    setIsEditing(false);
-    setProductoSeleccionado(null);
+    try {
+      await updateProducto(productoSeleccionado.id, productoSeleccionado);
+      refetch();
+      setShowModal(false);
+      setIsEditing(false);
+      setProductoSeleccionado(null);
+    } catch (error) {
+      console.error("Error al actualizar producto:", error);
+    }
   };
 
   if (loading) return <p style={{ padding: "20px" }}>Cargando productos...</p>;
+  if (error) return <p style={{ padding: "20px", color: "red" }}>Error: {error}</p>;
 
   const dataWithActions = productos.map((p) => ({
     ...p,

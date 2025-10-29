@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 import Sidebar from "../layout/sidebar";
 import MainContent from "../layout/maincontent";
-import { getVentas } from "../services/ventasService";
-import { getClientes } from "../services/clientesService";
+import { useFetch } from "../hooks/useFetch"; // ✅ Hook personalizado
 
 const PageContainer = styled.div`
   display: flex;
@@ -59,7 +58,8 @@ const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   margin-top: 25px;
-  th, td {
+  th,
+  td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
@@ -71,84 +71,89 @@ const Table = styled.table`
 `;
 
 const HistorialVentas = () => {
-  const [ventas, setVentas] = useState([]);
-  const [clientes, setClientes] = useState([]);
+  const { data: ventas, loading: loadingVentas, error: errorVentas } = useFetch("http://localhost:5000/ventas");
+  const { data: clientes, loading: loadingClientes, error: errorClientes } = useFetch("http://localhost:5000/clientes");
   const [filtro, setFiltro] = useState("");
 
-  useEffect(() => {
-    Promise.all([getVentas(), getClientes()]).then(([ventasData, clientesData]) => {
-      // Combinar ventas con nombre del cliente
-      const ventasConCliente = ventasData.map((v) => {
-        const cliente = clientesData.find((c) => c.id === v.clienteId);
-        return {
-          ...v,
-          clienteNombre: cliente ? cliente.nombre : "Desconocido",
-        };
-      });
-      setVentas(ventasConCliente);
-      setClientes(clientesData);
+  // ✅ Combinar las ventas con el nombre del cliente (solo cuando ambos están listos)
+  const ventasConCliente = useMemo(() => {
+    if (!ventas || !clientes) return [];
+    return ventas.map((v) => {
+      const cliente = clientes.find((c) => c.id === v.clienteId);
+      return {
+        ...v,
+        clienteNombre: cliente ? cliente.nombre : "Desconocido",
+      };
     });
-  }, []);
+  }, [ventas, clientes]);
 
-  const ventasFiltradas = ventas.filter(
+  // ✅ Filtro por nombre o ID
+  const ventasFiltradas = ventasConCliente.filter(
     (v) =>
       v.clienteNombre.toLowerCase().includes(filtro.toLowerCase()) ||
       String(v.id).includes(filtro)
   );
 
+  // ✅ Exportar CSV
   const exportarCSV = () => {
-    console.log("Exportar CSV ejecutado ✅");
-  if (ventas.length === 0) {
-    alert("No hay ventas para exportar.");
-    return;
+    if (ventasConCliente.length === 0) {
+      alert("No hay ventas para exportar.");
+      return;
+    }
+
+    const encabezados = ["ID Venta", "Fecha", "Cliente", "Total"];
+
+    const filas = ventasConCliente.map((v) => [
+      v.id,
+      v.fecha,
+      v.clienteNombre,
+      v.total,
+    ]);
+
+    // Totales
+    const totalMonto = ventasConCliente.reduce((acc, v) => acc + Number(v.total || 0), 0);
+    const totalVentas = ventasConCliente.length;
+    const ticketPromedio = totalMonto / totalVentas;
+
+    filas.push([]);
+    filas.push(["", "", "Total de Ventas", totalVentas]);
+    filas.push(["", "", "Monto Total Vendido", `$${totalMonto.toLocaleString()}`]);
+    filas.push(["", "", "Ticket Promedio", `$${ticketPromedio.toFixed(2)}`]);
+
+    const csvContent = [encabezados, ...filas].map((e) => e.join(",")).join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute(
+      "download",
+      `reporte_ventas_${new Date().toISOString().slice(0, 10)}.csv`
+    );
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // ✅ Estados de carga y error
+  if (loadingVentas || loadingClientes) {
+    return <p style={{ padding: "20px" }}>Cargando historial de ventas...</p>;
   }
 
-  // Encabezados
-  const encabezados = ["ID Venta", "Fecha", "Cliente", "Total"];
-
-  // Filas de datos
-  const filas = ventas.map((v) => [
-    v.id,
-    v.fecha,
-    v.clienteNombre,
-    v.total
-  ]);
-
-  // Cálculos extra
-  const totalMonto = ventas.reduce((acc, v) => acc + Number(v.total || 0), 0);
-  const totalVentas = ventas.length;
-  const ticketPromedio = totalMonto / totalVentas;
-
-  // Totales al final del CSV
-  filas.push([]);
-  filas.push(["", "", "Total de Ventas", totalVentas]);
-  filas.push(["", "", "Monto Total Vendido", `$${totalMonto.toLocaleString()}`]);
-  filas.push(["", "", "Ticket Promedio", `$${ticketPromedio.toFixed(2)}`]);
-
-  // Construcción del contenido CSV
-  const csvContent = [encabezados, ...filas].map((e) => e.join(",")).join("\n");
-
-  // Crear el archivo CSV descargable
-  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.setAttribute(
-    "download",
-    `reporte_ventas_${new Date().toISOString().slice(0, 10)}.csv`
-  );
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
+  if (errorVentas || errorClientes) {
+    return (
+      <p style={{ padding: "20px", color: "red" }}>
+        Error al cargar los datos del servidor.
+      </p>
+    );
+  }
 
   return (
     <PageContainer>
       <Sidebar />
       <MainContent
         title="Historial de Ventas"
-        description="Consulta, filtra y gestiona todas las transacciones realizadas."
+        description="Consulta, filtra y exporta todas las transacciones realizadas."
       >
         <div
           style={{

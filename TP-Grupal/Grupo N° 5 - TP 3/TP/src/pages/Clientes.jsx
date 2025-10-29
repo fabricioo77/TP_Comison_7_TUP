@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import Sidebar from '../layout/sidebar';
-import MainContent from '../layout/maincontent';
-import DataTable from '../components/tables/datatable';
-import { getClientes, addCliente, deleteCliente } from '../services/clientesService';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import Sidebar from "../layout/sidebar";
+import MainContent from "../layout/maincontent";
+import DataTable from "../components/tables/datatable";
+import { addCliente, deleteCliente } from "../services/clientesService";
+import { useFetch } from "../hooks/useFetch"; // ✅ Nuevo hook importado
 
+// 🔹 Estilos (idénticos a los tuyos)
 const PageContainer = styled.div`
   display: flex;
 `;
@@ -89,7 +91,7 @@ const ModalContent = styled.div`
 const ActionButton = styled.button`
   border: none;
   background-color: ${(props) =>
-    props.variant === 'edit' ? 'var(--primary-blue)' : '#DC2626'};
+    props.variant === "edit" ? "var(--primary-blue)" : "#DC2626"};
   color: white;
   border-radius: 5px;
   padding: 5px 8px;
@@ -103,27 +105,23 @@ const ActionButton = styled.button`
 `;
 
 const Clientes = () => {
-  const [clientes, setClientes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // ✅ Hook personalizado para traer clientes
+  const { data: clientes, loading, error, refetch } = useFetch("http://localhost:5000/clientes");
+
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
-  const [nuevoCliente, setNuevoCliente] = useState({ nombre: '', telefono: '' });
+  const [nuevoCliente, setNuevoCliente] = useState({ nombre: "", telefono: "" });
 
-  useEffect(() => {
-    getClientes().then((data) => {
-      setClientes(data);
-      setLoading(false);
-    });
-  }, []);
-
+  // 🔹 Columnas
   const columns = [
-    { header: 'ID', accessor: 'id', type: 'text' },
-    { header: 'Nombre', accessor: 'nombre', type: 'text' },
-    { header: 'Teléfono', accessor: 'telefono', type: 'text' },
-    { header: 'Acciones', accessor: 'acciones', type: 'actions' }
+    { header: "ID", accessor: "id", type: "text" },
+    { header: "Nombre", accessor: "nombre", type: "text" },
+    { header: "Teléfono", accessor: "telefono", type: "text" },
+    { header: "Acciones", accessor: "acciones", type: "actions" },
   ];
 
+  // 🔹 Render de acciones (editar / eliminar)
   const renderActions = (cliente) => (
     <>
       <ActionButton variant="edit" onClick={() => handleEditCliente(cliente)}>
@@ -135,64 +133,65 @@ const Clientes = () => {
     </>
   );
 
+  // 🔹 Agregar cliente nuevo
   const handleAddCliente = async (e) => {
     e.preventDefault();
     if (!nuevoCliente.nombre || !nuevoCliente.telefono) {
-      alert('Por favor completa todos los campos');
+      alert("Por favor completa todos los campos");
       return;
     }
 
     try {
-      const clienteAgregado = await addCliente(nuevoCliente); // sin id manual
-      setClientes([...clientes, clienteAgregado]);
+      await addCliente(nuevoCliente);
+      refetch(); // ✅ Actualiza la lista automáticamente
       setShowModal(false);
-      setNuevoCliente({ nombre: '', telefono: '' });
+      setNuevoCliente({ nombre: "", telefono: "" });
     } catch (error) {
-      console.error('Error al agregar cliente:', error);
+      console.error("Error al agregar cliente:", error);
     }
   };
 
+  // 🔹 Eliminar cliente
   const handleDeleteCliente = async (id) => {
-    if (!window.confirm('¿Seguro que deseas eliminar este cliente?')) return;
+    if (!window.confirm("¿Seguro que deseas eliminar este cliente?")) return;
     try {
       await deleteCliente(id);
-      setClientes(clientes.filter((c) => c.id !== id));
+      refetch(); // ✅ Recarga los clientes
     } catch (error) {
-      console.error('Error al eliminar cliente:', error);
+      console.error("Error al eliminar cliente:", error);
     }
   };
 
+  // 🔹 Editar cliente
   const handleEditCliente = (cliente) => {
     setIsEditing(true);
     setClienteSeleccionado(cliente);
     setShowModal(true);
   };
 
+  // 🔹 Guardar cambios
   const handleUpdateCliente = async (e) => {
     e.preventDefault();
     if (!clienteSeleccionado.nombre || !clienteSeleccionado.telefono) {
-      alert('Por favor completa todos los campos');
+      alert("Por favor completa todos los campos");
       return;
     }
 
     await fetch(`http://localhost:5000/clientes/${clienteSeleccionado.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(clienteSeleccionado),
     });
 
-    setClientes((prev) =>
-      prev.map((c) =>
-        c.id === clienteSeleccionado.id ? clienteSeleccionado : c
-      )
-    );
-
+    refetch(); // ✅ Actualiza datos en pantalla
     setShowModal(false);
     setIsEditing(false);
     setClienteSeleccionado(null);
   };
 
-  if (loading) return <p style={{ padding: '20px' }}>Cargando clientes...</p>;
+  // 🔹 Estados de carga o error
+  if (loading) return <p style={{ padding: "20px" }}>Cargando clientes...</p>;
+  if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
   const dataWithActions = clientes.map((c) => ({
     ...c,
@@ -215,7 +214,7 @@ const Clientes = () => {
             onClick={() => {
               setShowModal(true);
               setIsEditing(false);
-              setNuevoCliente({ nombre: '', telefono: '' });
+              setNuevoCliente({ nombre: "", telefono: "" });
             }}
           >
             <i className="fa-solid fa-plus"></i>
@@ -227,17 +226,18 @@ const Clientes = () => {
           <DataTable columns={columns} data={dataWithActions} />
         </ContentWrapper>
 
+        {/* 🔹 Modal de agregar / editar */}
         {showModal && (
           <ModalBackdrop onClick={() => setShowModal(false)}>
             <ModalContent onClick={(e) => e.stopPropagation()}>
-              <h3>{isEditing ? 'Editar Cliente' : 'Agregar Nuevo Cliente'}</h3>
+              <h3>{isEditing ? "Editar Cliente" : "Agregar Nuevo Cliente"}</h3>
               <form
                 onSubmit={isEditing ? handleUpdateCliente : handleAddCliente}
                 style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '10px',
-                  marginTop: '20px',
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                  marginTop: "20px",
                 }}
               >
                 {isEditing && (
@@ -246,11 +246,11 @@ const Clientes = () => {
                     value={clienteSeleccionado.id}
                     disabled
                     style={{
-                      padding: '10px',
-                      borderRadius: '6px',
-                      border: '1px solid #ccc',
-                      backgroundColor: '#f3f4f6',
-                      color: '#555',
+                      padding: "10px",
+                      borderRadius: "6px",
+                      border: "1px solid #ccc",
+                      backgroundColor: "#f3f4f6",
+                      color: "#555",
                     }}
                   />
                 )}
@@ -267,9 +267,9 @@ const Clientes = () => {
                       : setNuevoCliente({ ...nuevoCliente, nombre: e.target.value })
                   }
                   style={{
-                    padding: '10px',
-                    borderRadius: '6px',
-                    border: '1px solid #ccc',
+                    padding: "10px",
+                    borderRadius: "6px",
+                    border: "1px solid #ccc",
                   }}
                 />
                 <input
@@ -285,24 +285,24 @@ const Clientes = () => {
                       : setNuevoCliente({ ...nuevoCliente, telefono: e.target.value })
                   }
                   style={{
-                    padding: '10px',
-                    borderRadius: '6px',
-                    border: '1px solid #ccc',
+                    padding: "10px",
+                    borderRadius: "6px",
+                    border: "1px solid #ccc",
                   }}
                 />
                 <button
                   type="submit"
                   style={{
-                    padding: '10px',
-                    borderRadius: '6px',
-                    backgroundColor: 'var(--primary-blue)',
-                    color: 'white',
-                    fontWeight: 'bold',
-                    cursor: 'pointer',
-                    border: 'none',
+                    padding: "10px",
+                    borderRadius: "6px",
+                    backgroundColor: "var(--primary-blue)",
+                    color: "white",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    border: "none",
                   }}
                 >
-                  {isEditing ? 'Guardar Cambios' : 'Guardar Cliente'}
+                  {isEditing ? "Guardar Cambios" : "Guardar Cliente"}
                 </button>
               </form>
             </ModalContent>

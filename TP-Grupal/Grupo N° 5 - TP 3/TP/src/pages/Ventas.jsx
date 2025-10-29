@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Sidebar from "../layout/sidebar";
 import MainContent from "../layout/maincontent";
-import { getClientes } from "../services/clientesService";
-import { getProductos } from "../services/productosService";
 import { addVenta } from "../services/ventasService";
+import { useFetch } from "../hooks/useFetch"; // ✅ import del hook
 
 const PageContainer = styled.div`
   display: flex;
@@ -53,36 +52,37 @@ const ProductosTable = styled.table`
   width: 100%;
   border-collapse: collapse;
   margin-top: 15px;
-  td, th {
+  td,
+  th {
     padding: 10px;
     border-bottom: 1px solid var(--border-color);
   }
 `;
 
 const Ventas = () => {
-  const [clientes, setClientes] = useState([]);
-  const [productos, setProductos] = useState([]);
+  // ✅ Cargamos clientes y productos usando el hook personalizado
+  const { data: clientes, loading: loadingClientes, error: errorClientes } = useFetch("http://localhost:5000/clientes");
+  const { data: productos, loading: loadingProductos, error: errorProductos } = useFetch("http://localhost:5000/productos");
+
+  // Estados locales
   const [clienteSeleccionado, setClienteSeleccionado] = useState("");
   const [fecha, setFecha] = useState(new Date().toISOString().split("T")[0]);
   const [detalle, setDetalle] = useState([]);
   const [productoSeleccionado, setProductoSeleccionado] = useState("");
 
-  // Cargar clientes y productos
-  useEffect(() => {
-    getClientes().then(setClientes);
-    getProductos().then(setProductos);
-  }, []);
-
+  // Agregar producto a la venta
   const handleAgregarProducto = () => {
     const producto = productos.find((p) => p.id === Number(productoSeleccionado));
     if (!producto) return;
     setDetalle([...detalle, producto]);
   };
 
+  // Eliminar producto del detalle
   const handleEliminarProducto = (id) => {
     setDetalle(detalle.filter((p) => p.id !== id));
   };
 
+  // Finalizar y registrar la venta
   const handleFinalizarVenta = async () => {
     if (!clienteSeleccionado || detalle.length === 0) {
       alert("Debe seleccionar un cliente y al menos un producto");
@@ -100,14 +100,31 @@ const Ventas = () => {
       total: detalle.reduce((sum, p) => sum + Number(p.precio), 0),
     };
 
-    await addVenta(nuevaVenta);
-    alert("Venta registrada exitosamente ✅");
-
-    // Reiniciar formulario
-    setClienteSeleccionado("");
-    setProductoSeleccionado("");
-    setDetalle([]);
+    try {
+      await addVenta(nuevaVenta);
+      alert("✅ Venta registrada exitosamente");
+      // Reiniciar formulario
+      setClienteSeleccionado("");
+      setProductoSeleccionado("");
+      setDetalle([]);
+    } catch (error) {
+      console.error("Error al registrar la venta:", error);
+      alert("❌ Error al registrar la venta");
+    }
   };
+
+  // Mensajes de carga o error
+  if (loadingClientes || loadingProductos) {
+    return <p style={{ padding: "20px" }}>Cargando datos...</p>;
+  }
+
+  if (errorClientes || errorProductos) {
+    return (
+      <p style={{ padding: "20px", color: "red" }}>
+        Error al cargar datos del servidor.
+      </p>
+    );
+  }
 
   return (
     <PageContainer>
@@ -178,7 +195,9 @@ const Ventas = () => {
                     <td>{p.nombre}</td>
                     <td>${p.precio}</td>
                     <td>
-                      <Button onClick={() => handleEliminarProducto(p.id)}>X</Button>
+                      <Button onClick={() => handleEliminarProducto(p.id)}>
+                        X
+                      </Button>
                     </td>
                   </tr>
                 ))}
