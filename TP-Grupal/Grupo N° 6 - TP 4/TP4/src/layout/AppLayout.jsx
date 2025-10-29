@@ -1,15 +1,16 @@
+// src/layout/AppLayout.jsx
 import React from "react";
-import { Container, Navbar, Nav, Button } from "react-bootstrap";
+import { Container, Navbar, Nav, Button, Row, Col } from "react-bootstrap";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { clearAuth, getAuth } from "../utils/auth";
 import ThemeSwitcher from "../components/ThemeSwitcher";
+import Sidebar from "../dashboard/Dashboard"; // nuevo nombre más claro
 
-export default function AppLayout(){
+export default function AppLayout() {
   const nav = useNavigate();
   const { pathname } = useLocation();
   const user = getAuth()?.user;
 
-  // Fondo del dashboard (solo para rutas distintas a /login)
   const isDashboard = pathname !== "/login";
 
   return (
@@ -28,7 +29,14 @@ export default function AppLayout(){
             <div className="d-flex gap-3 align-items-center">
               <ThemeSwitcher />
               {user && <span className="text-light-emphasis small">Hola, {user}</span>}
-              <Button size="sm" variant="outline-light" onClick={() => { clearAuth(); nav("/login", { replace: true }); }}>
+              <Button
+                size="sm"
+                variant="outline-light"
+                onClick={() => {
+                  clearAuth();
+                  nav("/login", { replace: true });
+                }}
+              >
                 Salir
               </Button>
             </div>
@@ -36,8 +44,15 @@ export default function AppLayout(){
         </Container>
       </Navbar>
 
-      <Container className="py-4">
-        <Outlet/>
+      <Container fluid className="py-4">
+        <Row>
+          <Col xs={12} md={3} lg={2}>
+            <Sidebar /> {/* Lado izquierdo */}
+          </Col>
+          <Col xs={12} md={9} lg={10}>
+            <Outlet /> {/* Lado derecho: contenido dinámico */}
+          </Col>
+        </Row>
       </Container>
     </div>
   );

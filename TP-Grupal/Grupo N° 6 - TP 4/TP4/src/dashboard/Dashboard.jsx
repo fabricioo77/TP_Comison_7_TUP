@@ -1,87 +1,100 @@
-import React, { useEffect, useState } from "react";
-import { Row, Col, Card, Button, ListGroup } from "react-bootstrap";
-import StatCard from "../components/StatCard";
-import DataTable from "../components/DataTable";
-import ProgressRing from "../components/ProgressRing";
-import BarChart from "../components/BarChart";
+// src/dashboard/DashboardSidebar.jsx
+import { useEffect, useState } from "react";
+import { Card, Nav, ListGroup } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
+import { getBooks, getLoans } from "../store/dataService";
 
-export default function Dashboard(){
-  const [stats, setStats] = useState(null);
-  const [rows,  setRows ] = useState([]);
-  const [percent, setPercent] = useState(45);
+export default function DashboardSidebar() {
+  const location = useLocation();
+  const [libros, setLibros] = useState([]);
+  const [prestamos, setPrestamos] = useState([]);
+  const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
-    const t = setTimeout(() => {
-      setStats([
-        { title: "Earning",  value: "$ 628",   icon: "💳" },
-        { title: "Share",    value: "2434",    icon: "🔗" },
-        { title: "Likes",    value: "1259",    icon: "👍"  },
-        { title: "Rating",   value: "8,5",     icon: "⭐"  },
-      ]);
-      setRows([
-        { id: 1, name: "Juan Pérez", email: "juan@mail.com", role: "Admin" },
-        { id: 2, name: "Ana Díaz",   email: "ana@mail.com",  role: "User"  },
-        { id: 3, name: "Luis ENS",   email: "luis@mail.com", role: "User"  },
-      ]);
-      setPercent(45);
-    }, 300);
-    return () => clearTimeout(t);
+    setLibros(getBooks());
+    setPrestamos(getLoans());
   }, []);
 
-  const bars = [20, 55, 35, 48, 42, 65, 30, 40, 38]; // valores demo
+  const totalLibros = libros.length;
+  const librosPrestados = prestamos.length;
+  const librosDisponibles = libros.reduce(
+    (acc, l) => acc + (l.cantidadDisponible || 0),
+    0
+  );
+
+  const navItems = [
+    { path: "/libros", label: "📚 Libros" },
+    { path: "/alumnos", label: "👩‍🎓 Alumnos" },
+    { path: "/prestamos", label: "📖 Préstamos" },
+  ];
 
   return (
-    <>
-      {/* fila superior de tarjetas */}
-      <Row className="g-3 mb-3">
-        {(stats ?? []).map((s, i) => (
-          <Col sm={6} lg={3} key={i}>
-            <div className="card-appear" style={{ "--i": `${0.05 * i}s` }}>
-              <StatCard title={s.title} value={s.value} icon={s.icon} />
-            </div>
-          </Col>
+    <div className="bg-light border-end vh-100 p-3 overflow-auto">
+      <h5 className="text-center mb-3 fw-bold">Panel de Biblioteca</h5>
+
+      {/* 🔹 Métricas de préstamos */}
+<div className="mb-4">
+  <Card className="mb-2 text-center shadow-sm border-success">
+    <Card.Body>
+      <Card.Title className="text-success fw-semibold">
+        🟢 Préstamos Activos
+      </Card.Title>
+      <Card.Text className="fw-bold fs-4">
+        {
+          getLoans().filter(p => {
+            const diff = Math.ceil((new Date(p.fechaDevolucion) - new Date()) / (1000 * 60 * 60 * 24));
+            return diff > 2; // activos si faltan más de 2 días
+          }).length
+        }
+      </Card.Text>
+    </Card.Body>
+  </Card>
+
+  <Card className="mb-2 text-center shadow-sm border-warning">
+    <Card.Body>
+      <Card.Title className="text-warning fw-semibold">
+        🟡 Préstamos por Vencer
+      </Card.Title>
+      <Card.Text className="fw-bold fs-4">
+        {
+          getLoans().filter(p => {
+            const diff = Math.ceil((new Date(p.fechaDevolucion) - new Date()) / (1000 * 60 * 60 * 24));
+            return diff > 0 && diff <= 2; // por vencer
+          }).length
+        }
+      </Card.Text>
+    </Card.Body>
+  </Card>
+
+  <Card className="mb-3 text-center shadow-sm border-danger">
+    <Card.Body>
+      <Card.Title className="text-danger fw-semibold">
+        🔴 Préstamos Vencidos
+      </Card.Title>
+      <Card.Text className="fw-bold fs-4">
+        {
+          getLoans().filter(p => {
+            const diff = Math.ceil((new Date(p.fechaDevolucion) - new Date()) / (1000 * 60 * 60 * 24));
+            return diff <= 0; // vencidos
+          }).length
+        }
+      </Card.Text>
+    </Card.Body>
+  </Card>
+</div>
+      {/* Navegación */}
+      <Nav className="flex-column mb-4">
+        {navItems.map((item) => (
+          <Nav.Link
+            as={Link}
+            to={item.path}
+            key={item.path}
+            active={location.pathname === item.path}
+            className="mb-2"
+          >
+            {item.label}
+          </Nav.Link>
         ))}
-      </Row>
-
-      <Row className="g-3">
-        {/* panel de barras */}
-        <Col lg={8}>
-          <Card className="shadow-sm glass card-appear" style={{ "--i": ".1s" }}>
-            <Card.Body>
-              <div className="d-flex justify-content-between align-items-center mb-2">
-                <Card.Title className="mb-0">Result</Card.Title>
-                <Button size="sm" variant="outline-primary">Check Now</Button>
-              </div>
-              <BarChart values={bars} labels={["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP"]}/>
-            </Card.Body>
-          </Card>
-
-          {/* tabla demo (puede ser otro gráfico en tu grupo) */}
-          <Card className="mt-3 shadow-sm glass card-appear" style={{ "--i": ".15s" }}>
-            <Card.Body>
-              <Card.Title className="mb-3">Usuarios</Card.Title>
-              <DataTable rows={rows}/>
-            </Card.Body>
-          </Card>
-        </Col>
-
-        {/* lateral derecho: anillo + lista */}
-        <Col lg={4}>
-          <Card className="shadow-sm glass card-appear" style={{ "--i": ".12s" }}>
-            <Card.Body className="d-flex flex-column align-items-center">
-              <ProgressRing value={percent}/>
-              <div className="text-center mt-2 mb-3 small text-muted">Completion</div>
-              <ListGroup variant="flush" className="w-100 small">
-                <ListGroup.Item className="glass-subtle">Lorem ipsum</ListGroup.Item>
-                <ListGroup.Item className="glass-subtle">Lorem ipsum</ListGroup.Item>
-                <ListGroup.Item className="glass-subtle">Lorem ipsum</ListGroup.Item>
-                <ListGroup.Item className="glass-subtle">Lorem ipsum</ListGroup.Item>
-              </ListGroup>
-              <Button className="mt-3" size="sm" variant="outline-primary">Check Now</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </>
-  );
+      </Nav>
+      </div> );
 }
