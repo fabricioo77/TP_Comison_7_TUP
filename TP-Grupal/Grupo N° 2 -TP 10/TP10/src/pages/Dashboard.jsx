@@ -3,11 +3,11 @@ import { Card, Row, Col, ProgressBar, Spinner } from "react-bootstrap";
 import "../styles/dashboard.css";
 
 export default function Dashboard() {
-  const [stats, setStats] = useState(null); // datos simulados
-  const [loading, setLoading] = useState(true); // indicador de carga
+  const [stats, setStats] = useState(null); 
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-    // Simular carga de datos (como si vinieran de una API)
+    
     setTimeout(() => {
       setStats({
         totalClients: 26,
