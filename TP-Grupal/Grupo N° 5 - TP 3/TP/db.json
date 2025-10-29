@@ -1,13 +1,16 @@
 {
   "clientes": [
-    { "id": 1, "nombre": "Juan Pérez", "telefono": "3814567890" },
-    { "id": 2, "nombre": "María Gómez", "telefono": "3814234567" }
+    {
+      "nombre": "benjamin ibañez",
+      "telefono": "3813301826",
+      "id": 1
+    },
+    {
+      "nombre": "maria gomez",
+      "telefono": "3812273827",
+      "id": 2
+    }
   ],
-  "productos": [
-    { "id": 1, "nombre": "Remera Polo", "precio": 15000 },
-    { "id": 2, "nombre": "Camisa Lino", "precio": 20000 }
-  ],
-  "ventas": [
-    { "id": 1, "clienteId": 1, "productoId": 2, "fecha": "2025-10-28" }
-  ]
+  "productos": [],
+  "ventas": []
 }
