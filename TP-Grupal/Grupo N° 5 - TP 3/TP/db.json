@@ -7,10 +7,21 @@
     },
     {
       "nombre": "maria gomez",
-      "telefono": "3812273827",
+      "telefono": "3812276458",
       "id": 2
     }
   ],
-  "productos": [],
+  "productos": [
+    {
+      "nombre": "pantalon jean",
+      "precio": "20000",
+      "id": 1
+    },
+    {
+      "nombre": "camisa lino",
+      "precio": "15000",
+      "id": 2
+    }
+  ],
   "ventas": []
 }

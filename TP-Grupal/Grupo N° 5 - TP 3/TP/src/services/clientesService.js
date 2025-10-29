@@ -11,7 +11,7 @@ export const addCliente = async (nuevoCliente) => {
   const res = await fetch(API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(nuevoCliente), // ⚠️ NO incluir id aquí
+    body: JSON.stringify(nuevoCliente),
   });
   return await res.json();
 };
