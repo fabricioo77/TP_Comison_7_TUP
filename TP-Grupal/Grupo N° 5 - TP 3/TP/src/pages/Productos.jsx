@@ -6,6 +6,7 @@ import DataTable from "../components/tables/datatable";
 import { addProducto, deleteProducto, updateProducto } from "../services/productosService";
 import { useFetch } from "../hooks/useFetch";
 
+
 const PageContainer = styled.div`
   display: flex;
 `;
@@ -109,6 +110,7 @@ const Productos = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
   const [nuevoProducto, setNuevoProducto] = useState({ nombre: "", precio: "" });
+  const [busqueda, setBusqueda] = useState("");
 
   const columns = [
     { header: "ID", accessor: "id", type: "text" },
@@ -182,7 +184,13 @@ const Productos = () => {
   if (loading) return <p style={{ padding: "20px" }}>Cargando productos...</p>;
   if (error) return <p style={{ padding: "20px", color: "red" }}>Error: {error}</p>;
 
-  const dataWithActions = productos.map((p) => ({
+  const productosFiltrados = productos
+    ? productos.filter((p) =>
+        p.nombre.toLowerCase().includes(busqueda.toLowerCase())
+      )
+ : [];
+
+  const dataWithActions = productosFiltrados.map((p) => ({
     ...p,
     acciones: renderActions(p),
   }));
@@ -194,7 +202,12 @@ const Productos = () => {
         <PageActions>
           <SearchBar>
             <i className="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Buscar por nombre..." />
+            <input
+              type="text"
+              placeholder="Buscar por nombre..."
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+            />
           </SearchBar>
           <PrimaryButton
             onClick={() => {

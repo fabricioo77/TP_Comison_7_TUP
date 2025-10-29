@@ -110,6 +110,7 @@ const Clientes = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
   const [nuevoCliente, setNuevoCliente] = useState({ nombre: "", telefono: "" });
+  const [busqueda, setBusqueda] = useState("");
 
   const columns = [
     { header: "ID", accessor: "id", type: "text" },
@@ -184,7 +185,11 @@ const Clientes = () => {
   if (loading) return <p style={{ padding: "20px" }}>Cargando clientes...</p>;
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
-  const dataWithActions = clientes.map((c) => ({
+  const clientesFiltrados = clientes.filter((c) =>
+    c.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  );
+
+  const dataWithActions = clientesFiltrados.map((c) => ({
     ...c,
     acciones: renderActions(c),
   }));
@@ -199,7 +204,12 @@ const Clientes = () => {
         <PageActions>
           <SearchBar>
             <i className="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Buscar por nombre o teléfono..." />
+            <input
+              type="text"
+              placeholder="Buscar por nombre o telefono.."
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+            />
           </SearchBar>
           <PrimaryButton
             onClick={() => {
