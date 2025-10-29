@@ -1,5 +1,7 @@
 import { Container, Navbar } from "react-bootstrap";
 import { Outlet } from "react-router-dom";
+import './Styles/Style.css';
+
 
 export default function App() {
   const user = JSON.parse(localStorage.getItem("user"));

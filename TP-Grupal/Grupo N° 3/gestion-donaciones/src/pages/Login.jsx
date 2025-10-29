@@ -33,7 +33,8 @@ export default function Login() {
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-      <Card className="p-4 shadow-lg" style={{ width: "380px", borderRadius: "15px" }}>
+      <Card className="login-card shadow-lg">
+
         <h3 className="text-center mb-4 text-primary fw-bold">
           Iniciar Sesión
         </h3>
