@@ -10,7 +10,7 @@ const Card = styled.div`
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   color: #0f172a;
   text-align: left;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   cursor: default;
 
   &:hover {
@@ -99,7 +99,6 @@ const KpiCard = ({ icon, title, value, comparison }) => {
       <Title>{title}</Title>
       <Value>{value}</Value>
 
-      {/* ✅ Barra dentro del KpiCard */}
       <ProgressBar>
         <ProgressFill $percent={progress} $color={color} />
       </ProgressBar>

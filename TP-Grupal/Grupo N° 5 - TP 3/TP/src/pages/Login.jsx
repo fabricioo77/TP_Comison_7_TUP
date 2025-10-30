@@ -37,7 +37,7 @@ const FormWrapper = styled.div`
   max-width: 425px;
   background: transparent;
   border-radius: 50px;
-  padding: 35px;
+  padding: 30px;
   background: rgba(255, 255, 255, 0.15); /* transparencia */
   backdrop-filter: blur(10px); /* efecto vidrio */
   -webkit-backdrop-filter: blur(10px);
@@ -107,7 +107,7 @@ const Login = () => {
     <LoginContainer>
       <FormSection>
         <FormWrapper>
-           {<img src={Fotologo} alt="Logo" style={{ width: '120px', marginBottom: '30px', }} />}
+           {<img src={Fotologo} alt="Logo" style={{ width: '65px', marginBottom: '30px', }} />}
           <h2>Bienvenido a Nuestra Tienda</h2>
           <p>Ingresa tus credenciales para acceder al sistema.</p>
 

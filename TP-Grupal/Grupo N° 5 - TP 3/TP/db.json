@@ -36,6 +36,11 @@
       "nombre": "Short Jeans",
       "precio": "10000",
       "id": "3"
+    },
+    {
+      "id": 4,
+      "nombre": "Remera Mom",
+      "precio": "22000"
     }
   ],
   "ventas": [

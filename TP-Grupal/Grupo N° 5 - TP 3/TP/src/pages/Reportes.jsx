@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import "bootstrap/dist/css/bootstrap.min.css" //enlazada aqui pero se aplica en el proyecto completo
 import Sidebar from '../layout/sidebar';
 import MainContent from '../layout/maincontent';
 
@@ -20,7 +21,7 @@ const SimpleCard = styled.div`
     background-color: var(--white, #fff);
     border: 1px solid var(--border-color, #e0e0e0);
     box-shadow: 0 2px 4px rgba(223, 52, 52, 0.05);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 
     &:hover {
     box-shadow: 0 10px 20px  rgba(0, 120, 218, 0.81);
@@ -106,7 +107,7 @@ const StockCriticoTable = () => (
           padding: 20px;
           border-radius: 10px;
           border: 1px solid var(--border-color);
-          transition: box-shadow 0.3s ease, transform 0.3s ease;
+          transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         .hoverStockBox:hover {
@@ -250,7 +251,7 @@ const StockCriticoTable = () => (
         padding: 20px;
         border-radius: 15px;
         border: 1px solid var(--border-color);
-        transition: box-shadow 0.3s ease, transform 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
       }
 
       .hoverChartBox:hover {
