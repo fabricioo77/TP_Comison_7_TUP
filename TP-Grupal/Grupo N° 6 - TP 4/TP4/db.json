@@ -1,0 +1,20 @@
+{
+  "users": [
+    { "id": 1, "email": "admin@escuela.edu", "password": "1234", "role": "admin", "name": "Demo Admin" },
+    { "id": 2, "email": "ana@escuela.edu",  "password": "1234", "role": "user",  "name": "Usuario" }
+  ],
+  "books": [
+    { "id": 1, "titulo": "Rayuela", "autor": "Julio Cortázar", "categoria": "Novela", "cantidad": 5, "cantidadDisponible": 3 },
+    { "id": 2, "titulo": "El Principito", "autor": "A. de Saint-Exupéry", "categoria": "Infantil", "cantidad": 4, "cantidadDisponible": 4 }
+  ],
+  "students": [
+    { "id": 1, "nombre": "Ana", "apellido": "Pérez", "email": "ana@escuela.edu", "dni": "40111222", "telefono": "381-555-1234" },
+    { "id": 2, "nombre": "Luis", "apellido": "Gómez", "email": "luis@escuela.edu", "dni": "39222333", "telefono": "381-555-2222" }
+  ],
+  "loans": [
+    { "id": 1, "alumnoId": 1, "libroId": 1, "fechaPrestamo": "2025-10-31", "fechaDevolucion": "2025-11-07", "fechaRealDevolucion": "", "devuelto": false }
+  ],
+  "audit": [
+    { "id": 1, "actor": "admin@escuela.edu", "accion": "SEED", "entidad": "system", "entidadId": 0, "timestamp": "2025-10-31T10:00:00Z" }
+  ]
+}
