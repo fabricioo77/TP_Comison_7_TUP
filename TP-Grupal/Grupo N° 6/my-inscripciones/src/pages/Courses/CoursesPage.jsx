@@ -1,30 +1,49 @@
-import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { getCourses } from "../../services/coursesService";  // Importamos el servicio
+import { Table, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getCourses } from "../../store/dataService";
-import CardCourse from "../../components/ui/CardCourse";
 
 export default function CoursesPage() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    setCourses(getCourses());
+    const fetchCourses = async () => {
+      const data = await getCourses();
+      setCourses(data);
+    };
+    fetchCourses();
   }, []);
 
   return (
-    <>
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2>📚 Cursos</h2>
-        <Button as={Link} to="/courses/create" variant="primary">
-          ➕ Nuevo Curso
+    <div>
+      <h3>Lista de Cursos</h3>
+      <Link to="/courses/create">
+        <Button variant="primary" className="mb-3">
+          Crear Curso
         </Button>
-      </div>
-
-      {courses.length === 0 ? (
-        <p>No hay cursos registrados.</p>
-      ) : (
-        courses.map((course) => <CardCourse key={course.id} course={course} />)
-      )}
-    </>
+      </Link>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {courses.map((course) => (
+            <tr key={course.id}>
+              <td>{course.id}</td>
+              <td>{course.name}</td>
+              <td>
+                <Button variant="danger" size="sm">
+                  Eliminar
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </div>
   );
 }
