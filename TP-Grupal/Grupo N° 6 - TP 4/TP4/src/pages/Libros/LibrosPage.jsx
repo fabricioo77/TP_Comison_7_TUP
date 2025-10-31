@@ -1,16 +1,43 @@
-import { useEffect, useState } from "react";
-import { Button, Table } from "react-bootstrap";
+import { useMemo, useState } from "react";
+import { Button, Table, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getBooks } from "../../store/dataService";
 import BookStatsHeader from "../../components/BookStatHeader";
+import { useService } from "../../hooks/useService";
+import { booksService } from "../../services/books.service";
 
+/** Lista de libros desde json-server (GET /books) */
 export default function LibrosPage() {
-  const [libros, setLibros] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
 
-  useEffect(() => {
-    setLibros(getBooks());
-  }, []);
+  const { loading, error, data: libros, refetch } = useService({
+    request: () => booksService.getAll(),
+    deps: [],   // carga una vez
+  });
+
+  const rows = useMemo(() => libros || [], [libros]);
+
+  if (loading) {
+    return (
+      <>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h2>📚 Libros</h2>
+          <Button as={Link} to="/libros/nuevo" variant="primary">➕ Nuevo Libro</Button>
+        </div>
+        <div className="text-center py-5">
+          <Spinner animation="border" />
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="alert alert-danger">
+        Error cargando libros: {error.message}
+        <Button variant="link" onClick={refetch} className="ms-2">Reintentar</Button>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -18,12 +45,13 @@ export default function LibrosPage() {
 
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2>📚 Libros</h2>
-        <Button as={Link} to="/libros/nuevo" variant="primary">
-          ➕ Nuevo Libro
-        </Button>
+        <div className="d-flex gap-2">
+          <Button variant="outline-secondary" onClick={refetch}>Actualizar</Button>
+          <Button as={Link} to="/libros/nuevo" variant="primary">➕ Nuevo Libro</Button>
+        </div>
       </div>
 
-      {libros.length === 0 ? (
+      {rows.length === 0 ? (
         <p>No hay libros registrados.</p>
       ) : (
         <Table striped bordered hover>
@@ -37,8 +65,12 @@ export default function LibrosPage() {
             </tr>
           </thead>
           <tbody>
-            {libros.map(l => (
-              <tr key={l.id} onClick={() => setSelectedBook(l)} style={{ cursor: "pointer" }}>
+            {rows.map(l => (
+              <tr
+                key={l.id}
+                onClick={() => setSelectedBook(l)}
+                style={{ cursor: "pointer" }}
+              >
                 <td>{l.titulo}</td>
                 <td>{l.autor}</td>
                 <td>{l.categoria}</td>
