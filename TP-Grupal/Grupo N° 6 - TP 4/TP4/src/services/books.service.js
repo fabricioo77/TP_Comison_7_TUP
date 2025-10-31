@@ -2,37 +2,31 @@ import { ENDPOINTS } from "./endpoints";
 import { httpClient } from "./httpClient";
 import { audit } from "./audit.service";
 
-/** CRUD Libros contra json-server */
+const client = httpClient();
+
 export const booksService = {
   async getAll() {
-    const client = httpClient();
-    return client.get(ENDPOINTS.books);
+    return await client.get(ENDPOINTS.books);
   },
-
-  async create(book) {
-    const client = httpClient();
-    // Normalizar campos
-    const payload = {
-      ...book,
-      cantidad: Number(book.cantidad || 0),
-      cantidadDisponible: Number(book.cantidad || 0),
-    };
-    const created = await client.post(ENDPOINTS.books, payload);
-    await audit("CREATE_BOOK", "book", created.id);
-    return created;
+  async create(data) {
+    const res = await client.post(ENDPOINTS.books, data);
+    await audit("CREATE", "books", res.id);
+    return res;
   },
-
-  async update(id, patch) {
-    const client = httpClient();
-    const updated = await client.patch(`${ENDPOINTS.books}/${id}`, patch);
-    await audit("UPDATE_BOOK", "book", id);
-    return updated;
+  async update(id, data) {
+    const res = await client.patch(`${ENDPOINTS.books}/${id}`, data);
+    await audit("UPDATE", "books", id);
+    return res;
   },
-
   async delete(id) {
-    const client = httpClient();
-    await client.del(`${ENDPOINTS.books}/${id}`);
-    await audit("DELETE_BOOK", "book", id);
-    return true;
-  }
+    const res = await client.delete(`${ENDPOINTS.books}/${id}`);
+    await audit("DELETE", "books", id);
+    return res;
+  },
 };
+
+export async function searchBooks(query, limit = 50) {
+  const client = httpClient();
+  // json-server: q busca en todos los campos (título/autor/categoría, etc.)
+  return client.get(`${ENDPOINTS.books}?q=${encodeURIComponent(query)}&_limit=${limit}`);
+}

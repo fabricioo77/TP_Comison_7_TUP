@@ -15,3 +15,5 @@ body { background: var(--color-bg); color: var(--color-text); }
   backdrop-filter: blur(6px);
   border: 1px solid color-mix(in srgb, var(--color-muted) 18%, transparent);
 }
+
+.hover-bg:hover { background: rgba(13, 110, 253, .06); cursor: pointer; }
