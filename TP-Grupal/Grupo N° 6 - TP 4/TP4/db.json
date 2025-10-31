@@ -1,0 +1,14 @@
+{
+  "books": [
+    { "id": 1, "titulo": "Rayuela", "autor": "Julio Cortázar", "categoria": "Novela", "cantidad": 5, "cantidadDisponible": 3 }
+  ],
+  "students": [
+    { "id": 1, "nombre": "Ana Pérez", "email": "ana@escuela.edu", "dni": "40111222" }
+  ],
+  "loans": [
+    { "id": 1, "alumnoId": 1, "libroId": 1, "fechaPrestamo": "2025-10-31", "fechaDevolucion": "2025-11-07", "devuelto": false }
+  ],
+  "audit": [
+    { "id": 1, "actor": "admin@escuela.edu", "accion": "SEED", "entity": "system", "entityId": 0, "timestamp": "2025-10-31T10:00:00Z" }
+  ]
+}
