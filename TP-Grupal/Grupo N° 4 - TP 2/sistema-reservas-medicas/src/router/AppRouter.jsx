@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Pacientes from "../pages/Pacientes";
 import Doctores from "../pages/Doctores";
+import Turnos from "../pages/Turnos";
 import RouterProtect from "./RouterProtect";
 
 const AppRouter = () => {
@@ -38,6 +39,14 @@ const AppRouter = () => {
             element={
               <RouterProtect>
                 <Doctores />
+              </RouterProtect>
+            }
+          />
+          <Route
+            path="/turnos"
+            element={
+              <RouterProtect>
+                <Turnos />
               </RouterProtect>
             }
           />
