@@ -1,7 +1,18 @@
+// Archivo: src/Components/EventCard.jsx
+
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Modal, Row, Col, ListGroup, Badge } from 'react-bootstrap';
-// --- ¡IMPORTAMOS LA NUEVA FUNCIÓN! ---
-import { addItem, updateItem, getAll, agregarArtistaAEvento, removerArtistaDeEvento, getById } from '../Utils/utils';
+// --- ¡IMPORTAMOS LAS NUEVAS FUNCIONES PARA ASISTENTES! ---
+import { 
+    addItem, 
+    updateItem, 
+    getAll, 
+    getById,
+    agregarArtistaAEvento, 
+    removerArtistaDeEvento,
+    inscribirAsistenteAEvento, // <--- NUEVA
+    removerAsistenteDeEvento   // <--- NUEVA
+} from '../Utils/utils';
 
 function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar, esEdicion }) {
     const initialState = {
@@ -9,21 +20,30 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
     };
     
     const [evento, setEvento] = useState(initialState);
+    
+    // Estados para los selectores
     const [artistasDisponibles, setArtistasDisponibles] = useState([]);
     const [artistaSeleccionadoId, setArtistaSeleccionadoId] = useState('');
+    const [asistentesDisponibles, setAsistentesDisponibles] = useState([]); // <--- NUEVO
+    const [asistenteSeleccionadoId, setAsistenteSeleccionadoId] = useState(''); // <--- NUEVO
 
     useEffect(() => {
         if (show) {
+            // Cargamos ambos listados cuando se abre el modal
             setArtistasDisponibles(getAll('artistas'));
+            setAsistentesDisponibles(getAll('asistentes')); // <--- NUEVO
         }
         if (esEdicion && eventoAEditar) {
-            const fechaParaInput = eventoAEditar.fecha.split('-').reverse().join('-');
-            setEvento({ ...eventoAEditar, fecha: fechaParaInput });
+            // Recargamos el eventoAEditar por si acaso tiene datos viejos
+            const eventoActualizado = getById('eventos', eventoAEditar.id) || eventoAEditar;
+            const fechaParaInput = eventoActualizado.fecha.split('-').reverse().join('-');
+            setEvento({ ...eventoActualizado, fecha: fechaParaInput });
         } else {
             setEvento(initialState);
         }
     }, [eventoAEditar, esEdicion, show]);
     
+    // --- LÓGICA DE ARTISTAS (Sin cambios) ---
     const handleAsociarArtista = () => {
         if (!artistaSeleccionadoId) {
             alert("Por favor, selecciona un artista.");
@@ -42,14 +62,42 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
         refrescarDatosDelModal();
     };
 
+    // --- ¡NUEVA LÓGICA DE ASISTENTES! ---
+    const handleInscribirAsistente = () => {
+        if (!asistenteSeleccionadoId) {
+            alert("Por favor, selecciona un asistente.");
+            return;
+        }
+
+        // Llamamos a la nueva función de la utils
+        const resultado = inscribirAsistenteAEvento(evento.id, parseInt(asistenteSeleccionadoId));
+        
+        if (!resultado.success) {
+            alert(resultado.message); // Ej: "¡Cupo completo!"
+            return;
+        }
+        
+        refrescarDatosDelModal();
+    };
+
+    const handleRemoverAsistente = (idAsistenteARemover) => {
+        removerAsistenteDeEvento(evento.id, idAsistenteARemover);
+        refrescarDatosDelModal();
+    };
+
+
     const refrescarDatosDelModal = () => {
+        // Recarga el evento
         const eventoRefrescado = getById('eventos', evento.id);
         if (eventoRefrescado) {
             const fechaParaInput = eventoRefrescado.fecha.split('-').reverse().join('-');
             setEvento({ ...eventoRefrescado, fecha: fechaParaInput });
         }
+        // Recarga los selectores
         setArtistasDisponibles(getAll('artistas'));
         setArtistaSeleccionadoId('');
+        setAsistentesDisponibles(getAll('asistentes')); // <--- NUEVO
+        setAsistenteSeleccionadoId(''); // <--- NUEVO
     };
 
     const handleChange = (e) => {
@@ -61,12 +109,22 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
         e.preventDefault();
         const cupoNumerico = parseInt(evento.cupo, 10);
         const fechaParaGuardar = evento.fecha.split('-').reverse().join('-');
-        const datosAGuardar = { ...evento, cupo: cupoNumerico, fecha: fechaParaGuardar };
+        // Nos aseguramos de NO guardar los objetos completos de artistas/asistentes
+        // Guardamos solo los IDs, que es una práctica más limpia.
+        // PERO tu lógica actual guarda los objetos completos, así que lo respetamos.
+        
+        const datosAGuardar = { 
+            ...evento, 
+            cupo: cupoNumerico, 
+            fecha: fechaParaGuardar 
+        };
+
         try {
             if (esEdicion) { 
                 updateItem('eventos', evento.id, datosAGuardar);
             } else { 
-                addItem('eventos', datosAGuardar);
+                // Al crear, nos aseguramos que artistas y asistentes empiecen vacíos
+                addItem('eventos', { ...datosAGuardar, artistas: [], asistentes: [] });
             }
             onEventAdded();
             handleClose(); 
@@ -83,7 +141,7 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
-                    {/* --- CORRECCIÓN AQUÍ: CAMPOS DEL FORMULARIO RESTAURADOS --- */}
+                    {/* --- Detalles del Evento (Sin cambios) --- */}
                     <h5>Detalles del Evento</h5>
                     <Form.Group className="mb-3">
                         <Form.Label>Nombre del Evento</Form.Label>
@@ -104,7 +162,7 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
                         <Form.Control type="text" name="lugar" value={evento.lugar} onChange={handleChange} required />
                     </Form.Group>
                     
-                    {/* La sección para gestionar artistas sigue aquí, sin cambios */}
+                    {/* --- Sección de Artistas (Solo visible en Edición) --- */}
                     {esEdicion && (
                         <div className="mt-4 p-3 border rounded">
                             <h5>Artistas del Evento</h5>
@@ -121,7 +179,7 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
                                         </ListGroup.Item>
                                     ))
                                 ) : (
-                                    <p className="text-muted">Aún no hay artistas asociados a este evento.</p>
+                                    <p className="text-muted">Aún no hay artistas asociados.</p>
                                 )}
                             </ListGroup>
                             
@@ -135,11 +193,7 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
                                     >
                                         <option value="">Selecciona un artista para añadir...</option>
                                         {artistasDisponibles.map(artista => (
-                                            <option 
-                                                key={artista.id} 
-                                                value={artista.id} 
-                                                disabled={!artista.disponible}
-                                            >
+                                            <option key={artista.id} value={artista.id} disabled={!artista.disponible}>
                                                 {artista.nombreArt} {artista.disponible ? '' : '(Ocupado)'}
                                             </option>
                                         ))}
@@ -153,6 +207,74 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
                             </Row>
                         </div>
                     )}
+
+                    {/* --- ¡NUEVA SECCIÓN DE ASISTENTES! (Solo visible en Edición) --- */}
+                    {esEdicion && (
+                        <div className="mt-4 p-3 border rounded bg-light">
+                            <h5>
+                                Asistentes del Evento 
+                                <Badge bg="dark" className="ms-2">
+                                    {evento.asistentes.length} / {evento.cupo}
+                                </Badge>
+                            </h5>
+                            
+                            <ListGroup variant="flush" className="mb-3" style={{maxHeight: '200px', overflowY: 'auto'}}>
+                                {evento.asistentes && evento.asistentes.length > 0 ? (
+                                    evento.asistentes.map(asistente => (
+                                        <ListGroup.Item key={asistente.id} className="d-flex justify-content-between align-items-center">
+                                            <span>
+                                                {asistente.nombre} {asistente.apellido}
+                                            </span>
+                                            <Button variant="outline-danger" size="sm" onClick={() => handleRemoverAsistente(asistente.id)}>
+                                                Quitar
+                                            </Button>
+                                        </ListGroup.Item>
+                                    ))
+                                ) : (
+                                    <p className="text-muted">Aún no hay asistentes inscritos.</p>
+                                )}
+                            </ListGroup>
+                            
+                            <h6 className="mt-3">Inscribir Nuevo Asistente</h6>
+                            <Row>
+                                <Col md={8}>
+                                    <Form.Select 
+                                        aria-label="Seleccionar asistente"
+                                        value={asistenteSeleccionadoId}
+                                        onChange={(e) => setAsistenteSeleccionadoId(e.target.value)}
+                                        // Deshabilitamos el selector si el cupo está lleno
+                                        disabled={evento.asistentes.length >= evento.cupo} 
+                                    >
+                                        <option value="">Selecciona un asistente para inscribir...</option>
+                                        {asistentesDisponibles.map(asistente => (
+                                            <option key={asistente.id} value={asistente.id}>
+                                                {asistente.nombre} {asistente.apellido}
+                                            </option>
+                                        ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col md={4}>
+                                    <Button 
+                                        variant="success" 
+                                        onClick={handleInscribirAsistente} 
+                                        className="w-100"
+                                        // Deshabilitamos el botón si el cupo está lleno
+                                        disabled={evento.asistentes.length >= evento.cupo}
+                                    >
+                                        Inscribir Asistente
+                                    </Button>
+                                </Col>
+                            </Row>
+                            {/* Mensaje de cupo lleno */}
+                            {evento.asistentes.length >= evento.cupo && (
+                                <div className="text-danger mt-2 fw-bold">
+                                    ¡Cupo completo! No se pueden inscribir más asistentes.
+                                </div>
+                            )}
+                        </div>
+                    )}
+                    {/* --- FIN DE LA NUEVA SECCIÓN --- */}
+
 
                     <Button variant="success" type="submit" className="w-100 mt-4">
                         {esEdicion ? "GUARDAR CAMBIOS" : "REGISTRAR EVENTO"}

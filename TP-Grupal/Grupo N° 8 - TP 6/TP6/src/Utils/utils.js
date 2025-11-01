@@ -1,3 +1,5 @@
+// Archivo: src/Utils/utils.js
+
 // Clave única para guardar nuestros datos en el localStorage del navegador
 const DB_KEY = 'culturaAppDB';
 
@@ -53,13 +55,10 @@ export function updateItem(tabla, id, itemActualizado) {
   }
 }
 
-// --- ¡FUNCIÓN MEJORADA! ---
 export function deleteById(tabla, id) {
-  // Lógica especial si estamos eliminando un evento
   if (tabla === 'eventos') {
     const eventoAEliminar = getById('eventos', id);
     if (eventoAEliminar && eventoAEliminar.artistas.length > 0) {
-      // Liberamos a cada artista que estaba en el evento
       eventoAEliminar.artistas.forEach(artistaEnEvento => {
         const artistaOriginal = getById('artistas', artistaEnEvento.id);
         if (artistaOriginal) {
@@ -68,12 +67,28 @@ export function deleteById(tabla, id) {
       });
     }
   }
+  
+  // --- NUEVA LÓGICA ---
+  // Si eliminamos un asistente, también lo quitamos de todos los eventos.
+  if (tabla === 'asistentes') {
+    db.eventos.forEach(evento => {
+        evento.asistentes = evento.asistentes.filter(asistente => asistente.id !== id);
+    });
+  }
+  
+  // --- NUEVA LÓGICA ---
+  // Si eliminamos un artista, lo quitamos de todos los eventos.
+  if (tabla === 'artistas') {
+     db.eventos.forEach(evento => {
+        evento.artistas = evento.artistas.filter(artista => artista.id !== id);
+    });
+  }
 
-  // Lógica general para eliminar el item
   db[tabla] = db[tabla].filter(item => item.id !== id);
-  saveDB(); // Guardamos todos los cambios
+  saveDB();
 }
 
+// --- Lógica de Artistas (Sin cambios) ---
 export function agregarArtistaAEvento(idEvento, idArtista) {
   const evento = getById('eventos', idEvento);
   const artista = getById('artistas', idArtista);
@@ -106,27 +121,38 @@ export function removerArtistaDeEvento(idEvento, idArtista) {
     saveDB();
 }
 
-export function agregarAsistenteAEvento(idEvento, idAsistente) {
+// --- ¡FUNCIÓN MODIFICADA Y FUNCIÓN NUEVA! ---
+
+// Esta es tu 'agregarAsistenteAEvento' pero con mejor feedback
+export function inscribirAsistenteAEvento(idEvento, idAsistente) {
   const evento = getById('eventos', idEvento);
   const asistente = getById('asistentes', idAsistente);
 
   if (!evento || !asistente) {
-    console.error("Evento o asistente no encontrado");
-    return;
+    return { success: false, message: "Error: Evento o asistente no encontrado." };
   }
+  // Control de Cupo
   if (evento.asistentes.length >= evento.cupo) {
-    console.warn("No hay más cupos disponibles");
-    return;
+    return { success: false, message: "¡Cupo completo! No se pueden inscribir más asistentes." };
   }
   const yaExiste = evento.asistentes.some(a => a.id === idAsistente);
   if (yaExiste) {
-    console.warn("El asistente ya está registrado");
-    return;
+    return { success: false, message: "Este asistente ya está inscrito en el evento." };
   }
 
   evento.asistentes.push(asistente);
   saveDB();
+  return { success: true, message: "¡Asistente inscrito correctamente!" };
 }
+
+// Nueva función para quitar asistentes
+export function removerAsistenteDeEvento(idEvento, idAsistente) {
+    const evento = getById('eventos', idEvento);
+    if (!evento) { return; }
+    evento.asistentes = evento.asistentes.filter(asistente => asistente.id !== idAsistente);
+    saveDB();
+}
+
 
 export function getUsuarioPorEmail(email) {
   if (!email) return null;

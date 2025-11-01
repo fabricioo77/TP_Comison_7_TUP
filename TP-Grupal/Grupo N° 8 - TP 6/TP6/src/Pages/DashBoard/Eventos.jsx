@@ -1,3 +1,4 @@
+// src/Pages/Dashboard/Eventos.jsx
 import React, { useState, useEffect } from "react";
 import { Button, Container, Card } from "react-bootstrap";
 import ModalFormularioEvento from "../../Components/EventCard.jsx";
@@ -34,7 +35,7 @@ function Eventos() {
 
   const handleModalClose = () => {
     setShowModal(false);
-    cargarEventos(); // Recargamos por si hubo cambios en los artistas
+    cargarEventos(); // Recargamos por si hubo cambios
   };
 
   // --- ¡NUEVA FUNCIÓN PARA MANEJAR LA ELIMINACIÓN! ---
