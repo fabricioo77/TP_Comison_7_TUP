@@ -1,16 +1,40 @@
-import React from 'react';
-import { Container, Navbar, Nav, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { Container, Navbar, Nav, Button, Dropdown } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 const Layout = ({ children }) => {
-  const navigate = useNavigate();
-  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-  const userEmail = localStorage.getItem('userEmail');
+  const { user, isAuthenticated, logout, verifySession } = useAuth();
+  const location = useLocation();
+
+  // Re-verificar sesión cuando cambia la ruta o el componente se monta
+  useEffect(() => {
+    verifySession();
+  }, [location.pathname, verifySession]);
+
+  // Escuchar cambios en localStorage (para cuando se hace login desde otro tab/ventana)
+  useEffect(() => {
+    const handleStorageChange = () => {
+      verifySession();
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    // También crear un evento personalizado para cambios en el mismo tab
+    const handleAuthChange = () => {
+      verifySession();
+    };
+
+    window.addEventListener("authChange", handleAuthChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("authChange", handleAuthChange);
+    };
+  }, [verifySession]);
 
   const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('userEmail');
-    navigate('/login');
+    logout(true); // true = redirigir al login
   };
 
   return (
@@ -23,38 +47,61 @@ const Layout = ({ children }) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+              <Nav.Link as={Link} to="/">
+                Inicio
+              </Nav.Link>
               {isAuthenticated && (
                 <>
-                  <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
-                  <Nav.Link as={Link} to="/pacientes">Pacientes</Nav.Link>
+                  <Nav.Link as={Link} to="/dashboard">
+                    Dashboard
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/pacientes">
+                    Pacientes
+                  </Nav.Link>
                 </>
               )}
             </Nav>
             <Nav>
               {isAuthenticated ? (
                 <>
-                  <Navbar.Text className="me-3">
-                    Bienvenido, {userEmail}
-                  </Navbar.Text>
-                  <Button 
-                    variant="outline-light" 
-                    size="sm" 
-                    onClick={handleLogout}
-                  >
-                    Cerrar Sesión
-                  </Button>
+                  <Dropdown align="end">
+                    <Dropdown.Toggle
+                      variant="outline-light"
+                      size="sm"
+                      id="user-dropdown"
+                    >
+                      {user?.email || "Usuario"}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Header>{user?.email}</Dropdown.Header>
+                      <Dropdown.Divider />
+                      <Dropdown.Item as={Link} to="/perfil">
+                        Mi Perfil
+                      </Dropdown.Item>
+                      <Dropdown.Item as={Link} to="/configuracion">
+                        Configuración
+                      </Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item
+                        onClick={handleLogout}
+                        className="text-danger"
+                      >
+                        Cerrar Sesión
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </>
               ) : (
-                <Nav.Link as={Link} to="/login">Iniciar Sesión</Nav.Link>
+                <Nav.Link as={Link} to="/login">
+                  Iniciar Sesión
+                </Nav.Link>
               )}
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <main>
-        {children}
-      </main>
+      <main>{children}</main>
     </>
   );
 };
