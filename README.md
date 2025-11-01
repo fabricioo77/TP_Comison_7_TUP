@@ -1,119 +1,94 @@
-📌 TP — Semana 1
+# 📌 TP — Semana 2  
+Tecnicatura Universitaria en Programación — Comisión 7  
+Profesor: Chocobar Matías  
+**Fecha límite:** Domingo 02 — 18:00 hs
 
-Tecnicatura Universitaria en Programación — Comisión 7
-Profesor: Chocobar Matías
-Fecha límite: Viernes 24 — 23:59 hs
+---
 
-🎯 Objetivo de la Semana 1
+## 🎯 Objetivo Semana 2
 
-Iniciar la construcción del proyecto React dejando:
+Extender el proyecto React ya iniciado en Semana 1 incorporando:
 
-Arquitectura de carpetas completa y creada en /src
+- ✅ `react-router-dom` instalado y ruteo funcional
+- ✅ Creación de **rutas privadas** usando el login simulado (localStorage)
+- ✅ Creación de **custom hooks** para manejo simulado de peticiones HTTP
+- ✅ Configuración de **json-server** para API fake
+- ✅ Carpeta `services/` configurada con archivos para peticiones HTTP simuladas
+- ✅ Proyecto **no debe reiniciarse desde cero** — se continua sobre lo ya entregado
 
-Componentes base iniciados (NO vacíos)
+---
 
-Login SIMULADO con localStorage
+## 🔁 Sobre el FORK y la actualización
 
-Dashboard inicial con datos simulados usando useState + useEffect
+- **No deben volver a hacer FORK** si ya lo hicieron en Semana 1
+- El profesor ya cargó en el repositorio original nuevas carpetas y estructura
+- Cada grupo debe **traer los nuevos cambios desde el repo del profesor**  
+  (actualizando su fork y luego su clon local)
+- Si encuentran carpetas vacías en su propio proyecto:
+  - Deben reconstruirlas con lo hecho en Semana 1
+  - Y luego agregar lo nuevo de Semana 2
 
-React Bootstrap instalado y aplicado en tablas/forms/cards
+---
 
-Router preparado (sin proteger aún)
+## 🧩 Requerimientos técnicos esta semana
 
-Flujo GIT colaborativo aplicado correctamente
+- `react-router-dom` instalado y en uso
+- Rutas públicas y **rutas privadas protegidas**
+- Hook personalizado para manejo simulado de API (`useFetch` / `useService` / similar)
+- `json-server` agregado al proyecto con data fake
+- Scripts en package.json para levantar json-server
+- Peticiones HTTP simuladas desde carpeta `services/`
 
-📂 Estructura mínima obligatoria
-src/
-  components/
-  pages/
-  dashboard/
-  layout/
-  router/
-    RouterProtect.jsx      // archivo creado, sin lógica aún
-  store/
-  utils/
-  constants/
-  endpoints/
+---
 
+## 🧮 Flujo GIT — Semana 2
 
-Ninguna carpeta debe estar vacía — todas deben contener al menos 1 archivo real.
+**LÍDER**
+- Actualiza el repo con los cambios del profesor
+- Integra ramas de integrantes en `dev`
+- Hace `merge dev → main` al final
+- Realiza el Pull Request final al profesor
 
-🧩 Requerimientos técnicos de la semana
+**INTEGRANTES**
+- NO hacen fork nuevo
+- Trabajan en su rama `Nombre_Legajo`
+- Push a su rama
+- Avisan al líder para integrar
 
-Proyecto creado con Vite + React
+---
 
-React Bootstrap instalado y utilizado
+## 📘 Contenido obligatorio NUEVO esta semana
 
-Login simulado (sin backend) persistiendo sesión en localStorage
+Dentro de la carpeta del grupo debe existir un archivo separado:
 
-Dashboard inicial con datos fake utilizando useState + useEffect
+**`Auditoria_Semana_2.md` (OBLIGATORIO Y DESTACADO)**  
+Con dos secciones:
 
-Router configurado e instalado (react-router-dom)
+1) **REPORTE ANTES DE TRABAJAR**  
+   - Qué encontraron: errores, bugs, omisiones, faltantes de la semana pasada
 
-Comienzo de maquetación real de formularios/tablas (no placeholders vacíos)
+2) **REPORTE DE SOLUCIONES + NUEVO AGREGADO**  
+   - Qué corrigieron + qué añadieron de esta semana
 
-🧑‍💻 Flujo GIT — Reglas obligatorias
+> Este tipo de auditoría mejora:  
+> lectura de código ajeno, reducción de deuda técnica, colaboración real y capacidad de detectar fallos antes de desarrollar
 
-LÍDER
+---
 
-Hace FORK del repo del profesor
+## 📬 Entrega
 
-Crea rama dev (desarrollo)
+- Solo el líder realiza Pull Request al repo del profesor  
+- **Título PR:** `TP Semana 2 — Grupo X — Comisión 7`  
+- **Fecha límite:** Domingo 02 — 18:00 hs
 
-Integra las ramas de los integrantes en dev
+---
 
-Merge final dev → main
+## ✅ Checklist antes de enviar
 
-Solo el líder realiza Pull Request al profesor
-
-INTEGRANTES
-
-Clonan EL FORK del líder (no el repo del profesor)
-
-Crean su propia rama Nombre_Legajo
-
-Trabajan solo en su rama
-
-Push a su rama y avisan al líder
-
-Integrante sin aportes → desaprobado individual, aunque el grupo apruebe.
-
-📘 Contenido obligatorio en README del grupo
-
-Integrantes y roles
-
-Justificación de cantidad de pages planificadas
-
-Lista de componentes reutilizables previstos
-
-Roadmap de desarrollo
-
-Explicación del flujo GIT aplicado
-
-Guía para actualizar el fork del líder (si ya existía)
-
-📬 Entrega
-
-Solo el líder realiza Pull Request al repo del profesor
-
-Título del PR: TP Semana 1 — Grupo X — Comisión 7
-
-Fecha límite: Viernes 24 — 23:59 hs
-
-✅ Checklist antes de enviar
-
- Estructura de carpetas creada y con contenido
-
- Login simulado funcionando con localStorage
-
- Dashboard con useState + useEffect y datos simulados
-
- React Bootstrap aplicado
-
- Router configurado y RouterProtect creado
-
- README del grupo completado dentro del repo
-
- dev mergeado a main sin errores
-
- PR enviado solo por el líder
+- Router configurado + rutas privadas
+- Hook custom para API simulada
+- json-server configurado y funcionando
+- Carpeta `services` operativa con funciones HTTP fake
+- Auditoria_Semana_2.md creado dentro del grupo
+- `dev` mergeado a `main` sin conflictos
+- PR enviado por el líder
