@@ -8,10 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-     "server": "json-server --watch db.json --port 5000"
+    "server": "json-server --watch db.json --port 5000"
   },
-
- 
   "dependencies": {
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
