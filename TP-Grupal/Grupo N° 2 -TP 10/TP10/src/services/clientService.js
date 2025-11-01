@@ -56,3 +56,24 @@ export const deleteClient = async (id) => {
     throw error;
   }
 };
+
+export const updateClient = async (id, updatedClient) => {
+  try {
+    const response = await fetch(`${API_URL}${CLIENTS_API}/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedClient), 
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al actualizar el cliente');
+    }
+    return await response.json();
+
+  } catch (error) {
+    console.error('Error en updateClient:', error);
+    throw error;
+  }
+};
