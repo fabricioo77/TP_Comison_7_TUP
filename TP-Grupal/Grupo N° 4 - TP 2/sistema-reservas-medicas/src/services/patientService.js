@@ -1,3 +1,5 @@
+import { httpClient } from "./httpClient";
+
 const MOCK_PATIENTS = [
   {
     id: "1",
@@ -58,174 +60,161 @@ const MOCK_PATIENTS = [
 
 class PatientService {
   constructor() {
-    this.loadPatientsFromStorage();
+    this.initializeMockData();
   }
 
-  loadPatientsFromStorage() {
+  initializeMockData() {
     const stored = localStorage.getItem("patients");
-    if (stored) {
-      try {
-        this.patients = JSON.parse(stored);
-      } catch {
-        this.patients = [...MOCK_PATIENTS];
-        this.savePatientsToStorage();
-      }
-    } else {
-      this.patients = [...MOCK_PATIENTS];
-      this.savePatientsToStorage();
+    if (!stored) {
+      localStorage.setItem("patients", JSON.stringify(MOCK_PATIENTS));
     }
-  }
-
-  savePatientsToStorage() {
-    localStorage.setItem("patients", JSON.stringify(this.patients));
   }
 
   async getAll() {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    try {
+      const response = await httpClient.get("/api/patients");
 
-    return {
-      success: true,
-      data: this.patients,
-      total: this.patients.length,
-    };
+      if (response.ok && response.data.success) {
+        return {
+          success: true,
+          data: response.data.data,
+          total: response.data.total,
+        };
+      } else {
+        return {
+          success: false,
+          error: response.error || "Error al obtener pacientes",
+        };
+      }
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || "Error de conexión",
+      };
+    }
   }
 
   async getById(id) {
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    try {
+      const response = await httpClient.get(`/api/patients/${id}`);
 
-    const patient = this.patients.find((p) => p.id === id);
-
-    if (!patient) {
+      if (response.ok && response.data.success) {
+        return {
+          success: true,
+          data: response.data.data,
+        };
+      } else {
+        return {
+          success: false,
+          error: response.error || "Paciente no encontrado",
+        };
+      }
+    } catch (error) {
       return {
         success: false,
-        error: "Paciente no encontrado",
+        error: error.message || "Error de conexión",
       };
     }
-
-    return {
-      success: true,
-      data: patient,
-    };
   }
 
   async create(patientData) {
-    await new Promise((resolve) => setTimeout(resolve, 600));
+    try {
+      const response = await httpClient.post("/api/patients", patientData);
 
-    if (!patientData.nombre || !patientData.apellido || !patientData.dni) {
+      if (response.ok && response.data.success) {
+        return {
+          success: true,
+          data: response.data.data,
+          message: response.data.message || "Paciente creado exitosamente",
+        };
+      } else {
+        return {
+          success: false,
+          error: response.error || "Error al crear paciente",
+        };
+      }
+    } catch (error) {
       return {
         success: false,
-        error: "Nombre, apellido y DNI son requeridos",
+        error: error.message || "Error de conexión",
       };
     }
-
-    const existingPatient = this.patients.find(
-      (p) => p.dni === patientData.dni
-    );
-    if (existingPatient) {
-      return {
-        success: false,
-        error: "Ya existe un paciente con ese DNI",
-      };
-    }
-
-    const newPatient = {
-      id: Date.now().toString(),
-      ...patientData,
-    };
-
-    this.patients.push(newPatient);
-    this.savePatientsToStorage();
-
-    return {
-      success: true,
-      data: newPatient,
-      message: "Paciente creado exitosamente",
-    };
   }
 
   async update(id, patientData) {
-    await new Promise((resolve) => setTimeout(resolve, 600));
+    try {
+      const response = await httpClient.put(`/api/patients/${id}`, patientData);
 
-    const index = this.patients.findIndex((p) => p.id === id);
-
-    if (index === -1) {
-      return {
-        success: false,
-        error: "Paciente no encontrado",
-      };
-    }
-
-    if (patientData.dni && patientData.dni !== this.patients[index].dni) {
-      const existingPatient = this.patients.find(
-        (p) => p.dni === patientData.dni && p.id !== id
-      );
-      if (existingPatient) {
+      if (response.ok && response.data.success) {
+        return {
+          success: true,
+          data: response.data.data,
+          message: response.data.message || "Paciente actualizado exitosamente",
+        };
+      } else {
         return {
           success: false,
-          error: "Ya existe otro paciente con ese DNI",
+          error: response.error || "Error al actualizar paciente",
         };
       }
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || "Error de conexión",
+      };
     }
-
-    this.patients[index] = {
-      ...this.patients[index],
-      ...patientData,
-      id: id,
-    };
-
-    this.savePatientsToStorage();
-
-    return {
-      success: true,
-      data: this.patients[index],
-      message: "Paciente actualizado exitosamente",
-    };
   }
 
   async delete(id) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
+    try {
+      const response = await httpClient.delete(`/api/patients/${id}`);
 
-    const index = this.patients.findIndex((p) => p.id === id);
-
-    if (index === -1) {
+      if (response.ok && response.data.success) {
+        return {
+          success: true,
+          data: response.data.data,
+          message: response.data.message || "Paciente eliminado exitosamente",
+        };
+      } else {
+        return {
+          success: false,
+          error: response.error || "Error al eliminar paciente",
+        };
+      }
+    } catch (error) {
       return {
         success: false,
-        error: "Paciente no encontrado",
+        error: error.message || "Error de conexión",
       };
     }
-
-    const deletedPatient = this.patients[index];
-    this.patients.splice(index, 1);
-    this.savePatientsToStorage();
-
-    return {
-      success: true,
-      data: deletedPatient,
-      message: "Paciente eliminado exitosamente",
-    };
   }
 
   async search(query) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
+    try {
+      if (!query || query.trim() === "") {
+        return this.getAll();
+      }
 
-    if (!query || query.trim() === "") {
-      return this.getAll();
+      const response = await httpClient.get(`/api/patients?search=${query}`);
+
+      if (response.ok && response.data.success) {
+        return {
+          success: true,
+          data: response.data.data,
+          total: response.data.total,
+        };
+      } else {
+        return {
+          success: false,
+          error: response.error || "Error al buscar pacientes",
+        };
+      }
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || "Error de conexión",
+      };
     }
-
-    const searchTerm = query.toLowerCase();
-    const filtered = this.patients.filter(
-      (p) =>
-        p.nombre.toLowerCase().includes(searchTerm) ||
-        p.apellido.toLowerCase().includes(searchTerm) ||
-        p.dni.includes(searchTerm) ||
-        p.email.toLowerCase().includes(searchTerm)
-    );
-
-    return {
-      success: true,
-      data: filtered,
-      total: filtered.length,
-    };
   }
 }
 

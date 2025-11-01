@@ -1,67 +1,82 @@
+import { httpClient } from "./httpClient";
+
 class AuthService {
   async login(credentials) {
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    if (!credentials.email || !credentials.password) {
+    try {
+      const response = await httpClient.post("/api/auth/login", credentials);
+
+      if (response.ok && response.data.success) {
+        this.setUserData(response.data.user);
+        localStorage.setItem("isAuthenticated", "true");
+        window.dispatchEvent(new Event("authChange"));
+
+        return {
+          success: true,
+          user: response.data.user,
+          message: response.data.message || "Login exitoso",
+        };
+      } else {
+        return {
+          success: false,
+          error: response.error || "Error en login",
+        };
+      }
+    } catch (error) {
       return {
         success: false,
-        error: "Email y contraseña son requeridos",
+        error: error.message || "Error de conexión",
       };
     }
-
-    const mockUser = {
-      id: "1",
-      email: credentials.email,
-      nombre: credentials.email,
-      rol: "admin",
-    };
-
-    this.setUserData(mockUser);
-    localStorage.setItem("isAuthenticated", "true");
-    window.dispatchEvent(new Event("authChange"));
-
-    return {
-      success: true,
-      user: mockUser,
-      message: "Login exitoso",
-    };
   }
 
   async register(userData) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    if (!userData.email || !userData.password || !userData.nombre) {
+    try {
+      const response = await httpClient.post("/api/auth/register", userData);
+
+      if (response.ok && response.data.success) {
+        this.setUserData(response.data.user);
+        localStorage.setItem("isAuthenticated", "true");
+        window.dispatchEvent(new Event("authChange"));
+
+        return {
+          success: true,
+          user: response.data.user,
+          message: response.data.message || "Registro exitoso",
+        };
+      } else {
+        return {
+          success: false,
+          error: response.error || "Error en registro",
+        };
+      }
+    } catch (error) {
       return {
         success: false,
-        error: "Todos los campos son requeridos",
+        error: error.message || "Error de conexión",
       };
     }
-
-    const newUser = {
-      id: Date.now().toString(),
-      nombre: userData.nombre,
-      email: userData.email,
-      rol: userData.rol || "usuario",
-    };
-
-    this.setUserData(newUser);
-    localStorage.setItem("isAuthenticated", "true");
-    window.dispatchEvent(new Event("authChange"));
-
-    return {
-      success: true,
-      user: newUser,
-      message: "Registro exitoso",
-    };
   }
 
   async logout() {
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    this.clearAuthData();
-    window.dispatchEvent(new Event("authChange"));
+    try {
+      const response = await httpClient.delete("/api/auth/logout");
 
-    return {
-      success: true,
-      message: "Sesión cerrada exitosamente",
-    };
+      this.clearAuthData();
+      window.dispatchEvent(new Event("authChange"));
+
+      return {
+        success: true,
+        message: response.data?.message || "Sesión cerrada exitosamente",
+      };
+    } catch (error) {
+      this.clearAuthData();
+      window.dispatchEvent(new Event("authChange"));
+
+      return {
+        success: true,
+        message: "Sesión cerrada exitosamente",
+      };
+    }
   }
 
   async verifySession() {
