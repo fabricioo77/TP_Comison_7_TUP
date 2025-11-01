@@ -6,7 +6,6 @@ export default function RouterProtect({ children }) {
   const loc = useLocation();
 
   if (!auth?.token) {
-    // Redirige a login y guarda adónde quería ir
     return <Navigate to="/login" replace state={{ from: loc.pathname }} />;
   }
   return children;

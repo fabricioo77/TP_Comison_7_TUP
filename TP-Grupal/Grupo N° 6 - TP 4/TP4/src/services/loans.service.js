@@ -68,3 +68,11 @@ export async function returnLoan(id) {
   }
   return true;
 }
+
+export const loansService = {
+  // alias “cómodos”
+  list: listLoans,
+  create: createLoan,
+  return: returnLoan,
+
+}
