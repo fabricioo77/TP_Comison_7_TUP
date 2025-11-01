@@ -55,6 +55,9 @@ const Layout = ({ children }) => {
                   <Nav.Link as={Link} to="/dashboard">
                     Dashboard
                   </Nav.Link>
+                  <Nav.Link as={Link} to="/doctores">
+                    Doctores
+                  </Nav.Link>
                   <Nav.Link as={Link} to="/pacientes">
                     Pacientes
                   </Nav.Link>

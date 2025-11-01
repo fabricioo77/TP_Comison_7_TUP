@@ -6,6 +6,7 @@ import Dashboard from "../dashboard/Dashboard";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Pacientes from "../pages/Pacientes";
+import Doctores from "../pages/Doctores";
 import RouterProtect from "./RouterProtect";
 
 const AppRouter = () => {
@@ -29,6 +30,14 @@ const AppRouter = () => {
             element={
               <RouterProtect>
                 <Pacientes />
+              </RouterProtect>
+            }
+          />
+          <Route
+            path="/doctores"
+            element={
+              <RouterProtect>
+                <Doctores />
               </RouterProtect>
             }
           />
