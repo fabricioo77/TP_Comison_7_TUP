@@ -2,6 +2,7 @@ import { useAuth } from "../context/AuthContext";
 import { Button, Nav } from "react-bootstrap";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useState } from "react";
+import React from "react";
 
 export default function AdminLayout({ children }) {
   const { usuario, logout } = useAuth();
@@ -20,11 +21,8 @@ export default function AdminLayout({ children }) {
         className={`bg-dark text-white p-3 d-flex flex-column justify-content-between ${
           collapsed ? "col-1" : "col-2"
         }`}
-        style={{
-          transition: "all 0.3s ease",
-        }}
+        style={{ transition: "all 0.3s ease" }}
       >
-        {/* Logo / título */}
         <div>
           <h5
             className="text-center mb-4 fw-bold"
@@ -35,7 +33,6 @@ export default function AdminLayout({ children }) {
             {collapsed ? "" : "Academy"}
           </h5>
 
-          {/* Navegación */}
           <Nav className="flex-column">
             <NavLink
               to="/dashboard"
@@ -87,7 +84,6 @@ export default function AdminLayout({ children }) {
           </Nav>
         </div>
 
-        {/* Controles inferiores */}
         <div className="text-center mt-auto">
           <Button
             variant="outline-light"
@@ -97,12 +93,7 @@ export default function AdminLayout({ children }) {
           >
             {collapsed ? <i className="bi bi-arrow-right"></i> : <i className="bi bi-arrow-left"></i>}
           </Button>
-          <Button
-            variant="outline-danger"
-            size="sm"
-            className="w-100"
-            onClick={handleLogout}
-          >
+          <Button variant="outline-danger" size="sm" className="w-100" onClick={handleLogout}>
             <i className="bi bi-box-arrow-right me-1"></i>
             {!collapsed && "Cerrar sesión"}
           </Button>
@@ -110,7 +101,7 @@ export default function AdminLayout({ children }) {
       </div>
 
       {/* Contenido principal */}
-      <div className="flex-grow-1 bg-light">
+      <div className="flex-grow-1">
         {/* Header */}
         <header className="d-flex justify-content-between align-items-center p-3 border-bottom bg-white shadow-sm">
           <h5 className="m-0">
@@ -123,15 +114,48 @@ export default function AdminLayout({ children }) {
               {usuario?.user?.name || "Admin"}
             </div>
             <small className="text-secondary">
-              {usuario?.user?.role
-                ? usuario.user.role.toUpperCase()
-                : "ADMIN"}
+              {usuario?.user?.role ? usuario.user.role.toUpperCase() : "ADMIN"}
             </small>
           </div>
         </header>
 
-        {/* Contenido dinámico */}
-        <main className="p-4">{children}</main>
+        {/* Contenido dinámico moderno */}
+        <main
+          className="p-4"
+          style={{
+            minHeight: "calc(100vh - 70px)",
+            background: "linear-gradient(180deg, #f0f2f5 0%, #e0e7ff 100%)",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "20px",
+          }}
+        >
+          {React.Children.map(children, (child) => (
+            <div
+              style={{
+                flex: "1 1 300px",
+                backgroundColor: "#fff",
+                borderRadius: "15px",
+                padding: "20px",
+                boxShadow: "0 8px 25px rgba(0,0,0,0.15)",
+                transition: "transform 0.2s, box-shadow 0.2s",
+              }}
+              className="hover-card"
+            >
+              {child}
+            </div>
+          ))}
+        </main>
+
+        {/* CSS para hover */}
+        <style>
+          {`
+            .hover-card:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+            }
+          `}
+        </style>
       </div>
     </div>
   );
