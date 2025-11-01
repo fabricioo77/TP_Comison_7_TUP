@@ -8,6 +8,10 @@ function Asistentes() {
   const [asistentes, setAsistentes] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
+  // --- NUEVOS ESTADOS PARA LA EDICIÓN ---
+  const [asistenteSeleccionado, setAsistenteSeleccionado] = useState(null);
+  const [esEdicion, setEsEdicion] = useState(false);
+
   const cargarAsistentes = () => {
     const data = getAll("asistentes");
     setAsistentes(data);
@@ -20,25 +24,41 @@ function Asistentes() {
   const columnas = [
     { header: "Nombre", field: "nombre" },
     { header: "Apellido", field: "apellido" },
-    { header: "Fecha", field: "fechaNac" },
+    { header: "Fecha Nacimiento", field: "fechaNac" }, // Corregido para mayor claridad
   ];
 
-  const handleModalClose = () => {
-    setShowModal(false);
-    cargarAsistentes();
+  // --- NUEVAS FUNCIONES HANDLER ---
+
+  // Se activa al hacer clic en "Ver Detalle"
+  const handleVerDetalle = (asistente) => {
+    setAsistenteSeleccionado(asistente);
+    setEsEdicion(true);
+    setShowModal(true);
   };
 
-  const handleShowModal = () => {
+  // Se activa al hacer clic en "Añadir Nuevo Asistente"
+  const handleAbrirModalParaCrear = () => {
+    setAsistenteSeleccionado(null);
+    setEsEdicion(false);
     setShowModal(true);
+  };
+
+  // Cierra el modal y resetea los estados de edición
+  const handleModalClose = () => {
+    setShowModal(false);
+    setEsEdicion(false);
+    setAsistenteSeleccionado(null);
+    cargarAsistentes(); // Recargamos para ver los cambios
   };
 
   return (
     <Container fluid className="my-4">
       <div className="d-flex justify-content-center">
-        <h2 className="mb-4">Gestión de Asistentes </h2>
+        <h2 className="mb-4">Panel de Asistentes</h2>
       </div>
       <div className="d-flex justify-content-center">
-        <Button variant="primary" onClick={handleShowModal} className="mb-4">
+        {/* Cambiamos el onClick para usar nuestro nuevo handler */}
+        <Button variant="primary" onClick={handleAbrirModalParaCrear} className="mb-4">
           <i className="bi bi-person-plus-fill me-2"></i>
           Añadir Nuevo Asistente
         </Button>
@@ -51,16 +71,20 @@ function Asistentes() {
           <TablaComponent
             datos={asistentes}
             columnas={columnas}
-            onVerDetalle={(item) => console.log("Ver detalle:", item)}
+            // Conectamos el botón de la tabla a nuestro handler
+            onVerDetalle={handleVerDetalle}
             onEliminar={(item) => console.log("Eliminar:", item)}
           />
         </Card.Body>
       </Card>
 
+      {/* El modal ahora recibe las nuevas props para la edición */}
       <ModalFormularioAsistente
         show={showModal}
         handleClose={handleModalClose}
-        onAsistenteAdded={handleModalClose}
+        onAsistenteAdded={cargarAsistentes} // Mantenemos la recarga de datos
+        asistenteAEditar={asistenteSeleccionado}
+        esEdicion={esEdicion}
       />
     </Container>
   );
