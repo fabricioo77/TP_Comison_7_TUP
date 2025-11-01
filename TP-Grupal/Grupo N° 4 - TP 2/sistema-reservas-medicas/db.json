@@ -51,4 +51,31 @@
     { "id": 19, "pacienteId": 4, "doctorId": 9, "fecha": "2025-11-28", "hora": "12:50", "motivo": "Psiquiatría - sesión", "estado": "confirmada" },
     { "id": 20, "pacienteId": 5, "doctorId": 10, "fecha": "2025-11-29", "hora": "09:05", "motivo": "Endocrinología - control", "estado": "pendiente" }
   ]
+  ,
+  "especialidades": [
+    { "id": 1, "nombre": "Clínica general" },
+    { "id": 2, "nombre": "Pediatría" },
+    { "id": 3, "nombre": "Cardiología" },
+    { "id": 4, "nombre": "Dermatología" },
+    { "id": 5, "nombre": "Ginecología" },
+    { "id": 6, "nombre": "Traumatología" },
+    { "id": 7, "nombre": "Oftalmología" },
+    { "id": 8, "nombre": "Neurología" },
+    { "id": 9, "nombre": "Psiquiatría" },
+    { "id": 10, "nombre": "Endocrinología" }
+  ],
+  "horarios": [
+    { "id": 1, "doctorId": 1, "dia": "Lunes", "inicio": "08:00", "fin": "12:00" },
+    { "id": 2, "doctorId": 1, "dia": "Miércoles", "inicio": "14:00", "fin": "18:00" },
+    { "id": 3, "doctorId": 2, "dia": "Martes", "inicio": "09:00", "fin": "13:00" },
+    { "id": 4, "doctorId": 2, "dia": "Jueves", "inicio": "15:00", "fin": "19:00" },
+    { "id": 5, "doctorId": 3, "dia": "Lunes", "inicio": "10:00", "fin": "14:00" },
+    { "id": 6, "doctorId": 4, "dia": "Viernes", "inicio": "08:00", "fin": "12:00" },
+    { "id": 7, "doctorId": 5, "dia": "Miércoles", "inicio": "09:00", "fin": "13:00" },
+    { "id": 8, "doctorId": 6, "dia": "Martes", "inicio": "14:00", "fin": "18:00" },
+    { "id": 9, "doctorId": 7, "dia": "Jueves", "inicio": "08:00", "fin": "12:00" },
+    { "id": 10, "doctorId": 8, "dia": "Lunes", "inicio": "15:00", "fin": "19:00" },
+    { "id": 11, "doctorId": 9, "dia": "Miércoles", "inicio": "08:30", "fin": "12:30" },
+    { "id": 12, "doctorId": 10, "dia": "Viernes", "inicio": "09:00", "fin": "13:00" }
+  ]
 }
