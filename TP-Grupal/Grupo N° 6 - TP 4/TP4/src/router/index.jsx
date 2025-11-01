@@ -17,21 +17,23 @@ import Audit from "../pages/Audit"; // si no existe, borrar esta línea y la rut
 
 // 🔐 Protección (IMPORTAR UNA SOLA VEZ)
 import RouterProtect, { RequireAdmin } from "./RouterProtect";
+import DashboardSidebar from "../dashboard/DashboardSidebar";
 
 export default function AppRouter() {
   return (
     <Routes>
       {/* Pública */}
       <Route path="/login" element={<Login />} />
-      <Route path="/about" element={<About />} />
+      
 
       {/* Privadas con layout */}
       <Route element={<AppLayout />}>
+        <Route path="/about" element={<About />} />
         <Route
           path="/dashboard"
           element={
             <RouterProtect>
-              <Dashboard />
+              <Dashboard/>
             </RouterProtect>
           }
         />
