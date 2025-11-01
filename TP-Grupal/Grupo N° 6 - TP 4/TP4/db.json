@@ -12,7 +12,7 @@
     { "id": 2, "nombre": "Luis", "apellido": "Gómez", "email": "luis@escuela.edu", "dni": "39222333", "telefono": "381-555-2222" }
   ],
   "loans": [
-    { "id": 1, "alumnoId": 1, "libroId": 1, "fechaPrestamo": "2025-10-31", "fechaDevolucion": "2025-11-07", "fechaRealDevolucion": "", "devuelto": false }
+    { "id": 1, "studentId": 1, "bookId": 1, "fechaPrestamo": "2025-10-31", "fechaDevolucion": "2025-11-07", "fechaRealDevolucion": "", "devuelto": false }
   ],
   "audit": [
     { "id": 1, "actor": "admin@escuela.edu", "accion": "SEED", "entidad": "system", "entidadId": 0, "timestamp": "2025-10-31T10:00:00Z" }
