@@ -1,25 +1,38 @@
-import React from 'react';
-import { Container, Navbar, Nav, Button } from 'react-bootstrap';
-import { Link, useNavigate, Outlet } from 'react-router-dom';
+﻿import React, { useEffect } from "react";
+import { Container, Navbar, Nav, Dropdown } from "react-bootstrap";
+import { Link, useLocation, Outlet } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 const Layout = () => {
-  const navigate = useNavigate();
-  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-  const userEmail = localStorage.getItem('userEmail');
+  const { user, isAuthenticated, logout, verifySession } = useAuth();
+  const location = useLocation();
+
+  useEffect(() => {
+    verifySession();
+  }, [location.pathname, verifySession]);
+
+  useEffect(() => {
+    const handleStorageChange = () => verifySession();
+    const handleAuthChange = () => verifySession();
+
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("authChange", handleAuthChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("authChange", handleAuthChange);
+    };
+  }, [verifySession]);
 
   const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('userEmail');
-    navigate('/login');
+    logout && logout(true);
   };
 
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
-          <Navbar.Brand as={Link} to="/">
-            Sistema Reservas Médicas
-          </Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">Sistema Reservas Médicas</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -27,24 +40,27 @@ const Layout = () => {
               {isAuthenticated && (
                 <>
                   <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
+                  <Nav.Link as={Link} to="/doctores">Doctores</Nav.Link>
                   <Nav.Link as={Link} to="/pacientes">Pacientes</Nav.Link>
+                  <Nav.Link as={Link} to="/turnos">Turnos</Nav.Link>
                 </>
               )}
             </Nav>
             <Nav>
               {isAuthenticated ? (
-                <>
-                  <Navbar.Text className="me-3">
-                    Bienvenido, {userEmail}
-                  </Navbar.Text>
-                  <Button 
-                    variant="outline-light" 
-                    size="sm" 
-                    onClick={handleLogout}
-                  >
-                    Cerrar Sesión
-                  </Button>
-                </>
+                <Dropdown align="end">
+                  <Dropdown.Toggle variant="outline-light" size="sm" id="user-dropdown">
+                    {user?.email || "Usuario"}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Header>{user?.email}</Dropdown.Header>
+                    <Dropdown.Divider />
+                    <Dropdown.Item as={Link} to="/perfil">Mi Perfil</Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/configuracion">Configuración</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item onClick={handleLogout} className="text-danger">Cerrar Sesión</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               ) : (
                 <>
                   <Nav.Link as={Link} to="/login">Iniciar Sesión</Nav.Link>

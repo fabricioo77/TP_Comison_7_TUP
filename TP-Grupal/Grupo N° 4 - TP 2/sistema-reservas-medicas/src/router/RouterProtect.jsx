@@ -1,37 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { Spinner } from "react-bootstrap";
 
 const RouterProtect = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Verificar autenticación al cargar el componente
-    const checkAuth = () => {
-      const authStatus = localStorage.getItem('isAuthenticated') === 'true';
-      const userEmail = localStorage.getItem('userEmail');
-      
-      if (authStatus && userEmail) {
-        setIsAuthenticated(true);
-      } else {
-        // Limpiar datos de autenticación inválidos
-        localStorage.removeItem('isAuthenticated');
-        localStorage.removeItem('userEmail');
-        setIsAuthenticated(false);
-      }
-      setIsLoading(false);
-    };
-
-    checkAuth();
-  }, []);
+  const { isAuthenticated, isLoading } = useAuth();
 
   // Mostrar loading mientras se verifica la autenticación
   if (isLoading) {
     return (
-      <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Cargando...</span>
-        </div>
+      <div
+        className="d-flex flex-column justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <Spinner animation="border" variant="primary" role="status">
+          <span className="visually-hidden">Verificando sesión...</span>
+        </Spinner>
+        <p className="mt-3 text-muted">Verificando sesión...</p>
       </div>
     );
   }
