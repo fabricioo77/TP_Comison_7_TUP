@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import { useMemo, useState } from "react"; 
 import { Alert, Spinner, Button } from "react-bootstrap";
 import { Trash, PencilSquare } from "react-bootstrap-icons"; 
@@ -26,15 +27,14 @@ export default function Appointments() {
   const { data: clients, loading: clientsLoading } = useApi(getAllClients);
   const { data: services, loading: servicesLoading } = useApi(getAllServices);
 
-  const handleSave = (formData, id) => {
-    if (id) {
-      updateAppointment(id, formData);
-    } else {
-      // Si no, creamos
-      addAppointment(formData);
-    }
-    setEditingAppointment(null); 
-  };
+const handleSave = async (formData, id) => { 
+ if (id) {
+ await updateAppointment(id, formData); 
+} else {
+ await addAppointment(formData); 
+}
+ 
+};
 
   const tableData = useMemo(() => {
     if (!clients || !services) return [];

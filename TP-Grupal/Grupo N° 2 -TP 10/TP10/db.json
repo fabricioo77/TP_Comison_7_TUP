@@ -28,29 +28,28 @@
   ],
   "services": [
     {
-      "id": "1",
       "name": "Corte Clásico",
-      "price": 7000
+      "description": "Corte de pelo tradicional",
+      "duration": 30,
+      "price": 7000,
+      "available": true,
+      "id": "1"
     },
     {
       "id": "2",
       "name": "Tintura",
-      "price": 40000
+      "description": "Coloración completa del pelo",
+      "duration": 150,
+      "price": 40000,
+      "available": true
     },
     {
-      "id": "3",
-      "name": "Corte Degrade",
-      "price": 8000
-    },
-    {
-      "id": "4",
-      "name": "Alisado",
-      "price": 25000
-    },
-    {
-      "id": "5",
-      "name": "Lavado y Peinado",
-      "price": 5000
+      "id": "813e",
+      "name": "Corte Normal con lavado y secado",
+      "description": "Corte normal puede incluir degrade o no con lavado y secado de pelo",
+      "duration": 45,
+      "price": 10000,
+      "available": true
     }
   ],
   "appointments": [
@@ -69,20 +68,6 @@
       "time": "12:00"
     },
     {
-      "id": "3",
-      "clientId": 3,
-      "serviceId": 3,
-      "date": "2025-10-22",
-      "time": "13:00"
-    },
-    {
-      "id": "4",
-      "clientId": 4,
-      "serviceId": 5,
-      "date": "2025-10-23",
-      "time": "09:00"
-    },
-    {
       "id": "5",
       "clientId": 1,
       "serviceId": 1,
@@ -90,32 +75,25 @@
       "time": "11:00"
     },
     {
-      "id": "6",
-      "clientId": 5,
-      "serviceId": 4,
-      "date": "2025-10-24",
-      "time": "15:00"
-    },
-    {
-      "id": "7",
-      "clientId": 2,
-      "serviceId": 3,
-      "date": "2025-10-24",
-      "time": "16:00"
-    },
-    {
-      "id": 8,
+      "id": "8",
       "clientId": 3,
       "serviceId": 1,
       "date": "2025-11-12",
       "time": "12:15"
     },
     {
-      "id": 9,
+      "id": "9",
       "clientId": 4,
       "serviceId": 2,
       "date": "2025-11-12",
       "time": "15:00"
+    },
+    {
+      "clientId": 5,
+      "serviceId": "813e",
+      "date": "2025-11-08",
+      "time": "08:31",
+      "id": "69ef"
     }
   ]
 }

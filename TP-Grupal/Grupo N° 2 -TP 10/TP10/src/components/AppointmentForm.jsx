@@ -1,57 +1,69 @@
+/* eslint-disable no-irregular-whitespace */
 import { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
 
+const initialState = {
+ clientId: "",
+ serviceId: "",
+ date: "",
+time: "",
+};
 
 export default function AppointmentForm({
-  clients = [],
-  services = [],
-  onSave,
-  editingAppointment,
-  setEditingAppointment,
+  clients = [],
+  services = [],
+  onSave,
+  editingAppointment,
+  setEditingAppointment,
 }) {
-  const initialState = {
-    clientId: "",
-    serviceId: "",
-    date: "",
-    time: "",
-  };
-  const [formData, setFormData] = useState(initialState);
+  
+  const [formData, setFormData] = useState(initialState);
 
+  useEffect(() => {
+    if (editingAppointment) {
+      setFormData({
+        clientId: editingAppointment.clientId || "", 
+        serviceId: editingAppointment.serviceId || "",
+        date: editingAppointment.date || "",
+        time: editingAppointment.time || "",
+      });
+    } else {
+      setFormData(initialState); // Sigue usando la constante
+    }
+    
+  }, [editingAppointment]);
 
-  useEffect(() => {
-    if (editingAppointment) {
-      setFormData({
-        clientId: editingAppointment.clientId,
-        serviceId: editingAppointment.serviceId,
-        date: editingAppointment.date,
-        time: editingAppointment.time,
-      });
-    } else {
-      setFormData(initialState); 
+ const handleChange = (e) => {
+ const { name, value } = e.target;
+ setFormData((prev) => ({
+ ...prev,
+
+ [name]: value,
+})); };
+
+const handleSubmit = async (e) => { // 1. Convertir en async
+    e.preventDefault();
+    if (!formData.clientId || !formData.serviceId || !formData.date || !formData.time) {
+      alert("Por favor, completa todos los campos (Cliente, Servicio, Fecha y Hora).");
+      return;
+    }
+
+    try {
+    
+      await onSave(formData, editingAppointment ? editingAppointment.id : null);
+      
+      setFormData(initialState);
+      if (setEditingAppointment) {
+        setEditingAppointment(null);
+      }
+
+    } catch (error) {
+     
+      console.error("Error al guardar:", error);
+      alert("Error al guardar el turno: " + error.message);
     }
-  }, [editingAppointment]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.clientId || !formData.serviceId || !formData.date || !formData.time) {
-      alert("Por favor, completa todos los campos.");
-      return;
-    }
-    onSave(formData, editingAppointment ? editingAppointment.id : null);
-    setFormData(initialState);
-    if (setEditingAppointment) {
-      setEditingAppointment(null);
-    }
-  };
+  };
 
 
   const handleCancelEdit = () => {
