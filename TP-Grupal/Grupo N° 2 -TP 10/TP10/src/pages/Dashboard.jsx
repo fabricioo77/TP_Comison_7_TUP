@@ -1,9 +1,9 @@
-/* eslint-disable no-irregular-whitespace */
+
 import React from 'react';
 import { Card, Row, Col, ProgressBar, Spinner, Alert } from 'react-bootstrap';
 import "../styles/dashboard.css";
 
-// 1. Importa tu hook y LOS TRES servicios
+
 import { useApi } from '../hooks/useApi';
 import { getClients } from '../services/clientService';
 import { getServices } from '../services/hairServiceAPI';

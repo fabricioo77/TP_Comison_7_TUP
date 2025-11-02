@@ -1,4 +1,4 @@
-/* eslint-disable no-irregular-whitespace */
+
 import { useMemo, useState } from "react"; 
 import { Alert, Spinner, Button } from "react-bootstrap";
 import { Trash, PencilSquare } from "react-bootstrap-icons"; 
@@ -72,7 +72,7 @@ const handleSave = async (formData, id) => {
       ];
     });
    
-  }, [appointments, clients, services, removeAppointment, updateAppointment]);
+  }, [appointments, clients, services, removeAppointment]);
 
   const tableColumns = ["Cliente", "Servicio", "Fecha", "Hora", "Acciones"];
 
