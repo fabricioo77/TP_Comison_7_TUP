@@ -5,6 +5,8 @@ import Home from '../pages/Home';
 import Dashboard from '../dashboard/Dashboard';
 import Login from '../pages/Login';
 import Pacientes from '../pages/Pacientes';
+import Register from '../pages/Register';
+import NotFound from '../pages/NotFound';
 import RouterProtect from './RouterProtect';
 
 const AppRouter = () => {
@@ -14,6 +16,7 @@ const AppRouter = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route 
             path="/dashboard" 
             element={
@@ -30,6 +33,8 @@ const AppRouter = () => {
               </RouterProtect>
             } 
           />
+          {/* Catch-all 404 route */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
     </Router>
