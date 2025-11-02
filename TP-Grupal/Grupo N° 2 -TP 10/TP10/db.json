@@ -1,9 +1,9 @@
 {
   "clients": [
     {
-      "id": "1",
       "name": "Toranzo Fabricio",
-      "email": "fa@mail.com"
+      "email": "fa@mail.com",
+      "id": "1"
     },
     {
       "id": "2",
@@ -19,11 +19,6 @@
       "id": "4",
       "name": "Gonzalez Maria",
       "email": "maria@mail.com"
-    },
-    {
-      "id": "5",
-      "name": "Sanchez Luis",
-      "email": "luis@mail.com"
     }
   ],
   "services": [

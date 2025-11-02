@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import {addClient} from '../services/ClientService';
 
-export default function ClientForm() {
+export default function ClientForm({onClientAdded}) {
   
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -20,18 +20,18 @@ export default function ClientForm() {
       return;
     }
 
-    try {
-      
+   try {
       const newClient = { name, email };
       await addClient(newClient);
       
       setSuccess(`Cliente "${name}" agregado con éxito.`);
-      
       setName('');
       setEmail('');
       
-   
-      window.location.reload(); 
+      
+      if (onClientAdded) {
+        onClientAdded(); 
+      }
 
     } catch (err) {
       setError('Error al guardar el cliente. Intenta de nuevo.');
