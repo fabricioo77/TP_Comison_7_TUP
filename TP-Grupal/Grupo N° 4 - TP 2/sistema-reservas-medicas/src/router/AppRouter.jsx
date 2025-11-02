@@ -12,31 +12,30 @@ import RouterProtect from './RouterProtect';
 const AppRouter = () => {
   return (
     <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route 
-            path="/dashboard" 
+      <Routes>
+        <Route path="/" element={<Layout />}> 
+          <Route index element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route
+            path="dashboard"
             element={
               <RouterProtect>
                 <Dashboard />
               </RouterProtect>
-            } 
+            }
           />
-          <Route 
-            path="/pacientes" 
+          <Route
+            path="pacientes"
             element={
               <RouterProtect>
                 <Pacientes />
               </RouterProtect>
-            } 
+            }
           />
-          {/* Catch-all 404 route */}
           <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Layout>
+        </Route>
+      </Routes>
     </Router>
   );
 };

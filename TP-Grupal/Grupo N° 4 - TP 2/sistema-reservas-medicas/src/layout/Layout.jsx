@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Outlet } from 'react-router-dom';
 
-const Layout = ({ children }) => {
+const Layout = () => {
   const navigate = useNavigate();
   const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
   const userEmail = localStorage.getItem('userEmail');
@@ -56,7 +56,7 @@ const Layout = ({ children }) => {
         </Container>
       </Navbar>
       <main>
-        {children}
+        <Outlet />
       </main>
     </>
   );
