@@ -6,7 +6,7 @@ import DataTable from '../components/DataTable';
 import ClientForm from '../components/ClientForm';
 import ClientEditModal from '../components/ClientEditModal';
 import { useApi } from '../hooks/useApi'; 
-import {getClients,deleteClient} from '../services/ClientService';
+import {getClients,deleteClient} from '../services/clientService';
 import "../styles/clients.css";
 
 export default function Clients() {

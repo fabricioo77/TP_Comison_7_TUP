@@ -45,7 +45,6 @@ const handleSave = async (formData, id) => {
         services.find((s) => s.id == t.serviceId)?.name || "N/A";
 
       return [
-        t.id,
         clientName,
         serviceName,
         t.date,
@@ -72,10 +71,10 @@ const handleSave = async (formData, id) => {
         </div>,
       ];
     });
-    // Añadir dependencias al useMemo
+   
   }, [appointments, clients, services, removeAppointment, updateAppointment]);
 
-  const tableColumns = ["ID", "Cliente", "Servicio", "Fecha", "Hora", "Acciones"];
+  const tableColumns = ["Cliente", "Servicio", "Fecha", "Hora", "Acciones"];
 
   if (apptLoading || clientsLoading || servicesLoading) {
     return (

@@ -19,6 +19,11 @@
       "id": "4",
       "name": "Gonzalez Maria",
       "email": "maria@mail.com"
+    },
+    {
+      "id": "c16e",
+      "name": "Lola Mora",
+      "email": "lolamora@gmail.com"
     }
   ],
   "services": [
@@ -84,11 +89,11 @@
       "time": "15:00"
     },
     {
-      "clientId": 5,
-      "serviceId": "813e",
-      "date": "2025-11-08",
-      "time": "08:31",
-      "id": "69ef"
+      "id": "1f41",
+      "clientId": "c16e",
+      "serviceId": "2",
+      "date": "2025-11-14",
+      "time": "18:20"
     }
   ]
 }

@@ -14,12 +14,12 @@ function HairServicesManager() {
         price: ''
     });
 
-    // Cargar servicios al montar el componente
+    
     useEffect(() => {
         loadServices();
     }, []);
 
-    // Cargar todos los servicios
+    
     const loadServices = async () => {
         try {
             const response = await hairServiceAPI.getServices();
@@ -29,7 +29,7 @@ function HairServicesManager() {
         }
     };
 
-    // Manejar cambios en el formulario
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -38,7 +38,7 @@ function HairServicesManager() {
         }));
     };
 
-    // Abrir modal para crear/editar
+   
     const handleOpenModal = (service = null) => {
         if (service) {
             setFormData(service);
@@ -55,7 +55,7 @@ function HairServicesManager() {
         setShowModal(true);
     };
 
-    // Guardar servicio (crear o actualizar)
+   
     const handleSaveService = async () => {
         try {
             const serviceData = {
@@ -78,7 +78,7 @@ function HairServicesManager() {
         }
     };
 
-    // Eliminar/Restaurar servicio
+   
     const handleToggleAvailability = async (service) => {
         try {
             if (service.available) {
@@ -138,7 +138,7 @@ function HairServicesManager() {
                 ))}
             </Row>
 
-            {/* Modal para crear/editar servicio */}
+           
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>

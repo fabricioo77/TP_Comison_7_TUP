@@ -11,26 +11,26 @@ time: "",
 };
 
 export default function AppointmentForm({
-  clients = [],
-  services = [],
-  onSave,
-  editingAppointment,
-  setEditingAppointment,
+ clients = [],
+ services = [],
+ onSave,
+ editingAppointment,
+ setEditingAppointment,
 }) {
   
-  const [formData, setFormData] = useState(initialState);
+ const [formData, setFormData] = useState(initialState);
 
-  useEffect(() => {
-    if (editingAppointment) {
-      setFormData({
-        clientId: editingAppointment.clientId || "", 
-        serviceId: editingAppointment.serviceId || "",
-        date: editingAppointment.date || "",
-        time: editingAppointment.time || "",
-      });
-    } else {
-      setFormData(initialState); // Sigue usando la constante
-    }
+ useEffect(() => {
+ if (editingAppointment) {
+ setFormData({
+ clientId: editingAppointment.clientId || "", 
+serviceId: editingAppointment.serviceId || "",
+ date: editingAppointment.date || "",
+ time: editingAppointment.time || "",
+ });
+ } else {
+ setFormData(initialState); // Sigue usando la constante
+ }
     
   }, [editingAppointment]);
 
@@ -43,15 +43,15 @@ export default function AppointmentForm({
 })); };
 
 const handleSubmit = async (e) => { // 1. Convertir en async
-    e.preventDefault();
-    if (!formData.clientId || !formData.serviceId || !formData.date || !formData.time) {
-      alert("Por favor, completa todos los campos (Cliente, Servicio, Fecha y Hora).");
-      return;
-    }
+e.preventDefault();
+if (!formData.clientId || !formData.serviceId || !formData.date || !formData.time) {
+ alert("Por favor, completa todos los campos (Cliente, Servicio, Fecha y Hora).");
+ return;
+ }
 
     try {
     
-      await onSave(formData, editingAppointment ? editingAppointment.id : null);
+await onSave(formData, editingAppointment ? editingAppointment.id : null);
       
       setFormData(initialState);
       if (setEditingAppointment) {
@@ -63,7 +63,7 @@ const handleSubmit = async (e) => { // 1. Convertir en async
       console.error("Error al guardar:", error);
       alert("Error al guardar el turno: " + error.message);
     }
-  };
+ };
 
 
   const handleCancelEdit = () => {

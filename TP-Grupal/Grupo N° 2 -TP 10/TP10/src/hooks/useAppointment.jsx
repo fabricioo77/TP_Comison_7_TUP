@@ -1,4 +1,4 @@
-/* eslint-disable no-irregular-whitespace */
+
 import { useState, useEffect, useCallback } from "react";
 import * as appointmentService from "../services/appointmentService";
 

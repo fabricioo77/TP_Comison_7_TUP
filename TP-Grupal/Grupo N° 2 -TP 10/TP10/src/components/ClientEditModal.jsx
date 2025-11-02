@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form, Alert } from 'react-bootstrap';
-import { updateClient } from '../services/ClientService';
+import { updateClient } from '../services/clientService';
 
 
 export default function ClientEditModal({ show, handleClose, client, onUpdated }) {
