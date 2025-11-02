@@ -14,7 +14,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Credenciales simuladas
+  
     const validUser = "admin";
     const validPass = "1234";
 
