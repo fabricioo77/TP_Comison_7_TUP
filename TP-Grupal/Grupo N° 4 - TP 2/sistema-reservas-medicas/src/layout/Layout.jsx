@@ -46,7 +46,10 @@ const Layout = ({ children }) => {
                   </Button>
                 </>
               ) : (
-                <Nav.Link as={Link} to="/login">Iniciar Sesión</Nav.Link>
+                <>
+                  <Nav.Link as={Link} to="/login">Iniciar Sesión</Nav.Link>
+                  <Nav.Link as={Link} to="/register">Registrarse</Nav.Link>
+                </>
               )}
             </Nav>
           </Navbar.Collapse>
