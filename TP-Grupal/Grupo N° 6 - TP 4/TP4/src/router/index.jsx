@@ -12,7 +12,8 @@ import AlumnosPage from "../pages/Alumnos/AlumnosPage";
 import FormAlumno from "../pages/Alumnos/FormAlumno";
 import PrestamosPage from "../pages/Prestamos/PrestamoPage";
 import FormPrestamo from "../pages/Prestamos/FormPrestamo";
-import Audit from "../pages/Audit"; // si no existe, borrar esta línea y la ruta
+import Audit from "../pages/Audit"; 
+import About from "../pages/About";
 
 // 🔐 Protección (IMPORTAR UNA SOLA VEZ)
 import RouterProtect, { RequireAdmin } from "./RouterProtect";
@@ -22,6 +23,14 @@ export default function AppRouter() {
     <Routes>
       {/* Pública */}
       <Route path="/login" element={<Login />} />
+      <Route 
+        path="/about"
+        element={
+          <RouterProtect>
+            <About />
+          </RouterProtect>
+        }
+            />
 
       {/* Privadas con layout */}
       <Route element={<AppLayout />}>
@@ -33,8 +42,10 @@ export default function AppRouter() {
             </RouterProtect>
           }
         />
-
+      
+        
         {/* Libros */}
+        
         <Route
           path="/libros"
           element={
@@ -51,7 +62,7 @@ export default function AppRouter() {
             </RouterProtect>
           }
         />
-
+          
         {/* Alumnos */}
         <Route
           path="/alumnos"
