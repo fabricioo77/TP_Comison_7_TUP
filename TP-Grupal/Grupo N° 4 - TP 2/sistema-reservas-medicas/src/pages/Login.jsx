@@ -23,14 +23,23 @@ const Login = () => {
   const [alertVariant, setAlertVariant] = useState("danger");
 
   const navigate = useNavigate();
-  const { login, isLoading, error, isAuthenticated, clearError } = useAuth();
+  const { login, isLoading, error, isAuthenticated, user, clearError } = useAuth();
 
   // Redirigir si ya está autenticado
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/dashboard");
+    if (isAuthenticated && user) {
+      // Redirección inteligente según rol
+      let redirectPath = "/dashboard";
+      
+      if (user.role === "paciente") {
+        redirectPath = "/mis-turnos";
+      } else if (user.role === "medico") {
+        redirectPath = "/agenda-pacientes";
+      }
+      
+      navigate(redirectPath);
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, user, navigate]);
 
   // Mostrar errores del hook
   useEffect(() => {
@@ -74,9 +83,19 @@ const Login = () => {
       setAlertVariant("success");
       setShowAlert(true);
 
+      // 🎯 Redirección inteligente según rol del usuario
+      let redirectPath = AUTH_CONFIG.LOGIN_REDIRECT; // Default: /dashboard
+
+      if (result.user?.role === "paciente") {
+        redirectPath = "/mis-turnos";
+      } else if (result.user?.role === "medico") {
+        redirectPath = "/agenda-pacientes";
+      }
+      // admin y recepcionista van a /dashboard (default)
+
       // Redirigir después de un momento
       setTimeout(() => {
-        navigate(AUTH_CONFIG.LOGIN_REDIRECT);
+        navigate(redirectPath);
       }, 500);
     } else {
       setAlertMessage(result.error || "Error al iniciar sesión");

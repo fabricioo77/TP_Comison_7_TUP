@@ -146,12 +146,57 @@ class FakeHttpService {
           return simulateError("Email y contraseña requeridos", 400);
         }
 
-        const user = {
-          id: Date.now().toString(),
-          email,
-          nombre: email.split("@")[0],
-          rol: "admin",
+        // 👥 Usuarios de prueba con diferentes roles
+        const USUARIOS_PRUEBA = {
+          "admin@test.com": {
+            id: "1",
+            email: "admin@test.com",
+            nombre: "Admin",
+            apellido: "Sistema",
+            telefono: "3512345678",
+            role: "admin",
+          },
+          "recepcion@test.com": {
+            id: "2",
+            email: "recepcion@test.com",
+            nombre: "María",
+            apellido: "Recepcionista",
+            telefono: "3519876543",
+            role: "recepcionista",
+          },
+          "medico@test.com": {
+            id: "3",
+            email: "medico@test.com",
+            nombre: "Dr. Carlos",
+            apellido: "García",
+            telefono: "3511122334",
+            role: "medico",
+          },
+          "paciente@test.com": {
+            id: "4",
+            email: "paciente@test.com",
+            nombre: "Juan",
+            apellido: "Pérez",
+            telefono: "3519988776",
+            role: "paciente",
+          },
         };
+
+        // Verificar si es un usuario de prueba
+        let user;
+        if (USUARIOS_PRUEBA[email]) {
+          user = USUARIOS_PRUEBA[email];
+        } else {
+          // Usuario genérico con rol admin para cualquier otro email
+          user = {
+            id: Date.now().toString(),
+            email,
+            nombre: email.split("@")[0],
+            apellido: "Usuario",
+            telefono: "",
+            role: "admin",
+          };
+        }
 
         localStorage.setItem("user", JSON.stringify(user));
 
