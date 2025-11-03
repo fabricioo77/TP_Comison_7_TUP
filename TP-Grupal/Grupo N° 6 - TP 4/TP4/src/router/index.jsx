@@ -12,10 +12,10 @@ import AlumnosPage from "../pages/Alumnos/AlumnosPage";
 import FormAlumno from "../pages/Alumnos/FormAlumno";
 import PrestamosPage from "../pages/Prestamos/PrestamoPage";
 import FormPrestamo from "../pages/Prestamos/FormPrestamo";
-import Audit from "../pages/Audit"; 
-import About from "../pages/About";
+import Audit from "../pages/Audit";
+import About from "../pages/About"; // 👈 nueva página
 
-// 🔐 Protección (IMPORTAR UNA SOLA VEZ)
+// 🔐 Protección
 import RouterProtect, { RequireAdmin } from "./RouterProtect";
 
 export default function AppRouter() {
@@ -23,17 +23,10 @@ export default function AppRouter() {
     <Routes>
       {/* Pública */}
       <Route path="/login" element={<Login />} />
-      <Route 
-        path="/about"
-        element={
-          <RouterProtect>
-            <About />
-          </RouterProtect>
-        }
-            />
 
       {/* Privadas con layout */}
       <Route element={<AppLayout />}>
+        {/* Dashboard */}
         <Route
           path="/dashboard"
           element={
@@ -42,10 +35,8 @@ export default function AppRouter() {
             </RouterProtect>
           }
         />
-      
-        
+
         {/* Libros */}
-        
         <Route
           path="/libros"
           element={
@@ -62,7 +53,7 @@ export default function AppRouter() {
             </RouterProtect>
           }
         />
-          
+
         {/* Alumnos */}
         <Route
           path="/alumnos"
@@ -107,6 +98,16 @@ export default function AppRouter() {
               <RequireAdmin>
                 <Audit />
               </RequireAdmin>
+            </RouterProtect>
+          }
+        />
+
+        {/* About (disponible para cualquier usuario logueado) */}
+        <Route
+          path="/about"
+          element={
+            <RouterProtect>
+              <About />
             </RouterProtect>
           }
         />
