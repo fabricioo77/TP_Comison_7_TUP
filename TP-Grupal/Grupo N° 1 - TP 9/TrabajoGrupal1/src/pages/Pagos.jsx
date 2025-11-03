@@ -2,40 +2,64 @@ import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import PaymentTable from "../components/PaymentTable";
 import "./Pagos.css";
+import useFetch from "../hooks/useFetch"; 
 
 const Pagos = () => {
+  // 1. Usamos el Custom Hook para obtener los datos de pagos
+  const { data: payments, isLoading, error } = useFetch("/payments");
+  
   const [stats, setStats] = useState({
     totalPendiente: 0,
     cobradoEsteMes: 0,
     miembrosVencidos: 0,
   });
 
-  // Calcular estadísticas desde LocalStorage
+  // 2. Calcular estadísticas cuando los datos de 'payments' cambien
   useEffect(() => {
-    const payments = JSON.parse(localStorage.getItem("payments") || "[]");
-    // Calcula los totales: Agarra los datos de "Payments" en localStorage, despues hace un reduce para sumar los totales (el reduce es como un for), valida el estado y ahi devuelve el total de estos, esto lo repito con cada estadistica
-    const total = payments.reduce((sum, p) => {
-      if (p.estado !== "Pagado") return sum + p.cuota;
-      return sum;
-    }, 0);
+    if (payments) { 
+      const total = payments.reduce((sum, p) => {
+        if (p.estado !== "Pagado") return sum + p.cuota;
+        return sum;
+      }, 0);
 
-    const collected = payments.reduce((sum, p) => {
-      if (p.estado === "Pagado") return sum + p.cuota;
-      return sum;
-    }, 0);
-    // Aqui cuenta los miembros con estado "Vencido"
-    const overdue = payments.filter((p) => p.estado === "Vencido").length;
+      const collected = payments.reduce((sum, p) => {
+        if (p.estado === "Pagado") return sum + p.cuota;
+        return sum;
+      }, 0);
+      
+      const overdue = payments.filter((p) => p.estado === "Vencido").length;
 
-    setStats({
-      totalPendiente: total,
-      cobradoEsteMes: collected,
-      miembrosVencidos: overdue,
-    });
-  }, []);
+      setStats({
+        totalPendiente: total,
+        cobradoEsteMes: collected,
+        miembrosVencidos: overdue,
+      });
+    }
+  }, [payments]); 
 
+  
   const handleGenerateReport = () => {
-    alert("Aquí iria el boton de generar reporte ");
+   
+    if (isLoading) {
+      alert("Los datos aún se están cargando. Intente de nuevo en un momento.");
+      return;
+    }
+    
+    console.log("--- Generando Reporte Financiero ---");
+    console.log("Funcionalidad de exportación aún no implementada.");
+    console.log("Datos del Reporte:", stats);
+   
+    alert("Iniciando generación de Reporte (ver consola del navegador)");
   };
+
+  const formatCurrency = (amount) => {
+    return amount
+      .toFixed(2)
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
+  // Si los datos están cargando o hay un error, mostramos un mensaje general
+  if (error) return <div>Error al cargar la página de pagos: {error}</div>;
 
   return (
     <div className="pagos-page">
@@ -52,35 +76,31 @@ const Pagos = () => {
         </Button>
       </div>
 
-      {/* Cards de estadísticas */}
-      <div className="stats-cards">
-        <div className="stat-card">
-          <div className="stat-label">Total Pendiente</div>
-          <div className="stat-value">
-            $
-            {stats.totalPendiente
-              .toFixed(2)
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-            {/* Este chiche raro es una expresión regular para poner separadores
-            de miles en el numero*/}
+      {/* Cards de estadísticas (Solo se muestran si los datos han cargado) */}
+      {isLoading ? (
+        <div className="stats-cards">Cargando estadísticas...</div>
+      ) : (
+        <div className="stats-cards">
+          <div className="stat-card">
+            <div className="stat-label">Total Pendiente</div>
+            <div className="stat-value">
+              ${formatCurrency(stats.totalPendiente)}
+            </div>
+          </div>
+          <div className="stat-card collected">
+            <div className="stat-label">Cobrado Este Mes</div>
+            <div className="stat-value green">
+              ${formatCurrency(stats.cobradoEsteMes)}
+            </div>
+          </div>
+          <div className="stat-card overdue">
+            <div className="stat-label">Miembros con Deuda</div>
+            <div className="stat-value red">{stats.miembrosVencidos}</div>
           </div>
         </div>
-        <div className="stat-card collected">
-          <div className="stat-label">Cobrado Este Mes</div>
-          <div className="stat-value green">
-            $
-            {stats.cobradoEsteMes
-              .toFixed(2)
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-          </div>
-        </div>
-        <div className="stat-card overdue">
-          <div className="stat-label">Miembros con Deuda</div>
-          <div className="stat-value red">{stats.miembrosVencidos}</div>
-        </div>
-      </div>
+      )}
 
-      {/* Tabla de pagos (Relevante ver como funciona este componente ya que aqui tiene los datos del local storage )*/}
+      {/* Tabla de pagos */}
       <PaymentTable />
     </div>
   );
