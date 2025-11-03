@@ -1,29 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Table, Badge, Form, Spinner } from 'react-bootstrap';
-import { datosReportes, dataCards, miembrosDetallados } from '../utils/fakeData';
+import React, { useState } from 'react';
+import { Container, Row, Col, Table, Badge, Form, Spinner, Alert } from 'react-bootstrap';
+import { useFetch } from '../hooks/useFetch';
+import { getReportes } from '../services/reportesService';
+import { getMiembros } from '../services/miembrosService';
 import CardComponent from '../components/Card';
 import { PeopleFill, PersonPlusFill, PersonDashFill, PieChartFill } from 'react-bootstrap-icons';
 
 const ReportesPage = () => {
-  const [loading, setLoading] = useState(true);
   const [periodo, setPeriodo] = useState('ultimo-mes');
-  const [reporteData, setReporteData] = useState(null);
+  
+  const { data: reporteData, loading: loadingReportes, error: errorReportes } = useFetch(getReportes);
+  const { data: miembros, loading: loadingMiembros, error: errorMiembros } = useFetch(getMiembros);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setReporteData(datosReportes);
-      setLoading(false);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const loading = loadingReportes || loadingMiembros;
+  const error = errorReportes || errorMiembros;
 
   // Calcular estadísticas
-  const totalMiembros = miembrosDetallados.length;
-  const miembrosActivos = miembrosDetallados.filter(m => m.status === 'Activo').length;
-  const miembrosInactivos = miembrosDetallados.filter(m => m.status === 'Inactivo').length;
-  const planBasico = miembrosDetallados.filter(m => m.plan === 'Básico').length;
-  const planFull = miembrosDetallados.filter(m => m.plan === 'Full').length;
+  const totalMiembros = miembros?.length || 0;
+  const miembrosActivos = miembros?.filter(m => m.status === 'Activo').length || 0;
+  const miembrosInactivos = miembros?.filter(m => m.status === 'Inactivo').length || 0;
+  const planBasico = miembros?.filter(m => m.plan === 'Básico').length || 0;
+  const planFull = miembros?.filter(m => m.plan === 'Full').length || 0;
   const porcentajeBasico = totalMiembros > 0 ? ((planBasico / totalMiembros) * 100).toFixed(1) : 0;
   const porcentajeFull = totalMiembros > 0 ? ((planFull / totalMiembros) * 100).toFixed(1) : 0;
   const porcentajeActivos = totalMiembros > 0 ? ((miembrosActivos / totalMiembros) * 100).toFixed(1) : 0;
@@ -34,6 +31,16 @@ const ReportesPage = () => {
       <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
         <Spinner animation="border" variant="primary" />
         <span className="ms-3 fs-4">Cargando reportes...</span>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container className="mt-4">
+        <Alert variant="danger">
+          Error al cargar los datos: {error}
+        </Alert>
       </Container>
     );
   }
