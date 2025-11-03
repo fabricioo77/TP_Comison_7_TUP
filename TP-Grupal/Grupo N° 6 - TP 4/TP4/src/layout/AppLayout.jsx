@@ -1,7 +1,7 @@
 // src/layout/AppLayout.jsx
 import React from "react";
-import { Container, Navbar, Nav, Button, Row, Col, Dropdown } from "react-bootstrap";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Container, Navbar, Nav, Row, Col, Dropdown } from "react-bootstrap";
+import { Outlet, useNavigate, useLocation, NavLink } from "react-router-dom";
 import { clearAuth, getAuth } from "../utils/auth";
 import ThemeSwitcher from "../components/ThemeSwitcher";
 import Sidebar from "../dashboard/DashboardSidebar";
@@ -15,6 +15,7 @@ export default function AppLayout() {
   const userName = session?.name || session?.user || "Usuario";
   const isAdmin = session?.role === "admin";
 
+  // Oculta el fondo en /login (aunque este layout no se renderiza en /login, lo dejo por consistencia)
   const isDashboard = pathname !== "/login";
 
   const onLogout = () => {
@@ -31,15 +32,28 @@ export default function AppLayout() {
     >
       <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="shadow-sm glass">
         <Container fluid>
-          <Navbar.Brand role="button" onClick={()=>nav("/dashboard")}>Proyecto C7</Navbar.Brand>
+          <Navbar.Brand as={NavLink} to="/dashboard">
+            Proyecto C7
+          </Navbar.Brand>
+
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-between">
+            {/* Menú principal */}
             <Nav>
-              <Nav.Link onClick={() => nav("/dashboard")}>Dashboard</Nav.Link>
-              <Nav.Link onClick={() => nav("/about")}>About</Nav.Link>
-              {isAdmin && <Nav.Link onClick={() => nav("/audit")}>Audit</Nav.Link>}
+              <Nav.Link as={NavLink} to="/dashboard" end>
+                Dashboard
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="/about">
+                About
+              </Nav.Link>
+              {isAdmin && (
+                <Nav.Link as={NavLink} to="/audit">
+                  Audit
+                </Nav.Link>
+              )}
             </Nav>
 
+            {/* Preferencias / Usuario */}
             <div className="d-flex gap-3 align-items-center">
               <ThemeSwitcher />
               <Dropdown align="end">
