@@ -1,62 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Table, Badge, Form, InputGroup, Spinner, Button, Modal } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Row, Col, Table, Badge, Form, InputGroup, Spinner, Button, Modal, Alert } from 'react-bootstrap';
 import { Search, Pencil, Calendar3 } from 'react-bootstrap-icons';
-import { miembrosDetallados, actividades as actividadesData } from '../utils/fakeData';
+import { useFetch, useMutation } from '../hooks/useFetch';
+import { getMiembros, updateMiembro } from '../services/miembrosService';
+import { getActividades, updateActividad } from '../services/actividadesService';
 import CardComponent from '../components/Card';
 import { PeopleFill, PersonCheckFill, PersonXFill, Activity } from 'react-bootstrap-icons';
 
 const MiembrosPage = () => {
-  // Estados para Miembros
-  const [miembros, setMiembros] = useState([]);
-  const [filteredMiembros, setFilteredMiembros] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Estados de filtros
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('Todos');
   const [filterPlan, setFilterPlan] = useState('Todos');
+  
+  // Estados para modales
   const [showEditMiembro, setShowEditMiembro] = useState(false);
   const [miembroEditando, setMiembroEditando] = useState(null);
   const [formDataMiembro, setFormDataMiembro] = useState({});
-
-  // Estados para Actividades
-  const [actividades, setActividades] = useState([]);
   const [showEditActividad, setShowEditActividad] = useState(false);
   const [actividadEditando, setActividadEditando] = useState(null);
   const [formDataActividad, setFormDataActividad] = useState({});
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setMiembros([...miembrosDetallados]);
-      setFilteredMiembros([...miembrosDetallados]);
-      setActividades([...actividadesData]);
-      setLoading(false);
-    }, 500);
+  // Hooks para datos
+  const { data: miembros, loading: loadingMiembros, error: errorMiembros, refetch: refetchMiembros } = useFetch(getMiembros);
+  const { data: actividades, loading: loadingActividades, error: errorActividades, refetch: refetchActividades } = useFetch(getActividades);
+  const { mutate: mutateMiembro, loading: savingMiembro } = useMutation();
+  const { mutate: mutateActividad, loading: savingActividad } = useMutation();
 
-    return () => clearTimeout(timer);
-  }, []);
+  const loading = loadingMiembros || loadingActividades;
+  const error = errorMiembros || errorActividades;
 
-  useEffect(() => {
-    let filtered = [...miembros];
-
-    // Filtro por búsqueda
-    if (searchTerm) {
-      filtered = filtered.filter(miembro =>
-        miembro.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        miembro.email.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    // Filtro por estado
-    if (filterStatus !== 'Todos') {
-      filtered = filtered.filter(miembro => miembro.status === filterStatus);
-    }
-
-    // Filtro por plan
-    if (filterPlan !== 'Todos') {
-      filtered = filtered.filter(miembro => miembro.plan === filterPlan);
-    }
-
-    setFilteredMiembros(filtered);
-  }, [searchTerm, filterStatus, filterPlan, miembros]);
+  // Filtrar miembros
+  const filteredMiembros = miembros ? miembros.filter(miembro => {
+    const matchSearch = !searchTerm || 
+      miembro.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      miembro.email.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchStatus = filterStatus === 'Todos' || miembro.status === filterStatus;
+    const matchPlan = filterPlan === 'Todos' || miembro.plan === filterPlan;
+    return matchSearch && matchStatus && matchPlan;
+  }) : [];
 
   // Funciones para editar Miembros
   const handleEditarMiembro = (miembro) => {
@@ -65,12 +47,15 @@ const MiembrosPage = () => {
     setShowEditMiembro(true);
   };
 
-  const handleGuardarMiembro = () => {
-    setMiembros(prev =>
-      prev.map(m => m.id === miembroEditando.id ? { ...formDataMiembro } : m)
-    );
-    setShowEditMiembro(false);
-    setMiembroEditando(null);
+  const handleGuardarMiembro = async () => {
+    try {
+      await mutateMiembro(() => updateMiembro(miembroEditando.id, formDataMiembro));
+      await refetchMiembros();
+      setShowEditMiembro(false);
+      setMiembroEditando(null);
+    } catch (err) {
+      console.error('Error al guardar miembro:', err);
+    }
   };
 
   // Funciones para editar Actividades
@@ -80,26 +65,39 @@ const MiembrosPage = () => {
     setShowEditActividad(true);
   };
 
-  const handleGuardarActividad = () => {
-    setActividades(prev =>
-      prev.map(a => a.id === actividadEditando.id ? { ...formDataActividad } : a)
-    );
-    setShowEditActividad(false);
-    setActividadEditando(null);
+  const handleGuardarActividad = async () => {
+    try {
+      await mutateActividad(() => updateActividad(actividadEditando.id, formDataActividad));
+      await refetchActividades();
+      setShowEditActividad(false);
+      setActividadEditando(null);
+    } catch (err) {
+      console.error('Error al guardar actividad:', err);
+    }
   };
 
   // Calcular métricas
-  const totalMiembros = miembros.length;
-  const miembrosActivos = miembros.filter(m => m.status === 'Activo').length;
-  const miembrosInactivos = miembros.filter(m => m.status === 'Inactivo').length;
-  const totalActividades = actividades.length;
-  const totalInscritos = actividades.reduce((sum, a) => sum + a.inscritos, 0);
+  const totalMiembros = miembros?.length || 0;
+  const miembrosActivos = miembros?.filter(m => m.status === 'Activo').length || 0;
+  const miembrosInactivos = miembros?.filter(m => m.status === 'Inactivo').length || 0;
+  const totalActividades = actividades?.length || 0;
+  const totalInscritos = actividades?.reduce((sum, a) => sum + a.inscritos, 0) || 0;
 
   if (loading) {
     return (
       <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
         <Spinner animation="border" variant="primary" />
         <span className="ms-3 fs-4">Cargando...</span>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container className="mt-4">
+        <Alert variant="danger">
+          Error al cargar los datos: {error}
+        </Alert>
       </Container>
     );
   }
@@ -365,8 +363,8 @@ const MiembrosPage = () => {
           <Button variant="secondary" onClick={() => setShowEditMiembro(false)}>
             Cancelar
           </Button>
-          <Button variant="primary" onClick={handleGuardarMiembro}>
-            Guardar Cambios
+          <Button variant="primary" onClick={handleGuardarMiembro} disabled={savingMiembro}>
+            {savingMiembro ? 'Guardando...' : 'Guardar Cambios'}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -439,8 +437,8 @@ const MiembrosPage = () => {
           <Button variant="secondary" onClick={() => setShowEditActividad(false)}>
             Cancelar
           </Button>
-          <Button variant="primary" onClick={handleGuardarActividad}>
-            Guardar Cambios
+          <Button variant="primary" onClick={handleGuardarActividad} disabled={savingActividad}>
+            {savingActividad ? 'Guardando...' : 'Guardar Cambios'}
           </Button>
         </Modal.Footer>
       </Modal>
