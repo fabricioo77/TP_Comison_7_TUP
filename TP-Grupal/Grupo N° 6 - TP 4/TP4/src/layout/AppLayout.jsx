@@ -4,8 +4,9 @@ import { Container, Navbar, Nav, Row, Col, Dropdown } from "react-bootstrap";
 import { Outlet, useNavigate, useLocation, NavLink } from "react-router-dom";
 import { clearAuth, getAuth } from "../utils/auth";
 import ThemeSwitcher from "../components/ThemeSwitcher";
-import Sidebar from "../dashboard/Dashboard";
+import Sidebar from "../dashboard/DashboardSidebar";
 import { LogOut, User } from "lucide-react";
+import DashboardSidebar from "../dashboard/DashboardSidebar";
 
 export default function AppLayout() {
   const nav = useNavigate();
@@ -76,7 +77,7 @@ export default function AppLayout() {
       <Container fluid className="py-4">
         <Row>
           <Col xs={12} md={3} lg={2}>
-            <Sidebar />
+            <DashboardSidebar />
           </Col>
           <Col xs={12} md={9} lg={10}>
             <Outlet />
