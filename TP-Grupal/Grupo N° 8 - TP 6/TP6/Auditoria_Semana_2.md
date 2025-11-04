@@ -2,9 +2,9 @@
 ### Grupo Nº: 8  
 ### Tema asignado: t6
 ### Integrantes (Nombre completo + Legajo):
-- Benitez Gabriel 61682
-- Diaz Vega Facundo 61760
-- Ruiz Franco
+- Benitez Gabriel - 61682
+- Diaz Vega Facundo - 61760
+- Ruiz Franco  - 61454
 
 ---
 
