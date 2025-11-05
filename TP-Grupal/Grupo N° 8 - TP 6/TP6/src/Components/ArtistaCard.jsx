@@ -14,7 +14,6 @@ function ModalFormularioArtista({ show, handleClose, onArtistaAdded, artistaAEdi
     
     const [artista, setArtista] = useState(initialState);
 
-    // --- ¡PEQUEÑO AJUSTE AQUÍ PARA MÁS SEGURIDAD! ---
     useEffect(() => {
         if (esEdicion && artistaAEditar) {
             // Unimos el estado inicial con el artista a editar.
