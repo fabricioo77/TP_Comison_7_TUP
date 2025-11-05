@@ -1,5 +1,5 @@
 .sports-table-container {
-  background: white;
+  background: rgb(59, 113, 175);
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -14,6 +14,7 @@
   font-weight: 600;
   color: #212529;
   font-size: 15px;
+  font-style: italic;
 }
 
 /* Contador de miembros */
@@ -53,10 +54,12 @@
 
 .action-btn:hover {
   text-decoration: none;
+  
 }
 
 .edit-btn {
   color: #0d6efd;
+ 
 }
 
 .edit-btn:hover {
@@ -75,6 +78,7 @@
 
 .deactivate-btn {
   color: #dc3545;
+  font-style: italic;
 }
 
 .deactivate-btn:hover {
