@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Modal, Row, Col, ListGroup, Badge } from 'react-bootstrap';
-// --- ¡IMPORTAMOS LAS NUEVAS FUNCIONES PARA ASISTENTES! ---
 import { 
     addItem, 
     updateItem, 
@@ -10,8 +9,8 @@ import {
     getById,
     agregarArtistaAEvento, 
     removerArtistaDeEvento,
-    inscribirAsistenteAEvento, // <--- NUEVA
-    removerAsistenteDeEvento   // <--- NUEVA
+    inscribirAsistenteAEvento, 
+    removerAsistenteDeEvento   
 } from '../Utils/utils';
 
 function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar, esEdicion }) {
@@ -24,17 +23,15 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
     // Estados para los selectores
     const [artistasDisponibles, setArtistasDisponibles] = useState([]);
     const [artistaSeleccionadoId, setArtistaSeleccionadoId] = useState('');
-    const [asistentesDisponibles, setAsistentesDisponibles] = useState([]); // <--- NUEVO
-    const [asistenteSeleccionadoId, setAsistenteSeleccionadoId] = useState(''); // <--- NUEVO
+    const [asistentesDisponibles, setAsistentesDisponibles] = useState([]); 
+    const [asistenteSeleccionadoId, setAsistenteSeleccionadoId] = useState(''); 
 
     useEffect(() => {
         if (show) {
-            // Cargamos ambos listados cuando se abre el modal
             setArtistasDisponibles(getAll('artistas'));
-            setAsistentesDisponibles(getAll('asistentes')); // <--- NUEVO
+            setAsistentesDisponibles(getAll('asistentes')); 
         }
         if (esEdicion && eventoAEditar) {
-            // Recargamos el eventoAEditar por si acaso tiene datos viejos
             const eventoActualizado = getById('eventos', eventoAEditar.id) || eventoAEditar;
             const fechaParaInput = eventoActualizado.fecha.split('-').reverse().join('-');
             setEvento({ ...eventoActualizado, fecha: fechaParaInput });
@@ -43,7 +40,6 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
         }
     }, [eventoAEditar, esEdicion, show]);
     
-    // --- LÓGICA DE ARTISTAS (Sin cambios) ---
     const handleAsociarArtista = () => {
         if (!artistaSeleccionadoId) {
             alert("Por favor, selecciona un artista.");
@@ -62,18 +58,16 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
         refrescarDatosDelModal();
     };
 
-    // --- ¡NUEVA LÓGICA DE ASISTENTES! ---
     const handleInscribirAsistente = () => {
         if (!asistenteSeleccionadoId) {
             alert("Por favor, selecciona un asistente.");
             return;
         }
 
-        // Llamamos a la nueva función de la utils
         const resultado = inscribirAsistenteAEvento(evento.id, parseInt(asistenteSeleccionadoId));
         
         if (!resultado.success) {
-            alert(resultado.message); // Ej: "¡Cupo completo!"
+            alert(resultado.message); 
             return;
         }
         
@@ -96,8 +90,8 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
         // Recarga los selectores
         setArtistasDisponibles(getAll('artistas'));
         setArtistaSeleccionadoId('');
-        setAsistentesDisponibles(getAll('asistentes')); // <--- NUEVO
-        setAsistenteSeleccionadoId(''); // <--- NUEVO
+        setAsistentesDisponibles(getAll('asistentes')); 
+        setAsistenteSeleccionadoId(''); 
     };
 
     const handleChange = (e) => {
@@ -109,10 +103,7 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
         e.preventDefault();
         const cupoNumerico = parseInt(evento.cupo, 10);
         const fechaParaGuardar = evento.fecha.split('-').reverse().join('-');
-        // Nos aseguramos de NO guardar los objetos completos de artistas/asistentes
-        // Guardamos solo los IDs, que es una práctica más limpia.
-        // PERO tu lógica actual guarda los objetos completos, así que lo respetamos.
-        
+
         const datosAGuardar = { 
             ...evento, 
             cupo: cupoNumerico, 
