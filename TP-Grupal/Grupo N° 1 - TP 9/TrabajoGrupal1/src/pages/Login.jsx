@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../constants/routes';
+import apiService from '../services/apiService'; 
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,7 +20,6 @@ const Login = () => {
       ...prev,
       [name]: value
     }));
-    // Limpiar error cuando el usuario empiece a escribir
     if (error) setError('');
   };
 
@@ -28,23 +28,20 @@ const Login = () => {
     setError('');
     setIsLoading(true);
 
-    // Validación básica
     if (!formData.usuario.trim() || !formData.password.trim()) {
       setError('Por favor, complete todos los campos');
       setIsLoading(false);
       return;
     }
 
-    // Simulación de login (aquí irá la lógica real cuando Agustín agregue la contraseña)
-    setTimeout(() => {
-      // TODO: Aquí irá la validación real con los datos de usuarios
-      // Por ahora simulamos un login exitoso
+    try {
+      //  USAMOS EL SERVICIO DE API PARA EL LOGIN SIMULADO 
+      const response = await apiService.login(formData.usuario, formData.password);
       
-      // Credenciales de prueba (esto se reemplazará con la lógica real)
-      if (formData.usuario === 'Niconeta97' && formData.password === '12345') {
-        // Login exitoso
+      if (response.success) {
+        // Login exitoso: Guardar la bandera de autenticación en localStorage
         localStorage.setItem('isAuthenticated', 'true');
-        localStorage.setItem('usuario', formData.usuario);
+        localStorage.setItem('usuario', response.user.username);
         
         // Si "Recordarme" está activado, guardar para próximas sesiones
         if (rememberMe) {
@@ -52,13 +49,16 @@ const Login = () => {
           localStorage.setItem('savedUsuario', formData.usuario);
         }
         
-        navigate(ROUTES.DASHBOARD);
+        navigate(ROUTES.DASHBOARD, { replace: true });
       } else {
         setError('Usuario o contraseña incorrectos');
       }
-      
+
+    } catch (err) {
+      setError(err.message || 'Error de conexión. Intente más tarde.');
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -118,7 +118,6 @@ const Login = () => {
                     className="text-decoration-none small"
                     onClick={(e) => {
                       e.preventDefault();
-                      // TODO: Implementar recuperación de contraseña
                       alert('Funcionalidad de recuperación de contraseña próximamente');
                     }}
                   >
@@ -146,7 +145,7 @@ const Login = () => {
             </Card.Body>
           </Card>
 
-          {/* Credenciales de prueba (quitar en producción) */}
+          {/* Credenciales de prueba */}
           <Card className="mt-3 border-info">
             <Card.Body className="py-2 text-center">
               <small className="text-muted">
