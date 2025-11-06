@@ -12,19 +12,18 @@ import Dashboard from "../dashboard/Dashboard";
 import Pagos from "../pages/Pagos";
 import Deportes from "../pages/Deportes";
 import Socios from "../pages/Socios";
+import RouterProtect from "./RouterProtect"; 
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Ruta temporal de inicio */}
+        {/* Rutas Públicas */}
         <Route path={ROUTES.HOME} element={<Home />} />
-
-        {/* Ruta de login */}
         <Route path={ROUTES.LOGIN} element={<Login />} />
 
-        {/* Rutas del dashboard */}
-        <Route path={ROUTES.DASHBOARD} element={<DashboardLayout />}>
+        {/* Rutas del dashboard (PROTEGIDAS) */}
+        <Route path={ROUTES.DASHBOARD} element={<RouterProtect><DashboardLayout /></RouterProtect>}>
           <Route index element={<Dashboard />} />
           <Route path={ROUTES.SOCIOS} element={<Socios />} />
           <Route path={ROUTES.PAGOS} element={<Pagos />} />
@@ -40,3 +39,4 @@ const AppRouter = () => {
 };
 
 export default AppRouter;
+
