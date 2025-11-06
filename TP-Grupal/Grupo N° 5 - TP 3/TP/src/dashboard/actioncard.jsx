@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const CardLink = styled(Link)`
-  background-color: var(--white);
+  background-color: #ffff;
   padding: 25px;
-  border-radius: 12px;
+  border-radius: 14px;
   border: 1px solid var(--border-color);
   text-decoration: none;
   color: var(--text-dark);
@@ -13,9 +13,8 @@ const CardLink = styled(Link)`
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07);
-    border-color: var(--primary-blue);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px  rgba(0, 120, 218, 0.81);
   }
 `;
 
