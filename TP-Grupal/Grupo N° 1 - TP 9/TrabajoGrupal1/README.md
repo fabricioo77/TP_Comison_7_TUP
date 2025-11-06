@@ -226,3 +226,26 @@ git push origin dev
     - Cuando hay seleccionados, aparece la barra de acciones de abajo con los botones definidos en `actions`.
   - Acciones masivas:
     - Al apretar un botón, `handleAction` te arma `selectedData` (filtrando `data` por los `selectedItems`) y llama al `onClick` que definiste en `actions`.
+
+## 📋 Trabajo Práctico - Semana 2
+**Tecnicatura Universitaria en Programación - Comisión 7**  
+**Profesor:** Chocobar Matías  
+**Grupo N° 1**
+
+## Integrantes y Roles 
+
+**Sonzogni Ramiro** Lider
+**Monrroy Agustin** Colaborador
+**Paz Luciana** Colaboradora
+**Varela Merce Luciano** Colaborador
+
+# Implementaciones
+
+ * Archivo apiService.js dentro de la carpeta service
+ * useFetch.js dentro de la carpeta hooks
+ * archivo db.json
+
+# Errores 
+Hay un error al entrar a la seccion de pagos, despues de unos segundos la seccion pagos deja de funcionar y salta un error.
+
+
