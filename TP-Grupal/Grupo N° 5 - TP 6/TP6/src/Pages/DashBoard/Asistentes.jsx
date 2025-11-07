@@ -1,27 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { Button, Container, Card } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Container, Card, Spinner, Alert } from "react-bootstrap";
 import TablaComponent from "../../Components/Tabla.jsx";
 import ModalFormularioAsistente from "../../Components/AsistenteCard.jsx";
-// 1. 🎯 CORRECCIÓN: Importar deleteById en lugar de remove
-import { getAll, deleteById } from "../../Utils/utils"; 
+// 1. Importar Hook y Servicios
+import { useFetch } from "../../hooks/useFetch.js";
+import { getAllAsistentes, deleteAsistenteById } from "../../services/asistentesService.js";
 
 function Asistentes() {
-  const [asistentes, setAsistentes] = useState([]);
+  // 2. Usar el Hook
+  const { data: asistentes, loading, error, refresh } = useFetch(getAllAsistentes);
+  
   const [showModal, setShowModal] = useState(false);
-
-  // --- ESTADOS PARA LA EDICIÓN ---
   const [asistenteSeleccionado, setAsistenteSeleccionado] = useState(null);
   const [esEdicion, setEsEdicion] = useState(false);
 
-  // Carga los asistentes desde la utilidad
-  const cargarAsistentes = () => {
-    const data = getAll("asistentes");
-    setAsistentes(data);
-  };
-
-  useEffect(() => {
-    cargarAsistentes();
-  }, []);
+  // 3. Ya no necesitamos 'cargarAsistentes' ni 'useEffect'
 
   const columnas = [
     { header: "Nombre", field: "nombre" },
@@ -29,44 +22,42 @@ function Asistentes() {
     { header: "Fecha Nacimiento", field: "fechaNac" },
   ];
 
-  // --- NUEVAS/MODIFICADAS FUNCIONES HANDLER ---
-
-  // Se activa al hacer clic en "Ver Detalle" (Edición)
   const handleVerDetalle = (asistente) => {
     setAsistenteSeleccionado(asistente);
     setEsEdicion(true);
     setShowModal(true);
   };
 
-  // Se activa al hacer clic en "Añadir Nuevo Asistente"
   const handleAbrirModalParaCrear = () => {
     setAsistenteSeleccionado(null);
     setEsEdicion(false);
     setShowModal(true);
   };
 
-  // 🎯 FUNCIÓN PARA ELIMINAR ASISTENTE
-  const handleEliminar = (asistente) => {
-    // 1. Opcional: Confirmación del usuario
+  // 4. Función de Eliminar (ahora es async y llama al servicio)
+  const handleEliminar = async (asistente) => {
     if (window.confirm(`¿Está seguro de que desea eliminar a ${asistente.nombre} ${asistente.apellido}?`)) {
-        
-        // 2. 🎯 CORRECCIÓN: Llamar a deleteById con el tipo de tabla y el ID
-        deleteById("asistentes", asistente.id); 
-
-        // 3. Recarga la lista para reflejar el cambio en la interfaz
-        cargarAsistentes();
+      try {
+        await deleteAsistenteById(asistente.id);
+        refresh(); // Recarga la tabla
         console.log(`Asistente ID ${asistente.id} eliminado.`);
+      } catch (error) {
+        alert("Error al eliminar el asistente.");
+        console.error(error);
+      }
     }
   };
 
-
-  // Cierra el modal y resetea los estados de edición
   const handleModalClose = () => {
     setShowModal(false);
     setEsEdicion(false);
     setAsistenteSeleccionado(null);
-    cargarAsistentes(); // Recargamos para ver los cambios
+    refresh(); // Recargamos para ver los cambios
   };
+
+  // 5. Manejo de estados del hook
+  if (loading) return <Container className="text-center mt-5"><Spinner animation="border" /></Container>;
+  if (error) return <Container className="mt-5"><Alert variant="danger">Error al cargar asistentes: {error}</Alert></Container>;
 
   return (
     <Container fluid className="my-4">
@@ -85,11 +76,10 @@ function Asistentes() {
         </Card.Header>
         <Card.Body>
           <TablaComponent
-            datos={asistentes}
+            datos={asistentes || []} // Aseguramos que sea un array
             columnas={columnas}
             onVerDetalle={handleVerDetalle}
-            // CONEXIÓN: Usamos la función handleEliminar
-            onEliminar={handleEliminar} 
+            onEliminar={handleEliminar}
           />
         </Card.Body>
       </Card>
@@ -97,7 +87,7 @@ function Asistentes() {
       <ModalFormularioAsistente
         show={showModal}
         handleClose={handleModalClose}
-        onAsistenteAdded={cargarAsistentes}
+        onAsistenteAdded={refresh} // Usamos refresh
         asistenteAEditar={asistenteSeleccionado}
         esEdicion={esEdicion}
       />

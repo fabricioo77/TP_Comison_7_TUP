@@ -1,22 +1,20 @@
-import { useState, useEffect } from "react";
-import { Container, Card, Button, Badge } from "react-bootstrap"; // Importamos Badge
-import { getAll } from "../../Utils/utils.js";
+import { useState } from "react";
+import { Container, Card, Button, Badge, Spinner, Alert } from "react-bootstrap";
 import TablaComponent from "../../Components/Tabla.jsx";
 import ModalFormularioArtista from "../../Components/ArtistaCard.jsx";
+// 1. Importar Hook y Servicios
+import { useFetch } from "../../hooks/useFetch.js";
+import { getAllArtistas, deleteArtistaById } from "../../services/artistasService.js";
 
 function Artistas() {
-  const [artistas, setArtistas] = useState([]);
+  // 2. Usar el Hook (renombramos 'data' a 'artistas')
+  const { data: artistas, loading, error, refresh } = useFetch(getAllArtistas);
+  
   const [showModal, setShowModal] = useState(false);
   const [artistaSeleccionado, setArtistaSeleccionado] = useState(null);
   const [esEdicion, setEsEdicion] = useState(false);
 
-  const cargarArtistas = () => {
-    setArtistas(getAll("artistas"));
-  };
-
-  useEffect(() => {
-    cargarArtistas();
-  }, []);
+  // 3. Ya no necesitamos 'cargarArtistas' ni 'useEffect' para cargar
 
   const handleVerDetalle = (artista) => {
     setArtistaSeleccionado(artista);
@@ -30,12 +28,24 @@ function Artistas() {
     setShowModal(true);
   };
 
-  const handleModalClose = () => {
-    setShowModal(false);
-    cargarArtistas();
+  // 4. Función de Eliminar (ahora es async y llama al servicio)
+  const handleEliminar = async (artista) => {
+    if (window.confirm(`¿Está seguro de eliminar a ${artista.nombreArt}?`)) {
+      try {
+        await deleteArtistaById(artista.id);
+        refresh(); // Recarga la tabla
+      } catch (error) {
+        alert("Error al eliminar el artista.");
+        console.error(error);
+      }
+    }
   };
 
-  // --- CAMBIO AQUÍ: Añadimos la columna "Disponibilidad" con un Badge ---
+  const handleModalClose = () => {
+    setShowModal(false);
+    refresh(); // Recargamos para ver los cambios
+  };
+
   const columnas = [
     { header: "Nombre Artístico", field: "nombreArt" },
     { header: "Nombre", field: "nombre" },
@@ -49,6 +59,10 @@ function Artistas() {
       ),
     },
   ];
+
+  // 5. Manejo de estados del hook
+  if (loading) return <Container className="text-center mt-5"><Spinner animation="border" /></Container>;
+  if (error) return <Container className="mt-5"><Alert variant="danger">Error al cargar artistas: {error}</Alert></Container>;
 
   return (
     <Container fluid className="my-4">
@@ -67,9 +81,10 @@ function Artistas() {
         </Card.Header>
         <Card.Body>
           <TablaComponent
-            datos={artistas}
+            datos={artistas || []} // Aseguramos que sea un array
             columnas={columnas}
             onVerDetalle={handleVerDetalle}
+            onEliminar={handleEliminar} // Añadimos la prop de eliminar
           />
         </Card.Body>
       </Card>
@@ -77,7 +92,7 @@ function Artistas() {
       <ModalFormularioArtista
         show={showModal}
         handleClose={handleModalClose}
-        onArtistaAdded={cargarArtistas}
+        onArtistaAdded={refresh} // Usamos refresh
         artistaAEditar={artistaSeleccionado}
         esEdicion={esEdicion}
       />

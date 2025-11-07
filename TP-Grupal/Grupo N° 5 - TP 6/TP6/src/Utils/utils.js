@@ -1,7 +1,7 @@
 // Archivo: src/Utils/utils.js
 
 // Clave única para guardar nuestros datos en el localStorage del navegador
-const DB_KEY = 'culturaAppDB';
+/*const DB_KEY = 'culturaAppDB';
 
 // Función para cargar la base de datos
 function loadDB() {
@@ -157,4 +157,4 @@ export function removerAsistenteDeEvento(idEvento, idAsistente) {
 export function getUsuarioPorEmail(email) {
   if (!email) return null;
   return db.usuarios.find(u => u.email.toLowerCase() === email.toLowerCase()) || null;
-}
+}*/

@@ -1,25 +1,20 @@
-// src/Pages/Dashboard/Eventos.jsx
-import React, { useState, useEffect } from "react";
-import { Button, Container, Card } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Container, Card, Spinner, Alert } from "react-bootstrap";
 import ModalFormularioEvento from "../../Components/EventCard.jsx";
 import TablaComponent from "../../Components/Tabla.jsx";
-// --- ¡IMPORTAMOS LA FUNCIÓN deleteById! ---
-import { getAll, deleteById } from "../../Utils/utils";
+// 1. Importar Hook y Servicios
+import { useFetch } from "../../hooks/useFetch.js";
+import { getAllEventos, deleteEventoById } from "../../services/eventosService.js";
 
 function Eventos() {
-  const [eventos, setEventos] = useState([]);
+  // 2. Usar el Hook
+  const { data: eventos, loading, error, refresh } = useFetch(getAllEventos);
+  
   const [showModal, setShowModal] = useState(false);
   const [eventoSeleccionado, setEventoSeleccionado] = useState(null);
   const [esEdicion, setEsEdicion] = useState(false);
 
-  const cargarEventos = () => {
-    const listaActualizada = getAll("eventos");
-    setEventos(listaActualizada);
-  };
-
-  useEffect(() => {
-    cargarEventos();
-  }, []);
+  // 3. Ya no necesitamos 'cargarEventos' ni 'useEffect'
 
   const handleVerDetalle = (evento) => {
     setEventoSeleccionado(evento);
@@ -35,24 +30,21 @@ function Eventos() {
 
   const handleModalClose = () => {
     setShowModal(false);
-    cargarEventos(); // Recargamos por si hubo cambios
+    refresh(); // Recargamos por si hubo cambios
   };
 
-  // --- ¡NUEVA FUNCIÓN PARA MANEJAR LA ELIMINACIÓN! ---
-  const handleEliminar = (eventoAEliminar) => {
-    // Pedimos confirmación al usuario para evitar errores
+  // 4. Función de Eliminar (ahora es async y llama al servicio)
+  const handleEliminar = async (eventoAEliminar) => {
     if (window.confirm(`¿Estás seguro de que quieres eliminar el evento "${eventoAEliminar.nombre}"?`)) {
       try {
-        deleteById('eventos', eventoAEliminar.id);
-        // Recargamos la lista de eventos para que el cambio se vea en la tabla
-        cargarEventos();
+        await deleteEventoById(eventoAEliminar.id);
+        refresh();
       } catch (error) {
         console.error("Error al eliminar el evento:", error);
         alert("No se pudo eliminar el evento.");
       }
     }
   };
-
 
   const columnasEventos = [
     { header: "Nombre", field: "nombre" },
@@ -63,6 +55,10 @@ function Eventos() {
       render: (item) => `${item.asistentes.length}/${item.cupo} (${item.artistas.length})`,
     },
   ];
+
+  // 5. Manejo de estados del hook
+  if (loading) return <Container className="text-center mt-5"><Spinner animation="border" /></Container>;
+  if (error) return <Container className="mt-5"><Alert variant="danger">Error al cargar eventos: {error}</Alert></Container>;
 
   return (
     <Container fluid className="my-4">
@@ -80,10 +76,9 @@ function Eventos() {
         </Card.Header>
         <Card.Body>
           <TablaComponent
-            datos={eventos}
+            datos={eventos || []} // Aseguramos que sea un array
             columnas={columnasEventos}
             onVerDetalle={handleVerDetalle}
-            // --- CONECTAMOS LA NUEVA FUNCIÓN AL BOTÓN ---
             onEliminar={handleEliminar}
           />
         </Card.Body>
@@ -92,7 +87,7 @@ function Eventos() {
       <ModalFormularioEvento
         show={showModal}
         handleClose={handleModalClose}
-        onEventAdded={cargarEventos}
+        onEventAdded={refresh} // Usamos refresh
         eventoAEditar={eventoSeleccionado}
         esEdicion={esEdicion}
       />
