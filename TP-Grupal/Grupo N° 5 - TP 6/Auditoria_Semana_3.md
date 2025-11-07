@@ -12,9 +12,9 @@
 
 Describir brevemente lo encontrado al abrir el proyecto:
 
-- Errores detectados (bugs, warnings, import fallidos, rutas rotas, etc.)
-- Faltantes respecto a Semana 1 (carpetas vacías, componentes incompletos, etc.)
-- Problemas de estructura, naming, uso de git o dependencias
+- Respecto al Tp semana 1, requisitos completos, nada que realizar.
+- Requisitos del TP semana 2, Nada Realizado, el trabajo esta como se entrego en la primer semana.
+
 
 > Este apartado debe completarse **ANTES** de modificar el código.
 
