@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS artistas (
   disponible BOOLEAN DEFAULT TRUE
 );
 
-INSERT INTO artistas (nombre, apellido, nombreArt, dni, fechaNac, disponible) VALUES
+INSERT INTO artistas (nombre, apellido, nombreArt, dni, fechaFormateada, disponible) VALUES
 ('Miguel', 'Martin', 'Gordillo', '23123456', '1989-10-30', TRUE),
 ('Maria', 'Becerra', 'La Nena Argentina', '24627416', '1988-04-15', TRUE),
 ('Mauro', 'Monzon', 'Lit-Killa', '2234564', '1985-12-12', TRUE);

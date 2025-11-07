@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Modal, Row, Col, ListGroup, Badge, Spinner } from 'react-bootstrap';
-// 1. Importar TODOS los servicios necesarios
 import {
   addEvento,
   updateEvento,
@@ -11,19 +10,29 @@ import { getAllAsistentes, getAsistenteById } from '../services/asistentesServic
 
 function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar, esEdicion }) {
   const initialState = {
-    nombre: '', fecha: '', lugar: '', cupo: 0, artistas: [], asistentes: [],
+    nombre: '',
+    fecha: '',
+    lugar: '',
+    cupo: 0,
+    artistas: [],
+    asistentes: [],
   };
 
   const [evento, setEvento] = useState(initialState);
   const [loading, setLoading] = useState(false);
 
-  // Estados para los selectores
   const [artistasDisponibles, setArtistasDisponibles] = useState([]);
   const [artistaSeleccionadoId, setArtistaSeleccionadoId] = useState('');
   const [asistentesDisponibles, setAsistentesDisponibles] = useState([]);
   const [asistenteSeleccionadoId, setAsistenteSeleccionadoId] = useState('');
 
-  // 2. Cargar datos de la API para los selectores
+  const eventoSeguro = {
+    ...evento,
+    artistas: Array.isArray(evento.artistas) ? evento.artistas : [],
+    asistentes: Array.isArray(evento.asistentes) ? evento.asistentes : [],
+  };
+
+  // Cargar datos iniciales
   useEffect(() => {
     const cargarDatosIniciales = async () => {
       if (show) {
@@ -37,9 +46,7 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
           setAsistentesDisponibles(asistentes);
 
           if (esEdicion && eventoAEditar) {
-            // Aseguramos que los datos del evento estén frescos
             const eventoActualizado = await getEventoById(eventoAEditar.id);
-            // Formatear fecha para el input type="date" (YYYY-MM-DD)
             const fechaParaInput = eventoActualizado.fecha.split('-').reverse().join('-');
             setEvento({ ...eventoActualizado, fecha: fechaParaInput });
           } else {
@@ -56,7 +63,7 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
     cargarDatosIniciales();
   }, [eventoAEditar, esEdicion, show]);
 
-  // 3. Lógica refactorizada para asociar (ahora es async)
+  // Asociar artista
   const handleAsociarArtista = async () => {
     if (!artistaSeleccionadoId) return;
 
@@ -68,20 +75,18 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
         alert(`El artista ${artista.nombreArt} ya se encuentra ocupado.`);
         return;
       }
-      if (evento.artistas.some(a => a.id === artistaId)) {
-         alert(`El artista ${artista.nombreArt} ya está asociado a este evento.`);
-         return;
+      if (eventoSeguro.artistas.some(a => a.id === artistaId)) {
+        alert(`El artista ${artista.nombreArt} ya está asociado a este evento.`);
+        return;
       }
 
-      // 1. Actualizar al artista (marcarlo como no disponible)
       await updateArtista(artistaId, { ...artista, disponible: false });
-      
-      // 2. Actualizar el evento (añadir el artista a la lista)
-      const eventoActualizado = { ...evento, artistas: [...evento.artistas, artista] };
-      // Convertimos la fecha de nuevo a DD-MM-YYYY para guardarla
-      const fechaGuardar = evento.fecha.split('-').reverse().join('-');
-      await updateEvento(evento.id, { ...eventoActualizado, fecha: fechaGuardar });
-
+      const eventoActualizado = {
+        ...eventoSeguro,
+        artistas: [...eventoSeguro.artistas, artista],
+      };
+      const fechaGuardar = eventoSeguro.fecha.split('-').reverse().join('-');
+      await updateEvento(eventoSeguro.id, { ...eventoActualizado, fecha: fechaGuardar });
       refrescarDatosDelModal();
     } catch (error) {
       console.error(error);
@@ -89,22 +94,16 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
     }
   };
 
-  // 4. Lógica refactorizada para remover (ahora es async)
+  // Remover artista
   const handleRemoverArtista = async (idArtistaARemover) => {
     try {
       const artista = await getArtistaById(idArtistaARemover);
+      if (artista) await updateArtista(idArtistaARemover, { ...artista, disponible: true });
 
-      // 1. Actualizar al artista (marcarlo como disponible)
-      if (artista) {
-        await updateArtista(idArtistaARemover, { ...artista, disponible: true });
-      }
-      
-      // 2. Actualizar el evento (filtrar el artista)
-      const artistasFiltrados = evento.artistas.filter(a => a.id !== idArtistaARemover);
-      const eventoActualizado = { ...evento, artistas: artistasFiltrados };
-      const fechaGuardar = evento.fecha.split('-').reverse().join('-');
-      await updateEvento(evento.id, { ...eventoActualizado, fecha: fechaGuardar });
-
+      const artistasFiltrados = eventoSeguro.artistas.filter(a => a.id !== idArtistaARemover);
+      const eventoActualizado = { ...eventoSeguro, artistas: artistasFiltrados };
+      const fechaGuardar = eventoSeguro.fecha.split('-').reverse().join('-');
+      await updateEvento(eventoSeguro.id, { ...eventoActualizado, fecha: fechaGuardar });
       refrescarDatosDelModal();
     } catch (error) {
       console.error(error);
@@ -112,74 +111,68 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
     }
   };
 
-  // 5. Lógica para inscribir asistente (async)
+  // Inscribir asistente
   const handleInscribirAsistente = async () => {
     if (!asistenteSeleccionadoId) return;
-    
+
     try {
-        const asistenteId = parseInt(asistenteSeleccionadoId);
+      const asistenteId = parseInt(asistenteSeleccionadoId);
+      if (eventoSeguro.asistentes.length >= eventoSeguro.cupo) {
+        alert("¡Cupo completo!");
+        return;
+      }
+      if (eventoSeguro.asistentes.some(a => a.id === asistenteId)) {
+        alert("Este asistente ya está inscrito.");
+        return;
+      }
 
-        if (evento.asistentes.length >= evento.cupo) {
-            alert("¡Cupo completo!");
-            return;
-        }
-        if (evento.asistentes.some(a => a.id === asistenteId)) {
-            alert("Este asistente ya está inscrito.");
-            return;
-        }
-
-        const asistente = await getAsistenteById(asistenteId);
-        
-        // 1. Actualizar el evento (añadir asistente)
-        const eventoActualizado = { ...evento, asistentes: [...evento.asistentes, asistente] };
-        const fechaGuardar = evento.fecha.split('-').reverse().join('-');
-        await updateEvento(evento.id, { ...eventoActualizado, fecha: fechaGuardar });
-        
-        refrescarDatosDelModal();
-
+      const asistente = await getAsistenteById(asistenteId);
+      const eventoActualizado = {
+        ...eventoSeguro,
+        asistentes: [...eventoSeguro.asistentes, asistente],
+      };
+      const fechaGuardar = eventoSeguro.fecha.split('-').reverse().join('-');
+      await updateEvento(eventoSeguro.id, { ...eventoActualizado, fecha: fechaGuardar });
+      refrescarDatosDelModal();
     } catch (error) {
-        console.error(error);
-        alert("Error al inscribir asistente.");
+      console.error(error);
+      alert("Error al inscribir asistente.");
     }
   };
 
-  // 6. Lógica para remover asistente (async)
+  // Remover asistente
   const handleRemoverAsistente = async (idAsistenteARemover) => {
-     try {
-        // 1. Actualizar el evento (filtrar asistente)
-        const asistentesFiltrados = evento.asistentes.filter(a => a.id !== idAsistenteARemover);
-        const eventoActualizado = { ...evento, asistentes: asistentesFiltrados };
-        const fechaGuardar = evento.fecha.split('-').reverse().join('-');
-        await updateEvento(evento.id, { ...eventoActualizado, fecha: fechaGuardar });
-
-        refrescarDatosDelModal();
-     } catch (error) {
-        console.error(error);
-        alert("Error al remover asistente.");
-     }
+    try {
+      const asistentesFiltrados = eventoSeguro.asistentes.filter(a => a.id !== idAsistenteARemover);
+      const eventoActualizado = { ...eventoSeguro, asistentes: asistentesFiltrados };
+      const fechaGuardar = eventoSeguro.fecha.split('-').reverse().join('-');
+      await updateEvento(eventoSeguro.id, { ...eventoActualizado, fecha: fechaGuardar });
+      refrescarDatosDelModal();
+    } catch (error) {
+      console.error(error);
+      alert("Error al remover asistente.");
+    }
   };
 
-  // Refresca tanto el evento como los selectores
   const refrescarDatosDelModal = async () => {
     setLoading(true);
     try {
-        const [eventoRefrescado, artistas, asistentes] = await Promise.all([
-            getEventoById(evento.id),
-            getAllArtistas(),
-            getAllAsistentes()
-        ]);
-        
-        const fechaParaInput = eventoRefrescado.fecha.split('-').reverse().join('-');
-        setEvento({ ...eventoRefrescado, fecha: fechaParaInput });
-        
-        setArtistasDisponibles(artistas);
-        setAsistentesDisponibles(asistentes);
-        setArtistaSeleccionadoId('');
-        setAsistenteSeleccionadoId('');
+      const [eventoRefrescado, artistas, asistentes] = await Promise.all([
+        getEventoById(eventoSeguro.id),
+        getAllArtistas(),
+        getAllAsistentes()
+      ]);
+
+      const fechaParaInput = eventoRefrescado.fecha.split('-').reverse().join('-');
+      setEvento({ ...eventoRefrescado, fecha: fechaParaInput });
+      setArtistasDisponibles(artistas);
+      setAsistentesDisponibles(asistentes);
+      setArtistaSeleccionadoId('');
+      setAsistenteSeleccionadoId('');
     } catch (error) {
-        console.error("Error refrescando modal", error);
+      console.error("Error refrescando modal", error);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -188,26 +181,17 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
     setEvento(prev => ({ ...prev, [name]: value }));
   };
 
-  // 7. handleSubmit (async y llama a servicios)
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
-    // Formatear fecha para guardar (DD-MM-YYYY)
-    const fechaParaGuardar = evento.fecha.split('-').reverse().join('-');
-    const cupoNumerico = parseInt(evento.cupo, 10) || 0;
-
-    const datosAGuardar = {
-      ...evento,
-      cupo: cupoNumerico,
-      fecha: fechaParaGuardar
-    };
+    const fechaParaGuardar = eventoSeguro.fecha.split('-').reverse().join('-');
+    const cupoNumerico = parseInt(eventoSeguro.cupo, 10) || 0;
+    const datosAGuardar = { ...eventoSeguro, cupo: cupoNumerico, fecha: fechaParaGuardar };
 
     try {
       if (esEdicion) {
-        await updateEvento(evento.id, datosAGuardar);
+        await updateEvento(eventoSeguro.id, datosAGuardar);
       } else {
-        // Al crear, aseguramos listas vacías
         await addEvento({ ...datosAGuardar, artistas: [], asistentes: [] });
       }
       onEventAdded();
@@ -226,38 +210,41 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
         <Modal.Title>{esEdicion ? "Gestionar Evento" : "Registrar Nuevo Evento"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {loading && <div className="text-center"><Spinner animation="border" /> <p>Cargando datos...</p></div>}
-        
+        {loading && (
+          <div className="text-center">
+            <Spinner animation="border" /> <p>Cargando datos...</p>
+          </div>
+        )}
+
         {!loading && (
           <Form onSubmit={handleSubmit}>
-            {/* Detalles del Evento */}
             <h5>Detalles del Evento</h5>
             <Form.Group className="mb-3">
-                <Form.Label>Nombre del Evento</Form.Label>
-                <Form.Control type="text" name="nombre" value={evento.nombre} onChange={handleChange} required />
+              <Form.Label>Nombre del Evento</Form.Label>
+              <Form.Control type="text" name="nombre" value={eventoSeguro.nombre} onChange={handleChange} required />
             </Form.Group>
             <Row className="mb-3">
-                <Form.Group as={Col}>
-                    <Form.Label>Fecha (YYYY-MM-DD)</Form.Label>
-                    <Form.Control type="date" name="fecha" value={evento.fecha} onChange={handleChange} required />
-                </Form.Group>
-                <Form.Group as={Col}>
-                    <Form.Label>Cupo Máximo</Form.Label>
-                    <Form.Control type="number" name="cupo" value={evento.cupo} onChange={handleChange} min="1" required />
-                </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Fecha</Form.Label>
+                <Form.Control type="date" name="fecha" value={eventoSeguro.fecha} onChange={handleChange} required />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Cupo Máximo</Form.Label>
+                <Form.Control type="number" name="cupo" value={eventoSeguro.cupo} onChange={handleChange} min="1" required />
+              </Form.Group>
             </Row>
             <Form.Group className="mb-3">
-                <Form.Label>Lugar</Form.Label>
-                <Form.Control type="text" name="lugar" value={evento.lugar} onChange={handleChange} required />
+              <Form.Label>Lugar</Form.Label>
+              <Form.Control type="text" name="lugar" value={eventoSeguro.lugar} onChange={handleChange} required />
             </Form.Group>
 
-            {/* Sección de Artistas (Solo visible en Edición) */}
+            {/* ARTISTAS */}
             {esEdicion && (
               <div className="mt-4 p-3 border rounded">
                 <h5>Artistas del Evento</h5>
-                <ListGroup variant="flush" className="mb-3" style={{maxHeight: '150px', overflowY: 'auto'}}>
-                  {evento.artistas && evento.artistas.length > 0 ? (
-                    evento.artistas.map(artista => (
+                <ListGroup variant="flush" className="mb-3" style={{ maxHeight: '150px', overflowY: 'auto' }}>
+                  {eventoSeguro.artistas.length > 0 ? (
+                    eventoSeguro.artistas.map(artista => (
                       <ListGroup.Item key={artista.id} className="d-flex justify-content-between align-items-center">
                         <span>
                           {artista.nombreArt} <Badge bg="secondary" pill>{artista.nombre}</Badge>
@@ -272,7 +259,7 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
                   )}
                 </ListGroup>
 
-                <h6 className="mt-3">Asociar Nuevo Artista</h6>
+                <h6>Asociar Nuevo Artista</h6>
                 <Row>
                   <Col md={8}>
                     <Form.Select
@@ -296,19 +283,19 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
               </div>
             )}
 
-            {/* Sección de Asistentes (Solo visible en Edición) */}
+            {/* ASISTENTES */}
             {esEdicion && (
               <div className="mt-4 p-3 border rounded bg-light">
                 <h5>
                   Asistentes del Evento
                   <Badge bg="dark" className="ms-2">
-                    {evento.asistentes.length} / {evento.cupo}
+                    {eventoSeguro.asistentes.length} / {eventoSeguro.cupo}
                   </Badge>
                 </h5>
 
                 <ListGroup variant="flush" className="mb-3" style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                  {evento.asistentes && evento.asistentes.length > 0 ? (
-                    evento.asistentes.map(asistente => (
+                  {eventoSeguro.asistentes.length > 0 ? (
+                    eventoSeguro.asistentes.map(asistente => (
                       <ListGroup.Item key={asistente.id} className="d-flex justify-content-between align-items-center">
                         <span>
                           {asistente.nombre} {asistente.apellido}
@@ -323,23 +310,22 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
                   )}
                 </ListGroup>
 
-                <h6 className="mt-3">Inscribir Nuevo Asistente</h6>
+                <h6>Inscribir Nuevo Asistente</h6>
                 <Row>
                   <Col md={8}>
                     <Form.Select
                       value={asistenteSeleccionadoId}
                       onChange={(e) => setAsistenteSeleccionadoId(e.target.value)}
-                      disabled={evento.asistentes.length >= evento.cupo}
+                      disabled={eventoSeguro.asistentes.length >= eventoSeguro.cupo}
                     >
                       <option value="">Selecciona un asistente...</option>
                       {asistentesDisponibles.map(asistente => {
-                        // Opcional: Evitar que se listen asistentes ya inscritos
-                        const yaInscrito = evento.asistentes.some(a => a.id === asistente.id);
+                        const yaInscrito = eventoSeguro.asistentes.some(a => a.id === asistente.id);
                         if (yaInscrito) return null;
                         return (
-                           <option key={asistente.id} value={asistente.id}>
-                                {asistente.nombre} {asistente.apellido}
-                           </option>
+                          <option key={asistente.id} value={asistente.id}>
+                            {asistente.nombre} {asistente.apellido}
+                          </option>
                         );
                       })}
                     </Form.Select>
@@ -349,16 +335,15 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
                       variant="success"
                       onClick={handleInscribirAsistente}
                       className="w-100"
-                      disabled={evento.asistentes.length >= evento.cupo}
+                      disabled={eventoSeguro.asistentes.length >= eventoSeguro.cupo}
                     >
                       Inscribir
                     </Button>
                   </Col>
                 </Row>
-                {evento.asistentes.length >= evento.cupo && (
-                  <div className="text-danger mt-2 fw-bold">
-                    ¡Cupo completo!
-                  </div>
+
+                {eventoSeguro.asistentes.length >= eventoSeguro.cupo && (
+                  <div className="text-danger mt-2 fw-bold">¡Cupo completo!</div>
                 )}
               </div>
             )}

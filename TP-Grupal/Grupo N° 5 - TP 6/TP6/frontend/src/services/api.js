@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = 'http://localhost:3006/api';
 
 // Función genérica para manejar las peticiones
 const fetchAPI = async (endpoint, options = {}) => {
@@ -9,7 +9,6 @@ const fetchAPI = async (endpoint, options = {}) => {
     throw new Error(`Error ${response.status}: ${errorData.message || 'Error en la petición'}`);
   }
   
-  // Si no hay contenido (ej. DELETE), no intentes parsear JSON
   if (response.status === 204) {
     return null;
   }

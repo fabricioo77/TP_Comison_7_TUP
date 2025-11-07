@@ -22,9 +22,10 @@ export const createArtista = async (req, res) => {
 export const updateArtista = async (req, res) => {
   const { id } = req.params;
   const { nombre, apellido, nombreArt, dni, fechaNac, disponible } = req.body;
+  const fechaFormateada = fechaNac ? fechaNac.split("T")[0] : null;
   await pool.query(
     "UPDATE artistas SET nombre=?, apellido=?, nombreArt=?, dni=?, fechaNac=?, disponible=? WHERE id=?",
-    [nombre, apellido, nombreArt, dni, fechaNac, disponible, id]
+    [nombre, apellido, nombreArt, dni, fechaFormateada, disponible, id]
   );
   res.json({ message: "Artista actualizado" });
 };

@@ -51,9 +51,14 @@ function Eventos() {
     { header: "Fecha", field: "fecha" },
     { header: "Lugar", field: "lugar" },
     {
-      header: "Ocupación / Artistas",
-      render: (item) => `${item.asistentes.length}/${item.cupo} (${item.artistas.length})`,
-    },
+  header: "Ocupación / Artistas",
+  render: (item) => {
+    const asistentes = Array.isArray(item.asistentes) ? item.asistentes.length : 0;
+    const artistas = Array.isArray(item.artistas) ? item.artistas.length : 0;
+    return `${asistentes}/${item.cupo ?? 0} (${artistas})`;
+  },
+},
+
   ];
 
   // 5. Manejo de estados del hook

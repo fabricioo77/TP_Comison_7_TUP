@@ -2,13 +2,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// 1. Importar el servicio en lugar de utils
-import { getUsuarioPorEmail } from '../services/usuariosService.js';
 
 function Login() {
   const [email, setEmail] = useState("");
-  const [contrasenia, setContrasena] = useState("");
-  const [loading, setLoading] = useState(false); // Estado de carga
+  const [contrasenia, setContrasenia] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,27 +16,30 @@ function Login() {
     }
   }, [navigate]);
 
-  // 2. Convertir handleSubmit en async
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      // 3. Llamar al servicio (es asíncrono)
-      const usuario = await getUsuarioPorEmail(email);
 
-      if (usuario != null) {
-        if (contrasenia === usuario.contrasenia) {
-          localStorage.setItem('usuarioLogueado', 'Si');
-          localStorage.setItem('Usuario', JSON.stringify(usuario));
-          navigate('/dashboard');
-        } else {
-          alert("Contraseña Incorrecta");
-        }
+    try {
+      const res = await fetch("http://localhost:3006/api/usuarios/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, contrasenia })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        localStorage.setItem('usuarioLogueado', 'Si');
+        localStorage.setItem('Usuario', JSON.stringify(data.usuario));
+        alert("Login exitoso!");
+        navigate('/dashboard');
       } else {
-        alert("El Usuario No Existe");
+        alert(data.error || "Credenciales incorrectas");
       }
+
     } catch (error) {
-      alert("Error al contactar el servidor. ¿Iniciaste 'npm run server'?");
+      alert("Error al contactar el servidor");
       console.error(error);
     } finally {
       setLoading(false);
@@ -79,7 +80,7 @@ function Login() {
           <Form.Control
             type="password"
             placeholder="Contraseña"
-            onChange={(e) => setContrasena(e.target.value)}
+            onChange={(e) => setContrasenia(e.target.value)}
           />
         </Form.Group>
 
