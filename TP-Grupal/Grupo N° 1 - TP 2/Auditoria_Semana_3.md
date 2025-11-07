@@ -1,4 +1,4 @@
-# 🧾 Auditoría — Semana 2  
+# 🧾 Auditoría — Semana 3  
 ### Grupo Nº: ___  
 ### Tema asignado: ___  
 ### Integrantes (Nombre completo + Legajo):
