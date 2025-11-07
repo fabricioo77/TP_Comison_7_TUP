@@ -26,6 +26,10 @@ Eliminar totalmente el uso de localStorage y json-server.
 
 Dentro de la carpeta del grupo:
 
+# colocar imagen en el README.md  
+
+![Estructura del proyecto](./carpeta%20back.jpg)
+
 📦 Grupo_X
  ┣ 📂 frontend
  ┃ ┗ ... (código de semanas anteriores)
