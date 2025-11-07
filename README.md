@@ -26,27 +26,9 @@ Eliminar totalmente el uso de localStorage y json-server.
 
 Dentro de la carpeta del grupo:
 
-# colocar imagen en el README.md  
+ 
 
 ![Estructura del proyecto](./carpeta%20back.jpg)
-
-📦 Grupo_X
- ┣ 📂 frontend
- ┃ ┗ ... (código de semanas anteriores)
- ┣ 📂 backend
- ┃ ┣ 📂 config
- ┃ ┃ ┗ db.js                 ← conexión MySQL
- ┃ ┣ 📂 controllers
- ┃ ┃ ┗ usuariosController.js ← lógica de negocio
- ┃ ┣ 📂 routers
- ┃ ┃ ┗ usuariosRouter.js     ← rutas y endpoints
- ┃ ┣ 📂 middleware
- ┃ ┃ ┗ authMiddleware.js     ← validación JWT (opcional)
- ┃ ┣ 📄 index.js              ← punto de entrada del servidor
- ┃ ┣ 📄 .env                  ← variables de entorno
- ┃ ┣ 📄 base_datos.sql        ← script con creación de tablas
- ┃ ┗ 📄 package.json
- ┗ 📄 Auditoria_Semana_3.md
 
  🔐 Ejemplo de .env
 
