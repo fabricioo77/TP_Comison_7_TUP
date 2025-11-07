@@ -1,40 +1,28 @@
 import pool from "../db.js";
 
 export const getUsuarios = async (req, res) => {
-  try {
-    const [rows] = await pool.query("SELECT * FROM usuarios");
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: "Error al obtener usuarios" });
-  }
+  const [rows] = await pool.query("SELECT id, email, rol FROM usuarios");
+  res.json(rows);
 };
 
 export const createUsuario = async (req, res) => {
-  try {
-    const { nombre, email, password } = req.body;
-    const [result] = await pool.query(
-      "INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)",
-      [nombre, email, password]
-    );
-    res.status(201).json({ id: result.insertId, nombre, email });
-  } catch (err) {
-    res.status(500).json({ error: "Error al crear usuario" });
-  }
+  const { email, contrasenia, rol } = req.body;
+  const [result] = await pool.query(
+    "INSERT INTO usuarios (email, contrasenia, rol) VALUES (?, ?, ?)",
+    [email, contrasenia, rol]
+  );
+  res.status(201).json({ id: result.insertId, email, rol });
 };
 
 export const loginUsuario = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const [rows] = await pool.query(
-      "SELECT * FROM usuarios WHERE email = ? AND password = ?",
-      [email, password]
-    );
-    if (rows.length > 0) {
-      res.json({ message: "Login exitoso", usuario: rows[0] });
-    } else {
-      res.status(401).json({ error: "Credenciales inválidas" });
-    }
-  } catch (err) {
-    res.status(500).json({ error: "Error en login" });
+  const { email, contrasenia } = req.body;
+  const [rows] = await pool.query(
+    "SELECT * FROM usuarios WHERE email=? AND contrasenia=?",
+    [email, contrasenia]
+  );
+  if (rows.length > 0) {
+    res.json({ message: "Login exitoso", usuario: rows[0] });
+  } else {
+    res.status(401).json({ error: "Credenciales inválidas" });
   }
 };
