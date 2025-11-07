@@ -2,7 +2,7 @@
 
 Tecnicatura Universitaria en Programación — Comisión 7
 Profesor: Chocobar Matías
-📅 Fecha límite: Domingo 09 — 18:00 hs
+📅 Fecha límite: Viernes 14 — 18:00 hs
 
 🎯 Objetivo Semana 3
 
