@@ -10,35 +10,30 @@ import Eventos from './Pages/DashBoard/Eventos.jsx';
 // 1. Importamos la RutaPrivada
 import RutaPrivada from './Components/RutaPrivada.jsx';
 
+import Home from './Components/Home.jsx';
+
 function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Navigate to='/login' replace />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />
 
         {/* 2. Ruta Pública */}
-        <Route path='/login' element={<IniciarSesion />} />
+        <Route path="/login" element={<IniciarSesion />} />
 
         {/* 3. Rutas Privadas Protegidas */}
         {/* Envolvemos el Dashboard con el componente RutaPrivada */}
         <Route element={<RutaPrivada />}>
-          <Route path='/dashboard' element={<Dashboard />}>
-            <Route index element={
-              <div>
-                <h1 style={{ color: '#2c3e50', marginBottom: '20px' }}>ADMINISTRACIÓN</h1>
-                <p style={{ color: '#7f8c8d', fontSize: '16px' }}>
-                  Selecciona una opción del menú lateral para comenzar
-                </p>
-              </div>
-            } />
-            <Route path='artistas' element={<Artistas />} />
-            <Route path='asistentes' element={<Asistentes />} />
-            <Route path='eventos' element={<Eventos />} />
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route index element={<Home />} />
+            <Route path="artistas" element={<Artistas />} />
+            <Route path="asistentes" element={<Asistentes />} />
+            <Route path="eventos" element={<Eventos />} />
           </Route>
         </Route>
-        
+
         {/* Opcional: Una ruta "catch-all" por si no matchea nada */}
-        <Route path='*' element={<Navigate to='/' replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
   );

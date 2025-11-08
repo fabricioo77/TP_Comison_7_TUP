@@ -8,7 +8,7 @@ function DashboardComponent() {
     //console.table(getAll("personas"))
     const handleCerrarSesion = () => {
         localStorage.removeItem('usuarioLogueado');
-        localStorage.removeItem('emailUsuario');
+        localStorage.removeItem('Usuario');
         navigate('/login');
     }
 
@@ -53,7 +53,9 @@ function DashboardComponent() {
         >
           <div>
             <div
+              onClick={() => handleNavigate('/dashboard', 1)}
               style={{
+                cursor: 'pointer',
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
