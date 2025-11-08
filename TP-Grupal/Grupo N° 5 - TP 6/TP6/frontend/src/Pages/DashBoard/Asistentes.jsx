@@ -64,7 +64,7 @@ function Asistentes() {
       <div className="d-flex justify-content-center">
         <h2 className="mb-4">Panel de Asistentes</h2>
       </div>
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-end">
         <Button variant="primary" onClick={handleAbrirModalParaCrear} className="mb-4">
           <i className="bi bi-person-plus-fill me-2"></i>
           Añadir Nuevo Asistente

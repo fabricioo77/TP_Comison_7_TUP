@@ -3,7 +3,11 @@ import { Form, Button, Modal, Row, Col, ListGroup, Badge, Spinner } from 'react-
 import {
   addEvento,
   updateEvento,
-  getEventoById
+  getEventoById,
+  asociarArtistaAEvento, 
+  inscribirAsistenteAEvento,
+  removerArtistaDeEvento,
+  removerAsistenteDeEvento
 } from '../services/eventosService';
 import { getAllArtistas, getArtistaById, updateArtista } from '../services/artistasService';
 import { getAllAsistentes, getAsistenteById } from '../services/asistentesService';
@@ -79,14 +83,9 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
         alert(`El artista ${artista.nombreArt} ya está asociado a este evento.`);
         return;
       }
-
+      await asociarArtistaAEvento(eventoSeguro.id, artistaId);
       await updateArtista(artistaId, { ...artista, disponible: false });
-      const eventoActualizado = {
-        ...eventoSeguro,
-        artistas: [...eventoSeguro.artistas, artista],
-      };
-      const fechaGuardar = eventoSeguro.fecha.split('-').reverse().join('-');
-      await updateEvento(eventoSeguro.id, { ...eventoActualizado, fecha: fechaGuardar });
+      
       refrescarDatosDelModal();
     } catch (error) {
       console.error(error);
@@ -96,14 +95,16 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
 
   // Remover artista
   const handleRemoverArtista = async (idArtistaARemover) => {
+if (!window.confirm("¿Seguro que quieres quitar a este artista del evento?")) {
+      return;
+    }
+    
     try {
-      const artista = await getArtistaById(idArtistaARemover);
-      if (artista) await updateArtista(idArtistaARemover, { ...artista, disponible: true });
-
-      const artistasFiltrados = eventoSeguro.artistas.filter(a => a.id !== idArtistaARemover);
-      const eventoActualizado = { ...eventoSeguro, artistas: artistasFiltrados };
-      const fechaGuardar = eventoSeguro.fecha.split('-').reverse().join('-');
-      await updateEvento(eventoSeguro.id, { ...eventoActualizado, fecha: fechaGuardar });
+      const artista = await getArtistaById(idArtistaARemover); //
+      await removerArtistaDeEvento(eventoSeguro.id, idArtistaARemover);
+      if (artista) {
+        await updateArtista(idArtistaARemover, { ...artista, disponible: true }); //
+      }
       refrescarDatosDelModal();
     } catch (error) {
       console.error(error);
@@ -125,14 +126,7 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
         alert("Este asistente ya está inscrito.");
         return;
       }
-
-      const asistente = await getAsistenteById(asistenteId);
-      const eventoActualizado = {
-        ...eventoSeguro,
-        asistentes: [...eventoSeguro.asistentes, asistente],
-      };
-      const fechaGuardar = eventoSeguro.fecha.split('-').reverse().join('-');
-      await updateEvento(eventoSeguro.id, { ...eventoActualizado, fecha: fechaGuardar });
+      await inscribirAsistenteAEvento(eventoSeguro.id, asistenteId);
       refrescarDatosDelModal();
     } catch (error) {
       console.error(error);
@@ -142,11 +136,12 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
 
   // Remover asistente
   const handleRemoverAsistente = async (idAsistenteARemover) => {
+if (!window.confirm("¿Seguro que quieres quitar a este asistente del evento?")) {
+      return;
+    }
+
     try {
-      const asistentesFiltrados = eventoSeguro.asistentes.filter(a => a.id !== idAsistenteARemover);
-      const eventoActualizado = { ...eventoSeguro, asistentes: asistentesFiltrados };
-      const fechaGuardar = eventoSeguro.fecha.split('-').reverse().join('-');
-      await updateEvento(eventoSeguro.id, { ...eventoActualizado, fecha: fechaGuardar });
+      await removerAsistenteDeEvento(eventoSeguro.id, idAsistenteARemover);
       refrescarDatosDelModal();
     } catch (error) {
       console.error(error);
@@ -184,9 +179,9 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const fechaParaGuardar = eventoSeguro.fecha.split('-').reverse().join('-');
+    //const fechaParaGuardar = eventoSeguro.fecha.split('-').reverse().join('-');
     const cupoNumerico = parseInt(eventoSeguro.cupo, 10) || 0;
-    const datosAGuardar = { ...eventoSeguro, cupo: cupoNumerico, fecha: fechaParaGuardar };
+    const datosAGuardar = { ...eventoSeguro, cupo: cupoNumerico, fecha: eventoSeguro.fecha };
 
     try {
       if (esEdicion) {

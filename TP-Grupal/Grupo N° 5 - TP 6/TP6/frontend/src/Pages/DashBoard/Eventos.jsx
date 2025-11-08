@@ -70,7 +70,7 @@ function Eventos() {
       <div className="d-flex justify-content-center">
         <h2 className="mb-4">Panel de Eventos</h2>
       </div>
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-end">
         <Button variant="primary" onClick={handleAbrirModalParaCrear} className="mb-4">
           <i className="bi bi-calendar-plus-fill me-2"></i> Añadir Nuevo Evento
         </Button>

@@ -54,7 +54,7 @@ function ModalFormularioAsistente({ show, handleClose, onAsistenteAdded, asisten
 
   return (
     <Modal show={show} onHide={handleClose} centered>
-      <Modal.Header closeButton className="bg-success text-white">
+      <Modal.Header closeButton className="bg-primary text-white">
         <Modal.Title>{esEdicion ? "Editar Asistente" : "Registrar Nuevo Asistente"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>

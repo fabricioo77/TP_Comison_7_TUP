@@ -96,7 +96,7 @@ function ModalFormularioArtista({ show, handleClose, onArtistaAdded, artistaAEdi
               </Form.Group>
           )}
 
-          <Button variant="primary" type="submit" className="w-100 mt-3" disabled={loading}>
+          <Button variant="success" type="submit" className="w-100 mt-3" disabled={loading}>
             {loading ? "GUARDANDO..." : (esEdicion ? "GUARDAR CAMBIOS" : "REGISTRAR ARTISTA")}
           </Button>
         </Form>

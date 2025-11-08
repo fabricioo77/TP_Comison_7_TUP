@@ -69,7 +69,7 @@ function Artistas() {
       <div className="d-flex justify-content-center">
         <h2 className="mb-4">Panel de Artistas</h2>
       </div>
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-end">
         <Button variant="primary" onClick={handleAbrirModalParaCrear} className="mb-4">
           <i className="bi bi-music-note-beamed me-2"></i>
           Añadir Nuevo Artista
