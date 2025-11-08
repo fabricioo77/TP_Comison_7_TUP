@@ -2,6 +2,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import concertImage from '../assets/pers.jpg';
+
+
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -47,31 +50,71 @@ function Login() {
   };
 
   return (
-    <div
+ <div
       style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background: " #2c3e50",
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundImage: `url(${concertImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
       <Form
         onSubmit={handleSubmit}
         style={{
-          width: "350px",
-          padding: "30px",
-          borderRadius: "10px",
-          backgroundColor: "white",
-          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)"
+          width: '380px', 
+          padding: '80px 20px',
+          borderRadius: '15px',
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          backdropFilter: 'blur(10px)', // El efecto "blur"
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          color: 'white',
+          
+          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
         }}
       >
+         <div 
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: '35px',   
+            gap: '15px'             
+          }}
+        >
+          <img 
+            src="https://img.icons8.com/ios-filled/50/ffffff/ticket.png"
+            alt="Logo Eventos"
+            style={{ 
+              width: '50px', // Tamaño del logo
+              height: '50px' 
+            }} 
+          />
+          <h2 
+            style={{
+              color: 'white',
+              margin: 0, // Quitamos márgenes por defecto
+              fontWeight: 'bold',
+              fontSize: '4rem' // Tamaño del texto "Eventos"
+            }}
+          >
+            Eventos
+          </h2>
+        </div>
+
+        <h3 className="text-center mb-4" style={{ }}>
+          BIENVENIDOS
+        </h3>
+
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}
           />
         </Form.Group>
 
@@ -81,11 +124,23 @@ function Login() {
             type="password"
             placeholder="Contraseña"
             onChange={(e) => setContrasenia(e.target.value)}
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}
           />
         </Form.Group>
 
-        <Button type="submit" style={{ width: "100%" }} disabled={loading}>
-          {loading ? 'INGRESANDO...' : 'INICIAR SESIÓN'}
+        <Button
+          type="submit"
+          disabled={loading}
+          style={{
+            width: '100%',
+            marginTop: '10px',
+            padding: '10px 0',
+            fontWeight: 'bold',
+            background: 'linear-gradient(90deg, #ff8c00, #f96302)',
+            border: 'none'
+          }}
+        >
+         {loading ? 'INGRESANDO...' : 'INICIAR SESIÓN'}
         </Button>
       </Form>
     </div>
