@@ -136,7 +136,7 @@ function Login() {
             marginTop: '10px',
             padding: '10px 0',
             fontWeight: 'bold',
-            background: 'linear-gradient(90deg, #ff8c00, #f96302)',
+            background: 'linear-gradient(90deg, #3a98c4ff, #1874ddff)',
             border: 'none'
           }}
         >

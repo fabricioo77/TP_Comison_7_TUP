@@ -24,81 +24,131 @@ function DashboardComponent() {
     ];
 
     return (
-        <div style={{ display: 'flex', height: '100vh', width: '100vw', overflow: 'hidden' }}>
-            
-            
-            <div style={{
-                width: '250px',
-                backgroundColor: '#2c3e50',
-                color: 'white',
-                padding: '20px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between'
-            }}>
-                <div>
-                    <h2 style={{ 
-                        marginBottom: '30px', 
-                        fontSize: '24px',
-                        borderBottom: '2px solid #34495e',
-                        paddingBottom: '15px'
-                    }}>
-                        Gestión
-                    </h2>
-                    
-                    <div>
-                        {menu.map((item) => (
-                            <div 
-                                key={item.id}
-                                onClick={() => handleNavigate(item.path, item.id)}
-                                style={{
-                                    padding: '15px 10px',
-                                    marginBottom: '10px',
-                                    cursor: 'pointer',
-                                    backgroundColor: activeItem === item.id ? '#34495e' : 'transparent',
-                                    borderRadius: '5px',
-                                    transition: 'all 0.3s',
-                                    fontWeight: '500'
-                                }}
-                                onMouseEnter={(e) => {
-                                    if (activeItem !== item.id) e.target.style.backgroundColor = '#34495e';
-                                }}
-                                onMouseLeave={(e) => {
-                                    if (activeItem !== item.id) e.target.style.backgroundColor = 'transparent';
-                                }}
-                            >
-                                {item.title}
-                            </div>
-                        ))}
-                    </div>
-                </div>
+      <div
+        style={{
+          display: "flex",
+          height: "100vh",
+          width: "100vw",
+          overflow: "hidden",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div
+          style={{
+            width: "250px",
+            background:
+              "linear-gradient(to bottom, #1874ddff, #4db7e9ff",
+            // --- FIN DEL CAMBIO ---
 
-                <button
-                    onClick={handleCerrarSesion}
-                    style={{
-                        padding: '12px',
-                        backgroundColor: '#e74c3c',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '5px',
-                        cursor: 'pointer',
-                        fontWeight: 'bold',
-                        fontSize: '14px'
-                    }}
+            backdropFilter: "blur(10px)", // El efecto de desenfoque
+            borderRight: "1px solid rgba(0, 0, 0, 1)", // Borde sutil
+            borderRadius: "0px 20px 20px 0px",
+            color: "white",
+            padding: "20px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "15px",
+                marginBottom: "30px",
+                borderBottom: "1px solid #ffffffff", // Separador
+                paddingBottom: "20px",
+              }}
+            >
+              <img
+                src="https://img.icons8.com/ios-filled/50/ffffff/ticket.png"
+                alt="Logo Eventos"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                }}
+              />
+              <h2
+                style={{
+                  color: "white",
+                  margin: 0,
+                  fontWeight: "bold",
+                  fontSize: "2rem",
+                }}
+              >
+                Eventos
+              </h2>
+            </div>
+
+            <div>
+              {menu.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => handleNavigate(item.path, item.id)}
+                  style={{
+                    padding: "15px 10px",
+                    marginBottom: "10px",
+                    cursor: "pointer",
+                    backgroundColor:
+                      activeItem === item.id ? "#817979bb" : "transparent",
+                    borderRadius: "15px",
+                    transition: "all 0.3s",
+                    fontWeight: "500",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (activeItem !== item.id)
+                      e.target.style.backgroundColor = "#9c8c8c9f";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (activeItem !== item.id)
+                      e.target.style.backgroundColor = "transparent";
+                  }}
                 >
-                    CERRAR SESIÓN
-                </button>
+                  {item.title}
+                </div>
+              ))}
             </div>
+          </div>
 
-            
-            <div style={{
-                flex: 1,
-                padding: '50px',
-                backgroundColor: '#ecf0f1'
-            }}>
-                <Outlet /> 
-            </div>
+          {/* --- 5. BOTÓN LOGOUT CON ESTILO DEL LOGIN --- */}
+          <button
+            onClick={handleCerrarSesion}
+            style={{
+              padding: "12px",
+              // --- Gradiente del login ---
+              background: "linear-gradient(90deg, #ff0000b9, #dd4c4cee)",
+              // -------------------------
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              fontWeight: "bold",
+              fontSize: "14px",
+              transition: "opacity 0.3s",
+            }}
+            onMouseEnter={(e) => (e.target.style.opacity = 0.8)}
+            onMouseLeave={(e) => (e.target.style.opacity = 1)}
+          >
+            CERRAR SESIÓN
+          </button>
         </div>
+
+        {/* --- 6. ÁREA DE CONTENIDO (OUTLET) --- */}
+        <div
+          style={{
+            flex: 1,
+            padding: "50px",
+            backgroundColor: "#ecf0f1", // Fondo sólido para legibilidad
+            overflowY: "auto",
+            borderRadius: "20px 0px 0px 20px" , // IMPORTANTE: Permite scroll en el contenido
+          }}
+        >
+          <Outlet />
+        </div>
+      </div>
     );
 }
 
