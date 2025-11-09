@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import concertImage from '../assets/pers.jpg';
+import { useAuthStore } from '../store/authStore';
 
 
 
@@ -12,12 +13,15 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const log = localStorage.getItem("usuarioLogueado");
-    if (log === "Si") {
+ const user = useAuthStore((state) => state.user);
+  const login = useAuthStore((state) => state.login);
+
+useEffect(() => {
+    if (user) {
+      console.log("Login: Usuario ya logueado, redirigiendo...", user);
       navigate('/dashboard');
     }
-  }, [navigate]);
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,8 +37,7 @@ function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        localStorage.setItem('usuarioLogueado', 'Si');
-        localStorage.setItem('Usuario', JSON.stringify(data.usuario));
+        login(data.usuario);
         alert("Login exitoso!");
         navigate('/dashboard');
       } else {

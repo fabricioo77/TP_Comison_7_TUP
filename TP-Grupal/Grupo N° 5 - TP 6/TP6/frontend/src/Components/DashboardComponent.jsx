@@ -1,14 +1,16 @@
 import { useNavigate, Outlet } from "react-router-dom";
 import { useState } from "react";
 //import { getAll, getById, addItem, deleteById } from "../Utils/utils";
+import { useAuthStore } from '../store/authStore';
 
 function DashboardComponent() {
     const navigate = useNavigate();
     const [activeItem, setActiveItem] = useState(null);
     //console.table(getAll("personas"))
+    const logout = useAuthStore((state) => state.logout);
+
     const handleCerrarSesion = () => {
-        localStorage.removeItem('usuarioLogueado');
-        localStorage.removeItem('Usuario');
+        logout();
         navigate('/login');
     }
 

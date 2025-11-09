@@ -1,15 +1,15 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import { useAuthStore } from '../store/authStore';
 
 const RutaPrivada = () => {
-  // Comprueba si el usuario está logueado según localStorage
-  const isLogged = localStorage.getItem('usuarioLogueado') === 'Si';
+const user = useAuthStore((state) => state.user); 
+
+  const isLogged = !!user; 
 
   if (!isLogged) {
-    // Si no está logueado, redirige al login
     return <Navigate to="/login" replace />;
   }
 
-  // Si está logueado, renderiza el contenido (Dashboard y sus hijos)
   return <Outlet />;
 };
 
