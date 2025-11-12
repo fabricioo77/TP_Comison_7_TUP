@@ -1,7 +1,7 @@
 import { useNavigate, Outlet } from "react-router-dom";
 import { useState } from "react";
 //import { getAll, getById, addItem, deleteById } from "../Utils/utils";
-import { useAuthStore } from '../store/authStore';
+import { useAuthStore } from '../Store/authStore';
 
 function DashboardComponent() {
     const navigate = useNavigate();

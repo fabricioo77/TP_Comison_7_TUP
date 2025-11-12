@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuthStore } from '../store/authStore';
+import { useAuthStore } from '../Store/authStore';
 
 const RutaPrivada = () => {
 const user = useAuthStore((state) => state.user); 

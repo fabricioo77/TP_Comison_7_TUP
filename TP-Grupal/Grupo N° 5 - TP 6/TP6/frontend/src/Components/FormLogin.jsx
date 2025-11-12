@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import concertImage from '../assets/pers.jpg';
-import { useAuthStore } from '../store/authStore';
+import { useAuthStore } from '../Store/authStore';
 
 
 
