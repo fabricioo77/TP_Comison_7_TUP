@@ -19,7 +19,20 @@ function Asistentes() {
   const columnas = [
     { header: "Nombre", field: "nombre" },
     { header: "Apellido", field: "apellido" },
-    { header: "Fecha Nacimiento", field: "fechaNac" },
+    {
+      header: "Fecha Nacimiento",
+      render: (item) => {
+        if (!item.fechaNac) return 'N/A'; 
+
+        const fechaObj = new Date(item.fechaNac);
+        const dia = fechaObj.getUTCDate().toString().padStart(2, '0');
+        const mes = (fechaObj.getUTCMonth() + 1).toString().padStart(2, '0');
+        const anio = fechaObj.getUTCFullYear();
+
+        // 3. Devolvemos el formato DD/MM/YYYY
+        return `${dia}/${mes}/${anio}`;
+      }
+    },
   ];
 
   const handleVerDetalle = (asistente) => {

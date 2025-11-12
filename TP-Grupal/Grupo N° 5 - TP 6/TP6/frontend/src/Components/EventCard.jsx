@@ -51,8 +51,9 @@ function ModalFormularioEvento({ show, handleClose, onEventAdded, eventoAEditar,
 
           if (esEdicion && eventoAEditar) {
             const eventoActualizado = await getEventoById(eventoAEditar.id);
-            const fechaParaInput = eventoActualizado.fecha.split('-').reverse().join('-');
-            setEvento({ ...eventoActualizado, fecha: fechaParaInput });
+            const fechaString = eventoActualizado.fecha; 
+            const fechaFormateada = fechaString.split('T')[0]; 
+            setEvento({ ...eventoActualizado, fecha: fechaFormateada });
           } else {
             setEvento(initialState);
           }
@@ -158,8 +159,9 @@ if (!window.confirm("¿Seguro que quieres quitar a este asistente del evento?"))
         getAllAsistentes()
       ]);
 
-      const fechaParaInput = eventoRefrescado.fecha.split('-').reverse().join('-');
-      setEvento({ ...eventoRefrescado, fecha: fechaParaInput });
+      const fechaString = eventoRefrescado.fecha;
+      const fechaFormateada = fechaString.split('T')[0]; // "2025-11-21"
+      setEvento({ ...eventoRefrescado, fecha: fechaFormateada });
       setArtistasDisponibles(artistas);
       setAsistentesDisponibles(asistentes);
       setArtistaSeleccionadoId('');

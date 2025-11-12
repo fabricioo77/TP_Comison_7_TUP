@@ -44,7 +44,7 @@ function DashboardComponent() {
             // --- FIN DEL CAMBIO ---
 
             backdropFilter: "blur(10px)", // El efecto de desenfoque
-            borderRight: "1px solid rgba(0, 0, 0, 1)", // Borde sutil
+            borderRight: "1px solid rgba(134, 136, 127, 1)", // Borde sutil
             borderRadius: "0px 20px 20px 0px",
             color: "white",
             padding: "20px",

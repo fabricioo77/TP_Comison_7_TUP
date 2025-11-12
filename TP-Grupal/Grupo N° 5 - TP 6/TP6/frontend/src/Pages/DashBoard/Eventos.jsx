@@ -48,7 +48,20 @@ function Eventos() {
 
   const columnasEventos = [
     { header: "Nombre", field: "nombre" },
-    { header: "Fecha", field: "fecha" },
+    {
+      header: "Fecha",
+      render: (item) => {
+        if (!item.fecha) return 'N/A';
+
+        const fechaObj = new Date(item.fecha);
+        const dia = fechaObj.getUTCDate().toString().padStart(2, '0');
+        const mes = (fechaObj.getUTCMonth() + 1).toString().padStart(2, '0');
+        const anio = fechaObj.getUTCFullYear();
+
+        // 3. Devolvemos el formato DD/MM/YYYY
+        return `${dia}/${mes}/${anio}`;
+      }
+    },
     { header: "Lugar", field: "lugar" },
     {
   header: "Ocupación / Artistas",

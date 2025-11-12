@@ -6,8 +6,6 @@ import Dashboard from './Pages/DashBoard/Dashboard.jsx';
 import Artistas from './Pages/DashBoard/Artistas.jsx';
 import Asistentes from './Pages/DashBoard/Asistentes.jsx';
 import Eventos from './Pages/DashBoard/Eventos.jsx';
-
-// 1. Importamos la RutaPrivada
 import RutaPrivada from './Components/RutaPrivada.jsx';
 
 import Home from './Components/Home.jsx';
@@ -18,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
 
-        {/* 2. Ruta Pública */}
+        {/*  Ruta Pública */}
         <Route path="/login" element={<IniciarSesion />} />
 
         {/* 3. Rutas Privadas Protegidas */}
